@@ -15,11 +15,11 @@ CREATE TABLE "person" (
 	"first_name" serial(255) NOT NULL,
 	"last_name" serial(255),
 	"email" varchar(255) NOT NULL,
-	"password" varchar(400) NOT NULL,
+	"password" varchar(1000) NOT NULL,
 	"role_id" integer NOT NULL,
 	"school" integer NOT NULL,
 	"start_date" DATE NOT NULL,
-	"avatar" varchar(400) NOT NULL,
+	"avatar" varchar(1000) NOT NULL,
 	"last_point_date" date NOT NULL,
 	CONSTRAINT "person_pk" PRIMARY KEY ("id")
 );
