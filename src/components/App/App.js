@@ -16,6 +16,9 @@ import StudentPage from '../StudentPage/StudentPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import TeacherHome from '../TeachHome/TeacherHome';
+import TeacherClass from '../TeachHome/TeacherClass';
+import TeacherOverview from '../TeachHome/TeacherOverview';
 
 import './App.css';
 
@@ -45,19 +48,16 @@ const App = () => {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+          <ProtectedRoute exact path='/user' component={UserPage} />
+          <ProtectedRoute exact path='/teacherhome' component={TeacherHome} />
+          <ProtectedRoute exact path='/teacherclass' component={TeacherClass} />
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
             exact
-            path='/user'
-            component={UserPage}
+            path='/teacheroverview'
+            component={TeacherOverview}
           />
 
-          <ProtectedRoute
-            // logged in shows StudentPage else shows LoginPage
-            exact
-            path='/info'
-            component={StudentPage}
-          />
+          <ProtectedRoute exact path='/info' component={StudentPage} />
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
