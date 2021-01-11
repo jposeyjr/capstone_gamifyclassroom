@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import StudentPage from '../StudentPage/StudentPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -53,10 +53,10 @@ const App = () => {
           />
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows StudentPage else shows LoginPage
             exact
             path='/info'
-            component={InfoPage}
+            component={StudentPage}
           />
 
           {/* When a value is supplied for the authRedirect prop the user will
