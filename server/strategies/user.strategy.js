@@ -11,11 +11,11 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   console.log('id from deserial', id);
   pool
-    .query('SELECT email, password FROM person WHERE id = $1', [id])
+    .query('SELECT id, email, password FROM person WHERE id = $1', [id])
     .then((result) => {
       // Handle Errors
       const user = result && result.rows && result.rows[0];
-
+      console.log('user result', user);
       if (user) {
         // user found
         delete user.password; // remove password so it doesn't get sent
@@ -41,13 +41,15 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: 'email',
-      passwordField: 'password',
     },
     function (username, password, done) {
       pool
-        .query('SELECT * FROM person WHERE email = $1', [username])
+        .query('SELECT id, email, password FROM person WHERE email = $1', [
+          username,
+        ])
         .then((result) => {
           const user = result && result.rows && result.rows[0];
+          console.log('local', user);
           if (user && encryptLib.comparePassword(password, user.password)) {
             // All good! Passwords match!
             // done takes an error (null in this case) and a user

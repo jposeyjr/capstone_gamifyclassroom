@@ -41,7 +41,7 @@ class LoginForm extends Component {
         )}
         <div>
           <label htmlFor='email'>
-            email:
+            Email:
             <input
               type='text'
               name='email'
