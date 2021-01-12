@@ -1,6 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+function* addClass(action) {
+  try {
+    yield axios.post('/api/class', action.payload);
+    yield getClasses();
+  } catch (error) {}
+}
+
 function* getClasses() {
   try {
     const results = yield axios.get('/api/class');
@@ -12,6 +19,8 @@ function* getClasses() {
 
 function* classSaga() {
   yield takeLatest('GET_CLASSES', getClasses);
+  yield takeLatest('ADD_CLASS', addClass);
+  yield takeLatest('EDIT_CLASS', editClass);
 }
 
 export default classSaga;
