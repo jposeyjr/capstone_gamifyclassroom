@@ -5,7 +5,18 @@ function* addClass(action) {
   try {
     yield axios.post('/api/class', action.payload);
     yield getClasses();
-  } catch (error) {}
+  } catch (error) {
+    console.log('Error with adding classroom data: ', error);
+  }
+}
+
+function* editClass(action) {
+  try {
+    yield axios.put('/api/class', action.payload);
+    yield getClasses();
+  } catch (error) {
+    console.log('Error with updating classroom data: ', error);
+  }
 }
 
 function* getClasses() {

@@ -16,6 +16,18 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-around',
     margin: theme.spacing(1),
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    width: 450,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
   img: {
     width: '100%',
     height: '100%',

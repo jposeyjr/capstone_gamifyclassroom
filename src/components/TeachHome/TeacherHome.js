@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
   Card,
-  CardActions,
   CardActionArea,
   CardContent,
   Typography,
   IconButton,
   Box,
 } from '@material-ui/core';
+import AddModal from './AddModal';
 import useStyles from './styles';
 const TeacherHome = () => {
   const classroom = useSelector((store) => store.classroom);
@@ -17,6 +17,7 @@ const TeacherHome = () => {
   useEffect(() => {
     dispatch({ type: 'GET_CLASSES' });
   }, []);
+
   const classes = useStyles();
   return (
     <div className={classes.contentWrapper}>
@@ -26,7 +27,7 @@ const TeacherHome = () => {
         </Typography>
       </div>
       <div className={classes.btnArea}>
-        <button>Add Class</button>
+        <AddModal />
         <button>Edit Class</button>
       </div>
       <Grid justify='center' container spacing={3}>
