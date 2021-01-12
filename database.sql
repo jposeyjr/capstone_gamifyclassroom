@@ -1,29 +1,18 @@
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-
-
 CREATE TABLE "person" (
 	"id" serial NOT NULL,
-	"first_name" serial(255) NOT NULL,
-	"last_name" serial(255),
-	"email" varchar(255) NOT NULL,
+	"first_name" varchar(255) NOT NULL,
+	"last_name" varchar(255),
+	"email" varchar(255) UNIQUE NOT NULL,
 	"password" varchar(1000) NOT NULL,
-	"role_id" integer NOT NULL,
-	"school" integer NOT NULL,
-	"start_date" DATE NOT NULL,
-	"avatar" varchar(1000) NOT NULL,
-	"last_point_date" date NOT NULL,
+	"role_id" integer,
+	"school" integer,
+	"start_date" DATE,
+	"avatar" varchar(1000), 
+	"last_point_date" date, 
 	CONSTRAINT "person_pk" PRIMARY KEY ("id")
 );
 
+DROP TABLE courses CASCADE
 
 
 CREATE TABLE "courses" (
@@ -33,7 +22,7 @@ CREATE TABLE "courses" (
 	"course_name" varchar(255) NOT NULL,
 	"department" varchar(255) NOT NULL,
 	"teacher_id" integer NOT NULL,
-	"co-teacher" integer NOT NULL,
+	"co-teacher" integer,
 	CONSTRAINT "courses_pk" PRIMARY KEY ("id")
 );
 
@@ -111,12 +100,12 @@ SELECT * FROM person
 
 INSERT INTO courses(
 	 start_date, end_date, course_name, department, teacher_id)
-	VALUES ( '01-05-21', '02-28-21', 'Vatti', 'Coding', '3');
+	VALUES ( '01-05-21', '02-28-21', 'Vatti', 'Coding', '2');
 
 SELECT * FROM courses
 
 INSERT INTO public.student_courses(
 	 points, student_id, course)
-	VALUES ( 0, 2, 1);
+	VALUES ( 0, 1, 1);
 
 SELECT * FROM student_courses

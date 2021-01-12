@@ -9,10 +9,7 @@ const TeacherClass = () => {
       <button>Edit Student</button>
       <button>Select Students</button>
       <div>
-        <img
-          src='https://via.placeholder.com/150'
-          alt='placeholder blank image'
-        />
+        <img src='https://via.placeholder.com/150' alt='placeholder blank' />
         <p>Student Name</p>
         <p>Points: 0</p>
         <p>Last Point Earned: Date</p>

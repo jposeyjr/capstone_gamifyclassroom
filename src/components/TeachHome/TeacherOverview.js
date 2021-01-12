@@ -10,7 +10,7 @@ const TeacherOverview = () => {
           <div>
             <img
               src='https://via.placeholder.com/150'
-              alt='placeholder blank image'
+              alt='placeholder blank'
             />
             <p>Student Name</p>
             <p>Points: 0</p>
@@ -21,7 +21,7 @@ const TeacherOverview = () => {
           <div>
             <img
               src='https://via.placeholder.com/150'
-              alt='placeholder blank image'
+              alt='placeholder blank'
             />
             <p>Student Name</p>
             <p>Points: 0</p>
@@ -32,7 +32,7 @@ const TeacherOverview = () => {
           <div>
             <img
               src='https://via.placeholder.com/150'
-              alt='placeholder blank image'
+              alt='placeholder blank'
             />
             <p>Student Name</p>
             <p>Points: 0</p>
@@ -43,7 +43,7 @@ const TeacherOverview = () => {
           <div>
             <img
               src='https://via.placeholder.com/150'
-              alt='placeholder blank image'
+              alt='placeholder blank'
             />
             <p>Student Name</p>
             <p>Points: 0</p>
@@ -54,7 +54,7 @@ const TeacherOverview = () => {
           <div>
             <img
               src='https://via.placeholder.com/150'
-              alt='placeholder blank image'
+              alt='placeholder blank'
             />
             <p>Student Name</p>
             <p>Points: 0</p>

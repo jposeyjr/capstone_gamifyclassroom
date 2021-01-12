@@ -4,18 +4,18 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class LoginForm extends Component {
   state = {
-    username: '',
+    email: '',
     password: '',
   };
 
   login = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.email && this.state.password) {
       this.props.dispatch({
         type: 'LOGIN',
         payload: {
-          username: this.state.username,
+          email: this.state.email,
           password: this.state.password,
         },
       });
@@ -32,31 +32,31 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form className="formPanel" onSubmit={this.login}>
+      <form className='formPanel' onSubmit={this.login}>
         <h2>Login</h2>
         {this.props.store.errors.loginMessage && (
-          <h3 className="alert" role="alert">
+          <h3 className='alert' role='alert'>
             {this.props.store.errors.loginMessage}
           </h3>
         )}
         <div>
-          <label htmlFor="username">
-            Username:
+          <label htmlFor='email'>
+            email:
             <input
-              type="text"
-              name="username"
+              type='text'
+              name='email'
               required
-              value={this.state.username}
-              onChange={this.handleInputChangeFor('username')}
+              value={this.state.email}
+              onChange={this.handleInputChangeFor('email')}
             />
           </label>
         </div>
         <div>
-          <label htmlFor="password">
+          <label htmlFor='password'>
             Password:
             <input
-              type="password"
-              name="password"
+              type='password'
+              name='password'
               required
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
@@ -64,7 +64,7 @@ class LoginForm extends Component {
           </label>
         </div>
         <div>
-          <input className="btn" type="submit" name="submit" value="Log In" />
+          <input className='btn' type='submit' name='submit' value='Log In' />
         </div>
       </form>
     );

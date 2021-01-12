@@ -5,10 +5,7 @@ const StudentPage = () => (
     <h1>Welcome Student Name</h1>
     <div>
       {/* Avatar Image  */}
-      <img
-        src='https://via.placeholder.com/150'
-        alt='placeholder blank image'
-      />
+      <img src='https://via.placeholder.com/150' alt='placeholder blank' />
       <button>Change Avatar</button>
     </div>
     <div>

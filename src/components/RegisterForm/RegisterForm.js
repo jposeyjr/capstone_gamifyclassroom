@@ -18,6 +18,8 @@ class RegisterForm extends Component {
       payload: {
         email: this.state.email,
         password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
       },
     });
   }; // end registerUser
@@ -38,8 +40,8 @@ class RegisterForm extends Component {
           </h3>
         )}
         <div>
-          <label htmlFor='Email'>
-            email:
+          <label htmlFor='email'>
+            Email:
             <input
               type='text'
               name='email'
@@ -50,8 +52,8 @@ class RegisterForm extends Component {
           </label>
         </div>
         <div>
-          <label htmlFor='First Name'>
-            firstName:
+          <label htmlFor='firstName'>
+            First Name:
             <input
               type='text'
               name='firstName'
@@ -62,8 +64,8 @@ class RegisterForm extends Component {
           </label>
         </div>
         <div>
-          <label htmlFor='LastName'>
-            lastName:
+          <label htmlFor='lastName'>
+            Last Name:
             <input
               type='text'
               name='lastName'
