@@ -100,7 +100,7 @@ SELECT * FROM person
 
 INSERT INTO courses(
 	 start_date, end_date, course_name, department, teacher_id)
-	VALUES ( '01-05-21', '02-28-21', 'Vatti', 'Coding', '2');
+	VALUES ( '01-05-21', '02-28-21', 'Zhu', 'Coding', '2');
 
 SELECT * FROM courses
 

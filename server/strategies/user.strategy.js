@@ -4,18 +4,15 @@ const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 
 passport.serializeUser((user, done) => {
-  console.log('user.id in serial', user.id);
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('id from deserial', id);
   pool
     .query('SELECT id, email, password FROM person WHERE id = $1', [id])
     .then((result) => {
       // Handle Errors
       const user = result && result.rows && result.rows[0];
-      console.log('user result', user);
       if (user) {
         // user found
         delete user.password; // remove password so it doesn't get sent
@@ -49,7 +46,6 @@ passport.use(
         ])
         .then((result) => {
           const user = result && result.rows && result.rows[0];
-          console.log('local', user);
           if (user && encryptLib.comparePassword(password, user.password)) {
             // All good! Passwords match!
             // done takes an error (null in this case) and a user
