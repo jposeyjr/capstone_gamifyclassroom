@@ -50,11 +50,20 @@ RETURNING id;`;
 });
 
 router.put('/id', (req, res) => {
-  let id = params.id;
-  const sqlText = `UPDATE courses SET (start_date, end_date, course_name, teacher_id,  coteacher_id) WHERE id=${id}
-  VALUES ($1, $2, $3, $4, $5)`;
+  console.log('in put route', req.body, req.body.id);
+  const data = req.body;
+  let id = req.body.id;
+  const sqlText = `UPDATE courses SET start_date = $1, end_date = $2, course_name = $3, teacher_id=$4,  coteacher_id=$5
+  WHERE id = $6 `;
   pool
-    .query(sqlText, [id])
+    .query(sqlText, [
+      data.startDate,
+      data.endDate,
+      data.className,
+      Number(req.user.id),
+      Number(data.inviteCoteacher),
+      id,
+    ])
     .then((result) => {
       res.send(result.rows);
     })

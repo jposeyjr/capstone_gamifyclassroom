@@ -12,7 +12,7 @@ function* addClass(action) {
 
 function* editClass(action) {
   try {
-    yield axios.put('/api/class/:id', action.payload);
+    yield axios.put('/api/class/id', action.payload);
     yield getClasses();
   } catch (error) {
     console.log('Error updating class with new info: ', error);

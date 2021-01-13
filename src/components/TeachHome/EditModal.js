@@ -69,7 +69,6 @@ const EditModal = (props) => {
       <p>
         Click on a class to edit the information or click edit class again to
         end edit mode!
-        {JSON.stringify(classData)}
       </p>
       <Modal
         aria-labelledby='simple-modal-title'
