@@ -17,10 +17,10 @@ DROP TABLE courses CASCADE
 
 CREATE TABLE "courses" (
 	"id" serial NOT NULL UNIQUE,
-	"start_date" DATE NOT NULL,
-	"end_date" DATE NOT NULL,
+	"start_date" DATE,
+	"end_date" DATE,
 	"course_name" varchar(255) NOT NULL,
-	"department" varchar(255) NOT NULL,
+	"department" varchar(255),
 	"teacher_id" integer NOT NULL,
 	"coteacher_id" integer,
 	CONSTRAINT "courses_pk" PRIMARY KEY ("id")
