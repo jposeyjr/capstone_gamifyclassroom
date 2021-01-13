@@ -22,7 +22,7 @@ CREATE TABLE "courses" (
 	"course_name" varchar(255) NOT NULL,
 	"department" varchar(255) NOT NULL,
 	"teacher_id" integer NOT NULL,
-	"co-teacher" integer,
+	"coteacher_id" integer,
 	CONSTRAINT "courses_pk" PRIMARY KEY ("id")
 );
 
@@ -65,18 +65,18 @@ ALTER TABLE "student_courses" ADD CONSTRAINT "student_courses_fk2" FOREIGN KEY (
 
 -- Fake Data
 INSERT into "school" ("name")
-VALUES ('prime')
+VALUES ('prime');
 
 SELECT * FROM school
 
 INSERT into roles ("name") 
-VALUES ('admin')
+VALUES ('admin');
 
 INSERT into roles ("name") 
-VALUES ('teacher')
+VALUES ('teacher');
 
 INSERT into roles ("name") 
-VALUES ('student')
+VALUES ('student');
 
 SELECT * FROM roles
 
@@ -100,12 +100,24 @@ SELECT * FROM person
 
 INSERT INTO courses(
 	 start_date, end_date, course_name, department, teacher_id)
-	VALUES ( '01-05-21', '02-28-21', '500', 'Coding', '2');
+	VALUES ( '01-05-20', '02-28-21', 'Zhu', 'Coding', '2');
+
+INSERT INTO courses(
+	 start_date, end_date, course_name, department, teacher_id)
+	VALUES ( '01-05-19', '02-28-20', 'Yesop', 'Coding', '1');
 
 SELECT * FROM courses
 
 INSERT INTO public.student_courses(
 	 points, student_id, course)
 	VALUES ( 0, 1, 1);
+
+INSERT INTO public.student_courses(
+	 points, student_id, course)
+	VALUES ( 0, 2, 1);
+
+INSERT INTO public.student_courses(
+	 points, student_id, course)
+	VALUES ( 0, 3, 2);
 
 SELECT * FROM student_courses

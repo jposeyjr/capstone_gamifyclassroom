@@ -21,7 +21,7 @@ function getModalStyle() {
   };
 }
 
-const EditModal = (props) => {
+const EditStudent = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -57,7 +57,7 @@ const EditModal = (props) => {
       }));
       setClassData((classData) => ({ ...classData, endDate: course.end_date }));
     }
-  }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [course]);
 
   const close = () => {
     props.handleClose();

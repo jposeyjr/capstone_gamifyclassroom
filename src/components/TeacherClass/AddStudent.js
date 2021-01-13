@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Grid } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
@@ -21,66 +21,52 @@ function getModalStyle() {
   };
 }
 
-const EditModal = (props) => {
+export default function SimpleModal() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
-  const course = useSelector((store) => store.course);
+  const [open, setOpen] = useState(false);
   const [classData, setClassData] = useState({
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
     startDate: new Date('2019-12-02T11:11:11'),
     endDate: new Date('2019-12-03T12:12:12'),
-    id: 0,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: 'EDIT_CLASS',
-      payload: classData,
-    });
+    console.log('added', classData);
+    dispatch({ type: 'ADD_CLASS', payload: classData });
   };
 
-  useEffect(() => {
-    if (props.isOpen) {
-      setClassData((classData) => ({
-        ...classData,
-        className: course.course_name,
-      }));
-      setClassData((classData) => ({ ...classData, id: course.id }));
-      setClassData((classData) => ({
-        ...classData,
-        startDate: course.start_date,
-      }));
-      setClassData((classData) => ({ ...classData, endDate: course.end_date }));
-    }
-  }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  const close = () => {
-    props.handleClose();
+  const handleClose = () => {
+    setOpen(false);
     setClassData('');
   };
 
   return (
     <div>
-      <p>
-        Click on a class to edit the information or click edit class again to
-        end edit mode!
-      </p>
+      <Button variant='contained' color='primary' onClick={handleOpen}>
+        Add Class
+      </Button>
+
       <Modal
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
-        open={props.isOpen}
-        onClose={close}
+        open={open}
+        onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Student</h2>
+          <h2>Simple React Modal</h2>
           <form
             className={classes.root}
-            onSubmit={(e) => handleSubmit(e)}
+            onSubmit={handleSubmit}
             noValidate
             autoComplete='off'
           >
@@ -136,13 +122,11 @@ const EditModal = (props) => {
                 label='Invite Co-teacher'
               />
               <Button type='submit'>Submit</Button>
-              <Button onClick={close}>Cancel</Button>
+              <Button onClick={handleClose}>Cancel</Button>
             </Grid>
           </form>
         </div>
       </Modal>
     </div>
   );
-};
-
-export default EditModal;
+}
