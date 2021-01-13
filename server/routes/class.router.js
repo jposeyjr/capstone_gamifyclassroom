@@ -43,8 +43,23 @@ RETURNING id;`;
     .then((result) => {
       res.sendStatus(201);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log('Error posting to the DB for classroom on server:', error);
+      res.sendStatus(500);
+    });
+});
+
+router.put('/id', (req, res) => {
+  let id = params.id;
+  const sqlText = `UPDATE courses SET (start_date, end_date, course_name, teacher_id,  coteacher_id) WHERE id=${id}
+  VALUES ($1, $2, $3, $4, $5)`;
+  pool
+    .query(sqlText, [id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log('Error on server updating course: ', error);
       res.sendStatus(500);
     });
 });
