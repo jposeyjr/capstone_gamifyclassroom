@@ -52,9 +52,9 @@ RETURNING id;`;
 router.put('/id', (req, res) => {
   console.log('in put route', req.body, req.body.id);
   const data = req.body;
-  let id = req.body.id;
+  const id = req.body.id;
   const sqlText = `UPDATE courses SET start_date = $1, end_date = $2, course_name = $3, teacher_id=$4,  coteacher_id=$5
-  WHERE id = $6 `;
+  WHERE id = ${id} `;
   pool
     .query(sqlText, [
       data.startDate,
@@ -62,7 +62,6 @@ router.put('/id', (req, res) => {
       data.className,
       Number(req.user.id),
       Number(data.inviteCoteacher),
-      id,
     ])
     .then((result) => {
       res.send(result.rows);
