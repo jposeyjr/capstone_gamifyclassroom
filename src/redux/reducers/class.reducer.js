@@ -3,9 +3,11 @@ const classReducer = (state = [], action) => {
     case 'SET_CLASSES':
       return action.payload;
     case 'ADD_CLASS':
-      return action.payload;
+      return [...state, action.payload];
     case 'EDIT_CLASS':
-      return action.payload;
+      return state.map((classroom) =>
+        classroom.courses.id === action.payload.id ? action.payload : classroom
+      );
     case 'UNSET_CLASS':
       return [];
     default:

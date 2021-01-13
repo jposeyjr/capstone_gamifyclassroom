@@ -32,7 +32,7 @@ const TeacherHome = () => {
       </div>
       <Grid justify='center' container spacing={3}>
         {classroom.map((course) => (
-          <Grid item xs={12} md={9} key={classes.id + classes.course_name}>
+          <Grid item xs={12} md={4} key={course.id}>
             <Box>
               <Card className={classes.card}>
                 <CardActionArea>

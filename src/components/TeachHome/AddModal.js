@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Grid } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -25,17 +25,22 @@ export default function SimpleModal() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const teacher = useSelector((store) => store.user.id);
   const [open, setOpen] = useState(false);
   const [classData, setClassData] = useState({
     className: '',
     startDate: '',
     endDate: '',
     inviteCoteacher: '',
+    teacher_id: teacher,
+    startDate: new Date('2019-12-02T11:11:11'),
+    endDate: new Date('2019-12-03T12:12:12'),
   });
 
-  const addClass = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log('added', classData);
-    // dispatch({ type: 'ADD_CLASS', payload: classData });
+    dispatch({ type: 'ADD_CLASS', payload: classData });
   };
 
   const handleOpen = () => {
@@ -45,14 +50,6 @@ export default function SimpleModal() {
   const handleClose = () => {
     setOpen(false);
     setClassData('');
-  };
-
-  const [selectedDate, setSelectedDate] = useState(
-    new Date('2019-12-02T11:11:11')
-  );
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
   };
 
   return (
@@ -69,11 +66,18 @@ export default function SimpleModal() {
       >
         <div style={modalStyle} className={classes.paper}>
           <h2>Simple React Modal</h2>
-          <form className={classes.root} noValidate autoComplete='off'>
+          <form
+            className={classes.root}
+            onSubmit={handleSubmit}
+            noValidate
+            autoComplete='off'
+          >
             <Grid container justify='space-around'>
               <TextField
                 value={classData.className}
-                onChange={(e) => setClassData({ className: e.target.value })}
+                onChange={(e) =>
+                  setClassData({ ...classData, className: e.target.value })
+                }
                 label='Class Name'
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -84,8 +88,10 @@ export default function SimpleModal() {
                   margin='normal'
                   id='date-picker-inline'
                   label='Date picker inline'
-                  value={selectedDate}
-                  onChange={handleDateChange}
+                  value={classData.startDate}
+                  onChange={(date) =>
+                    setClassData({ ...classData, startDate: date })
+                  }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -98,8 +104,10 @@ export default function SimpleModal() {
                   margin='normal'
                   id='date-picker-inline'
                   label='Date picker inline'
-                  value={selectedDate}
-                  onChange={handleDateChange}
+                  value={classData.endDate}
+                  onChange={(date) =>
+                    setClassData({ ...classData, endDate: date })
+                  }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -108,11 +116,14 @@ export default function SimpleModal() {
               <TextField
                 value={classData.inviteCoteacher}
                 onChange={(e) =>
-                  setClassData({ inviteCoteacher: e.target.value })
+                  setClassData({
+                    ...classData,
+                    inviteCoteacher: e.target.value,
+                  })
                 }
                 label='Invite Co-teacher'
               />
-              <Button onClick={addClass}>Submit</Button>
+              <Button type='submit'>Submit</Button>
               <Button onClick={handleClose}>Cancel</Button>
             </Grid>
           </form>
