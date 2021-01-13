@@ -26,6 +26,7 @@ const TeacherHome = () => {
   const sendCourse = (course) => {
     dispatch({ type: 'SET_COURSE', payload: course });
     setOpen(true);
+    dispatch({ type: 'GET_STUDENTS', payload: course.id });
   };
 
   const handleClose = () => {

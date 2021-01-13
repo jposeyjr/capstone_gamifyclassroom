@@ -20,10 +20,9 @@ function* editStudent(action) {
 }
 
 function* getStudents(action) {
+  const id = action.payload;
   try {
-    const results = yield axios.get('/api/student/id', {
-      params: { id: action.payload },
-    });
+    const results = yield axios.get(`/api/student/${id}`);
     yield put({ type: 'SET_STUDENTS', payload: results.data });
   } catch (error) {
     console.log('Error with getting Student data:', error);

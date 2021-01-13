@@ -9,6 +9,7 @@ const {
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
+  console.log('this is working', id);
   let sqlText = `SELECT first_name, last_name, email, points FROM student_courses
   JOIN courses on student_courses.course = courses.id 
   JOIN person on student_courses.student_id = person.id
