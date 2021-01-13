@@ -32,6 +32,10 @@ const TeacherHome = () => {
     setOpen(false);
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
   };
@@ -51,7 +55,11 @@ const TeacherHome = () => {
       </div>
       <div className={classes.btnArea}>
         <AddModal />
-        <EditModal isOpen={isOpen} handleClose={handleClose} />
+        <EditModal
+          isOpen={isOpen}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
         <Button
           variant='contained'
           color='primary'
@@ -68,10 +76,7 @@ const TeacherHome = () => {
                 <CardActionArea onClick={() => sendCourse(course)}>
                   <CardContent>
                     <Typography variant='h4' gutterBottom>
-                      <b>
-                        {course.course_name}
-                        {course.id}
-                      </b>
+                      <b>{course.course_name}</b>
                     </Typography>
                     <CardContent>
                       <Typography variant='body2' component='p'>

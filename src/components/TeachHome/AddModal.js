@@ -29,12 +29,10 @@ export default function SimpleModal() {
   const [open, setOpen] = useState(false);
   const [classData, setClassData] = useState({
     className: '',
-    startDate: '',
-    endDate: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    startDate: new Date('2019-12-02T11:11:11'), // eslint-disable-line no-dupe-keys
-    endDate: new Date('2019-12-03T12:12:12'), // eslint-disable-line no-dupe-keys
+    startDate: new Date('2019-12-02T11:11:11'),
+    endDate: new Date('2019-12-03T12:12:12'),
   });
 
   const handleSubmit = (e) => {
