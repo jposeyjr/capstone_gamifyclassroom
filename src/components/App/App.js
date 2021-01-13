@@ -29,7 +29,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ThemeProvider theme={theme}>
