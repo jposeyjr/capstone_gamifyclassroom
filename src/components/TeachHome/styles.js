@@ -44,11 +44,6 @@ export default makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  img: {
-    width: '100%',
-    height: '100%',
-    margin: theme.spacing(1),
-  },
   form: {
     width: '100%',
     marginTop: theme.spacing(1),

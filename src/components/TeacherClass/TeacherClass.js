@@ -9,7 +9,6 @@ import {
   CardContent,
   Typography,
   Button,
-  Box,
 } from '@material-ui/core';
 import useStyles from './styles';
 import AddStudent from './AddStudent';
@@ -27,7 +26,7 @@ const TeacherClass = () => {
   useEffect(() => {
     const urlID = new URLSearchParams(location.search).get('classid');
     dispatch({ type: 'GET_STUDENTS', payload: urlID });
-  }, [location]);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
@@ -41,7 +40,7 @@ const TeacherClass = () => {
   };
 
   const handleClick = () => {
-    if (!edit) {
+    if (edit) {
       handleOpen();
     }
   };
@@ -50,12 +49,12 @@ const TeacherClass = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
-          {edit ? course.course_name : 'Select a student to edit'}
+          {!edit ? course.course_name : 'Select a student to edit'}
         </Typography>
       </div>
       <div className={classes.btnArea}>
         <AddStudent />
-        <Button variant='contained' color='primary'>
+        <Button variant='contained' className={classes.button} color='primary'>
           Invite Student
         </Button>
         <EditStudent
@@ -65,26 +64,37 @@ const TeacherClass = () => {
         />
         <Button
           variant='contained'
+          className={classes.button}
           color='primary'
           onClick={() => setEdit(!edit)}
         >
           Edit Student
         </Button>
-        <Button variant='contained' color='primary'>
+        <Button variant='contained' className={classes.button} color='primary'>
           Select Students
         </Button>
       </div>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         {students?.map((student) => (
-          <Grid item xs={12} md={4} key={student.student_id}>
+          <Grid item xs={12} md={2} key={student.student_id}>
             <Card className={classes.card}>
               <CardActionArea onClick={handleClick}>
-                <CardMedia
-                  className={classes.media}
-                  image='https://via.placeholder.com/150'
-                  title='thing'
-                  aria-label='an avatar character'
-                />
+                {student.avatar ? (
+                  <CardMedia
+                    component='img'
+                    className={classes.avatar}
+                    image={student.avatar}
+                    title='avatar'
+                    aria-label='an avatar character'
+                  />
+                ) : (
+                  <CardMedia
+                    className={classes.media}
+                    image={'https://via.placeholder.com/150'}
+                    title='avatar'
+                    aria-label='blank place holder'
+                  />
+                )}
                 <CardContent>
                   <Typography
                     gutterBottom

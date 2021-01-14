@@ -33,7 +33,7 @@ const TeacherHome = () => {
     if (!edit) {
       history.push({
         pathname: '/teacherclass',
-        search: `?classid=${course.id}`,
+        search: `?classid=${course.id}&course=${course.course_name}`,
       });
     }
   };
