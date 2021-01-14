@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -18,14 +19,23 @@ const TeacherHome = () => {
   const [isOpen, setOpen] = useState(false);
   const classroom = useSelector((store) => store.classroom);
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
   useEffect(() => {
+    console.log('\n\n', edit);
     dispatch({ type: 'GET_CLASSES' });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sendCourse = (course) => {
     dispatch({ type: 'SET_COURSE', payload: course });
     setOpen(true);
+    dispatch({ type: 'GET_STUDENTS', payload: course.id });
+    if (!edit) {
+      history.push({
+        pathname: '/teacherclass',
+        search: `?classid=${course.id}`,
+      });
+    }
   };
 
   const handleClose = () => {
@@ -43,15 +53,9 @@ const TeacherHome = () => {
   return (
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
-        {edit ? (
-          <Typography variant='h3' component='h1'>
-            My Classes
-          </Typography>
-        ) : (
-          <Typography variant='h3' component='h1'>
-            Edit Classes
-          </Typography>
-        )}
+        <Typography variant='h3' component='h1'>
+          {edit ? 'Edit Classes' : 'My Classes'}
+        </Typography>
       </div>
       <div className={classes.btnArea}>
         <AddModal />
@@ -61,6 +65,7 @@ const TeacherHome = () => {
           handleClose={handleClose}
         />
         <Button
+          className={classes.button}
           variant='contained'
           color='primary'
           onClick={() => setEdit(!edit)}

@@ -21,62 +21,97 @@ function getModalStyle() {
   };
 }
 
-export default function SimpleModal() {
+const AddStudentModal = () => {
+  const [isOpen, setOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
-  const [open, setOpen] = useState(false);
-  const [classData, setClassData] = useState({
-    className: '',
-    inviteCoteacher: '',
-    teacher_id: teacher,
+  const course = useSelector((store) => store.course);
+  const [studentData, setStudentData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
     startDate: new Date('2019-12-02T11:11:11'),
-    endDate: new Date('2019-12-03T12:12:12'),
+    avatar: '',
+    course_id: course.id,
+    teacher: teacher,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('added', classData);
-    dispatch({ type: 'ADD_CLASS', payload: classData });
+    dispatch({ type: 'EDIT_STUDENT', payload: studentData });
+    console.log('clicked');
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setStudentData('');
   };
 
   const handleOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setClassData('');
+  const handleAvatar = () => {
+    console.log('why');
   };
 
   return (
     <div>
       <Button variant='contained' color='primary' onClick={handleOpen}>
-        Add Class
+        Add Student
       </Button>
-
       <Modal
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
-        open={open}
+        open={isOpen}
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Simple React Modal</h2>
+          <h2>Edit Student</h2>
           <form
             className={classes.root}
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e)}
             noValidate
             autoComplete='off'
           >
             <Grid container justify='space-around'>
               <TextField
-                value={classData.className}
+                color='secondary'
+                value={studentData.first_name}
                 onChange={(e) =>
-                  setClassData({ ...classData, className: e.target.value })
+                  setStudentData({ ...studentData, first_name: e.target.value })
                 }
-                label='Class Name'
+                label='First Name'
+              />
+              <TextField
+                value={studentData.last_name}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, last_name: e.target.value })
+                }
+                label='Last Name'
+              />
+              <TextField
+                value={studentData.email}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, email: e.target.value })
+                }
+                label='Email'
+              />
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={handleAvatar}
+              >
+                Avatar
+              </Button>
+              <TextField
+                value={studentData.avatar}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, avatar: e.target.value })
+                }
+                label='Image URL'
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
@@ -85,48 +120,30 @@ export default function SimpleModal() {
                   format='MM/dd/yyyy'
                   margin='normal'
                   id='date-picker-inline'
-                  label='Date picker inline'
-                  value={classData.startDate}
+                  label='Start Date'
+                  value={studentData.startDate}
                   onChange={(date) =>
-                    setClassData({ ...classData, startDate: date })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-inline'
-                  label='Date picker inline'
-                  value={classData.endDate}
-                  onChange={(date) =>
-                    setClassData({ ...classData, endDate: date })
+                    setStudentData({ ...studentData, startDate: date })
                   }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
                 />
               </MuiPickersUtilsProvider>
-              <TextField
-                value={classData.inviteCoteacher}
-                onChange={(e) =>
-                  setClassData({
-                    ...classData,
-                    inviteCoteacher: e.target.value,
-                  })
-                }
-                label='Invite Co-teacher'
-              />
               <Button type='submit'>Submit</Button>
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button
+                variant='contained'
+                className={classes.cancel}
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
             </Grid>
           </form>
         </div>
       </Modal>
     </div>
   );
-}
+};
+
+export default AddStudentModal;

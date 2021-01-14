@@ -27,49 +27,33 @@ const EditStudent = (props) => {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
-  const [classData, setClassData] = useState({
-    className: '',
-    inviteCoteacher: '',
-    teacher_id: teacher,
+  const [studentData, setStudentData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
     startDate: new Date('2019-12-02T11:11:11'),
-    endDate: new Date('2019-12-03T12:12:12'),
-    id: 0,
+    avatar: '',
+    course_id: course.id,
+    teacher: teacher,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: 'EDIT_CLASS',
-      payload: classData,
-    });
+    dispatch({ type: 'EDIT_STUDENT', payload: studentData });
+    console.log('clicked');
   };
-
-  useEffect(() => {
-    if (props.isOpen) {
-      setClassData((classData) => ({
-        ...classData,
-        className: course.course_name,
-      }));
-      setClassData((classData) => ({ ...classData, id: course.id }));
-      setClassData((classData) => ({
-        ...classData,
-        startDate: course.start_date,
-      }));
-      setClassData((classData) => ({ ...classData, endDate: course.end_date }));
-    }
-  }, [course]);
 
   const close = () => {
     props.handleClose();
-    setClassData('');
+    setStudentData('');
+  };
+
+  const handleAvatar = () => {
+    console.log('why');
   };
 
   return (
     <div>
-      <p>
-        Click on a class to edit the information or click edit class again to
-        end edit mode!
-      </p>
       <Modal
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
@@ -86,11 +70,33 @@ const EditStudent = (props) => {
           >
             <Grid container justify='space-around'>
               <TextField
-                value={classData.className}
+                value={studentData.first_name}
                 onChange={(e) =>
-                  setClassData({ ...classData, className: e.target.value })
+                  setStudentData({ ...studentData, first_name: e.target.value })
                 }
-                label='Class Name'
+                label='First Name'
+              />
+              <TextField
+                value={studentData.last_name}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, last_name: e.target.value })
+                }
+                label='Last Name'
+              />
+              <TextField
+                value={studentData.email}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, email: e.target.value })
+                }
+                label='Email'
+              />
+              <Button onClick={handleAvatar}>Avatar</Button>
+              <TextField
+                value={studentData.avatar}
+                onChange={(e) =>
+                  setStudentData({ ...studentData, avatar: e.target.value })
+                }
+                label='Image URL'
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
@@ -99,42 +105,16 @@ const EditStudent = (props) => {
                   format='MM/dd/yyyy'
                   margin='normal'
                   id='date-picker-inline'
-                  label='Date picker inline'
-                  value={classData.startDate}
+                  label='Start Date'
+                  value={studentData.startDate}
                   onChange={(date) =>
-                    setClassData({ ...classData, startDate: date })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-inline'
-                  label='Date picker inline'
-                  value={classData.endDate}
-                  onChange={(date) =>
-                    setClassData({ ...classData, endDate: date })
+                    setStudentData({ ...studentData, startDate: date })
                   }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
                 />
               </MuiPickersUtilsProvider>
-              <TextField
-                value={classData.inviteCoteacher}
-                onChange={(e) =>
-                  setClassData({
-                    ...classData,
-                    inviteCoteacher: e.target.value,
-                  })
-                }
-                label='Invite Co-teacher'
-              />
               <Button type='submit'>Submit</Button>
               <Button onClick={close}>Cancel</Button>
             </Grid>
@@ -145,4 +125,4 @@ const EditStudent = (props) => {
   );
 };
 
-export default EditModal;
+export default EditStudent;

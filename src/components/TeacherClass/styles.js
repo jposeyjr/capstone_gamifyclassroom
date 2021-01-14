@@ -23,24 +23,40 @@ export default makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    width: 450,
+    width: 400,
     backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  img: {
-    width: '100%',
-    height: '100%',
-    margin: theme.spacing(1),
-  },
   card: {
-    display: 'flex',
-    maxWidth: 450,
-    background: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-    margin: theme.spacing(1),
+    maxWidth: '100%',
   },
-  imgWrapper: {
+  media: {
+    height: 240,
+  },
+  cardActions: {
     display: 'flex',
+    margin: '0 10px',
+    justifyContent: 'space-between',
+  },
+  cancel: {
+    backgroundColor: theme.status.danger,
+    color: theme.palette.text.primary,
+    '&:hover': {
+      backgroundColor: theme.status.secondary,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
+    '&:focus': {
+      backgroundColor: theme.status.secondary,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
+    '&:active': {
+      backgroundColor: theme.status.secondary,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
   },
 }));
