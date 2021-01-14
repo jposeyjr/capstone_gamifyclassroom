@@ -7,10 +7,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+
+//used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 
+//used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
   const top = 50 + rand();
   const left = 50 + rand();
@@ -40,21 +43,25 @@ const AddStudentModal = () => {
     teacher: teacher,
   });
 
+  //on click of submit dispatch the data from state added to the form fields to get the student added to the db
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'ADD_STUDENT', payload: studentData });
     setOpen(false);
   };
 
+  //closes the modal and clears student state info
   const handleClose = () => {
     setOpen(false);
     setStudentData('');
   };
 
+  //changes state to allow the modal to open
   const handleOpen = () => {
     setOpen(true);
   };
 
+  //TODO will be used to select pre-chosen avatars
   const handleAvatar = () => {
     console.log('why');
   };
@@ -76,7 +83,7 @@ const AddStudentModal = () => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Student</h2>
+          <h2>Add Student</h2>
           <form
             className={classes.form}
             onSubmit={(e) => handleSubmit(e)}

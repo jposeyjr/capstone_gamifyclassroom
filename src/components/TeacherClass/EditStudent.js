@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
@@ -7,10 +7,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+
+//used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 
+//used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
   const top = 50 + rand();
   const left = 50 + rand();
@@ -27,7 +30,8 @@ const EditStudent = (props) => {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
-  const [studentData, setStudentData] = useState({
+  const studentInfo = useSelector((store) => store.point);
+  const initState = {
     first_name: '',
     last_name: '',
     email: '',
@@ -35,20 +39,51 @@ const EditStudent = (props) => {
     avatar: '',
     course_id: course.id,
     teacher: teacher,
-  });
+  };
+  const [studentData, setStudentData] = useState(initState);
 
+  //will set the state to the currently selected student when we have that info
+  //TODO make a point reducer to hold that info and try to make this DRY
+  useEffect(() => {
+    if (props.isOpen) {
+      console.log('working', studentInfo.first_name);
+      setStudentData((studentData) => ({
+        ...studentData,
+        first_name: studentInfo.first_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        last_name: studentInfo.last_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        avatar: studentInfo.avatar,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        start_date: studentInfo.start_date,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        email: studentInfo.email,
+      }));
+    }
+  }, [studentInfo]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  //on submit will dispatch the student info that was edited to a PUT route to update that info in the DB
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'EDIT_STUDENT', payload: studentData });
-    console.log('clicked');
     close();
   };
 
+  //used to close the modal and clear student state info
   const close = () => {
     props.handleClose();
-    setStudentData('');
+    setStudentData(initState);
   };
 
+  //TODO will be used to select pre-chosen avatars
   const handleAvatar = () => {
     console.log('why');
   };
@@ -70,7 +105,7 @@ const EditStudent = (props) => {
             autoComplete='off'
           >
             <TextField
-              value={studentData.first_name}
+              value={studentData?.first_name || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, first_name: e.target.value })
@@ -78,7 +113,7 @@ const EditStudent = (props) => {
               label='First Name'
             />
             <TextField
-              value={studentData.last_name}
+              value={studentData?.last_name || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, last_name: e.target.value })
@@ -86,7 +121,7 @@ const EditStudent = (props) => {
               label='Last Name'
             />
             <TextField
-              value={studentData.email}
+              value={studentData?.email || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, email: e.target.value })
@@ -94,7 +129,7 @@ const EditStudent = (props) => {
               label='Email'
             />
             <TextField
-              value={studentData.password}
+              value={studentData?.password || ''}
               fullWidth
               className={classes.input}
               onChange={(e) =>
@@ -112,7 +147,7 @@ const EditStudent = (props) => {
               </Button>
             </Box>
             <TextField
-              value={studentData.avatar}
+              value={studentData.avatar || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, avatar: e.target.value })
@@ -128,7 +163,9 @@ const EditStudent = (props) => {
                 margin='normal'
                 id='date-picker-inline'
                 label='Start Date'
-                value={studentData.start_date}
+                value={
+                  studentData.start_date || new Date('2019-12-02T11:11:11')
+                }
                 onChange={(date) =>
                   setStudentData({ ...studentData, start_date: date })
                 }

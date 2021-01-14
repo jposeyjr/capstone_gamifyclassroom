@@ -21,15 +21,20 @@ const TeacherHome = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+
+  //getting all the current classes for the logged in teacher
   useEffect(() => {
-    console.log('\n\n', edit);
     dispatch({ type: 'GET_CLASSES' });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sendCourse = (course) => {
+    //set the current course that is selected by the teacher on click
     dispatch({ type: 'SET_COURSE', payload: course });
+    //open the modal
     setOpen(true);
+    //sends the course id to get only the students that belong to it
     dispatch({ type: 'GET_STUDENTS', payload: course.id });
+    //if they are not in edit mode it will send them to the course page
     if (!edit) {
       history.push({
         pathname: '/teacherclass',
@@ -38,14 +43,17 @@ const TeacherHome = () => {
     }
   };
 
+  //handling closing of the modal
   const handleClose = () => {
     setOpen(false);
   };
 
+  //handles opening of the modal 
   const handleOpen = () => {
     setOpen(true);
   };
 
+  //converting the date to readable format 
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
   };
@@ -54,6 +62,7 @@ const TeacherHome = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
+          {/* if they are in edit mode display correct text */}
           {edit ? 'Edit Classes' : 'My Classes'}
         </Typography>
       </div>

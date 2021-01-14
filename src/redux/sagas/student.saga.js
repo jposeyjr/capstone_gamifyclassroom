@@ -23,7 +23,7 @@ function* getStudents(action) {
   const id = action.payload;
   try {
     const results = yield axios.get(`/api/student/${id}`);
-    yield put({ type: 'SET_STUDENTS', payload: results.data });
+    yield put({ type: 'SET_STUDENT', payload: results.data });
   } catch (error) {
     console.log('Error with getting Student data:', error);
   }
