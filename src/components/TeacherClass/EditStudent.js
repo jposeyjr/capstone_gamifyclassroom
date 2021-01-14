@@ -7,10 +7,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+
+//used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 
+//used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
   const top = 50 + rand();
   const left = 50 + rand();
@@ -38,6 +41,9 @@ const EditStudent = (props) => {
     teacher: teacher,
   });
 
+
+  //will set the state to the currently selected student when we have that info 
+  //TODO make a point reducer to hold that info and try to make this DRY 
   useEffect(() => {
     if (props.isOpen) {
       console.log('working', studentInfo.first_name);
@@ -64,17 +70,22 @@ const EditStudent = (props) => {
     }
   }, [props.isOpen]);
 
+
+  //on submit will dispatch the student info that was edited to a PUT route to update that info in the DB 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'EDIT_STUDENT', payload: studentData });
     close();
   };
 
+
+//used to close the modal and clear student state info 
   const close = () => {
     props.handleClose();
     setStudentData('');
   };
 
+  //TODO will be used to select pre-chosen avatars 
   const handleAvatar = () => {
     console.log('why');
   };

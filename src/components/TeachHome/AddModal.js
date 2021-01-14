@@ -7,10 +7,12 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+
+//used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
-
+//used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
   const top = 50 + rand();
   const left = 50 + rand();
@@ -35,6 +37,7 @@ export default function SimpleModal() {
     end_date: new Date('2019-12-03T12:12:12'),
   });
 
+  //when they click the submit button it will send the state info to ADD_CLASS saga to post it to the DB 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('added', classData);
@@ -42,10 +45,12 @@ export default function SimpleModal() {
     setOpen(false);
   };
 
+  //changes the state to open so they modal pops up 
   const handleOpen = () => {
     setOpen(true);
   };
 
+  //changes the state to close modal and reset the state data for the class to null 
   const handleClose = () => {
     setOpen(false);
     setClassData('');

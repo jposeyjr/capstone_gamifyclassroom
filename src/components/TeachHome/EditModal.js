@@ -7,10 +7,12 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+
+//used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
-
+//used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
   const top = 50 + rand();
   const left = 50 + rand();
@@ -36,6 +38,7 @@ const EditModal = (props) => {
     id: 0,
   });
 
+  //will submit a dispatch to update the current selected students info
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({
@@ -46,6 +49,7 @@ const EditModal = (props) => {
   };
 
   useEffect(() => {
+      //if the modal is open we will set the state to the course that was clicked to enable pre-filled form data 
     if (props.isOpen) {
       setClassData((classData) => ({
         ...classData,
@@ -63,6 +67,7 @@ const EditModal = (props) => {
     }
   }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  //just handles resetting the state data to null and closing the modal 
   const close = () => {
     props.handleClose();
     setClassData('');
