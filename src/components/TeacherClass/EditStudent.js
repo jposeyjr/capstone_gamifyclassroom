@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
@@ -27,6 +27,7 @@ const EditStudent = (props) => {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
+  const studentInfo = useSelector((store) => store.student);
   const [studentData, setStudentData] = useState({
     first_name: '',
     last_name: '',
@@ -37,10 +38,35 @@ const EditStudent = (props) => {
     teacher: teacher,
   });
 
+  useEffect(() => {
+    if (props.isOpen) {
+      console.log('working', studentInfo.first_name);
+      setStudentData((studentData) => ({
+        ...studentData,
+        first_name: studentInfo.first_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        last_name: studentInfo.last_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        avatar: studentInfo.avatar,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        start_date: studentInfo.start_date,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        email: studentInfo.email,
+      }));
+    }
+  }, [props.isOpen]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'EDIT_STUDENT', payload: studentData });
-    console.log('clicked');
     close();
   };
 

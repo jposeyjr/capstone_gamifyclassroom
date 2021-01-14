@@ -17,14 +17,16 @@ import EditStudent from './EditStudent';
 const TeacherClass = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
-  const course = useSelector((store) => store.course);
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
   const students = useSelector((store) => store.student);
+  const [className, setName] = useState('');
 
   useEffect(() => {
     const urlID = new URLSearchParams(location.search).get('classid');
+    const courseName = new URLSearchParams(location.search).get('course');
+    setName(courseName);
     dispatch({ type: 'GET_STUDENTS', payload: urlID });
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -39,9 +41,13 @@ const TeacherClass = () => {
     setOpen(true);
   };
 
-  const handleClick = () => {
+  const handleClick = (id) => {
+    const selectedStudent = id;
+    console.log(selectedStudent);
+    dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
     if (edit) {
       handleOpen();
+    } else {
     }
   };
 
@@ -49,7 +55,7 @@ const TeacherClass = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
-          {!edit ? course.course_name : 'Select a student to edit'}
+          {!edit ? className : 'Select a student to edit'}
         </Typography>
       </div>
       <div className={classes.btnArea}>
@@ -78,7 +84,7 @@ const TeacherClass = () => {
         {students?.map((student) => (
           <Grid item xs={12} md={2} key={student.student_id}>
             <Card className={classes.card}>
-              <CardActionArea onClick={handleClick}>
+              <CardActionArea onClick={() => handleClick(student.student_id)}>
                 {student.avatar ? (
                   <CardMedia
                     component='img'

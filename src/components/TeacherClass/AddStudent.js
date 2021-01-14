@@ -76,7 +76,7 @@ const AddStudentModal = () => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Student</h2>
+          <h2>Add Student</h2>
           <form
             className={classes.form}
             onSubmit={(e) => handleSubmit(e)}

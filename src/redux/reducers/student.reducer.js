@@ -1,6 +1,8 @@
 const studentReducer = (students = [], action) => {
   switch (action.type) {
-    case 'SET_STUDENTS':
+    case 'SET_STUDENT':
+      return action.payload;
+    case 'SET_SELECT_STUDENT':
       return action.payload;
     case 'ADD_STUDENT':
       return [...students, action.payload];
