@@ -23,8 +23,7 @@ const TeacherClass = () => {
   const students = useSelector((store) => store.student);
   const [className, setName] = useState('');
 
-
-  //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads 
+  //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
   useEffect(() => {
     const urlID = new URLSearchParams(location.search).get('classid');
     const courseName = new URLSearchParams(location.search).get('course');
@@ -33,33 +32,31 @@ const TeacherClass = () => {
     dispatch({ type: 'GET_STUDENTS', payload: urlID });
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //changes date to a readable format 
+  //changes date to a readable format
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
   };
 
-  //changes state of open to close the modal 
+  //changes state of open to close the modal
   const handleClose = () => {
     setOpen(false);
   };
 
-//changes state of open to true to open the modal 
+  //changes state of open to true to open the modal
   const handleOpen = () => {
     setOpen(true);
   };
 
-
   //this will be used to get the current student than it will call the point reducer to get current selected students info and points
-  //TODO make the reducer and break this out of student to prevent mutating the same array used to render 
+  //TODO make the reducer and break this out of student to prevent mutating the same array used to render
   const handleClick = (id) => {
     const selectedStudent = id;
-    console.log(selectedStudent);
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
-    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points 
+    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
     if (edit) {
       handleOpen();
     } else {
-      console.log('points woot!'); 
+      console.log('points woot!');
     }
   };
 

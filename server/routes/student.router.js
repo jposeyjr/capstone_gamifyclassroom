@@ -24,6 +24,21 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
+  const id = req.params.id;
+  let sqlText = `SELECT person.first_name, person.last_name, person.avatar, person.email, person.start_date, student_courses.points 
+  FROM person 
+  JOIN student_courses on student_courses.student_id = person.id
+  WHERE person.id = $1`;
+  pool
+    .query(sqlText, [id])
+    .then((result) => res.send(result.rows[0]))
+    .catch((error) => {
+      console.log('Error getting student info from DB: ', error);
+      res.sendStatus(500);
+    });
+});
+
 /**
  * POST route template
  */
