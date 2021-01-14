@@ -41,7 +41,7 @@ const TeacherClass = () => {
   };
 
   const handleClick = () => {
-    if (!edit) {
+    if (edit) {
       handleOpen();
     }
   };
@@ -50,12 +50,12 @@ const TeacherClass = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
-          {edit ? course.course_name : 'Select a student to edit'}
+          {!edit ? course.course_name : 'Select a student to edit'}
         </Typography>
       </div>
       <div className={classes.btnArea}>
         <AddStudent />
-        <Button variant='contained' color='primary'>
+        <Button variant='contained' className={classes.button} color='primary'>
           Invite Student
         </Button>
         <EditStudent
@@ -65,12 +65,13 @@ const TeacherClass = () => {
         />
         <Button
           variant='contained'
+          className={classes.button}
           color='primary'
           onClick={() => setEdit(!edit)}
         >
           Edit Student
         </Button>
-        <Button variant='contained' color='primary'>
+        <Button variant='contained' className={classes.button} color='primary'>
           Select Students
         </Button>
       </div>
