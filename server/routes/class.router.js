@@ -24,7 +24,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   let data = req.body;
   console.log(data);
   const sqlText = `
@@ -34,8 +34,8 @@ RETURNING id;`;
 
   pool
     .query(sqlText, [
-      data.startDate,
-      data.endDate,
+      data.start_date,
+      data.end_date,
       data.className,
       Number(req.user.id),
       Number(data.inviteCoteacher),
@@ -49,7 +49,7 @@ RETURNING id;`;
     });
 });
 
-router.put('/id', (req, res) => {
+router.put('/id', rejectUnauthenticated, (req, res) => {
   console.log('in put route', req.body, req.body.id);
   const data = req.body;
   const id = req.body.id;
@@ -57,8 +57,8 @@ router.put('/id', (req, res) => {
   WHERE id = ${id} `;
   pool
     .query(sqlText, [
-      data.startDate,
-      data.endDate,
+      data.start_date,
+      data.end_date,
       data.className,
       Number(req.user.id),
       Number(data.inviteCoteacher),

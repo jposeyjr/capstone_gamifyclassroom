@@ -51,7 +51,10 @@ export default makeStyles((theme) => ({
   },
   card: {
     display: 'flex',
-    maxWidth: 450,
+    maxWidth: 245,
+    height: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
     background: theme.palette.background.paper,
     color: theme.palette.text.primary,
     margin: theme.spacing(1),
@@ -59,8 +62,12 @@ export default makeStyles((theme) => ({
   input: {
     marginBottom: theme.spacing(3),
   },
+  avatar: {
+    maxHeight: 200,
+  },
   media: {
-    height: 240,
+    height: 0,
+    paddingTop: '56.25%',
   },
   cardActions: {
     display: 'flex',

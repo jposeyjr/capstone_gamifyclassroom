@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, TextField, Button, Grid, Box } from '@material-ui/core';
+import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -31,14 +31,15 @@ export default function SimpleModal() {
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    startDate: new Date('2019-12-02T11:11:11'),
-    endDate: new Date('2019-12-03T12:12:12'),
+    start_date: new Date('2019-12-02T11:11:11'),
+    end_date: new Date('2019-12-03T12:12:12'),
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('added', classData);
     dispatch({ type: 'ADD_CLASS', payload: classData });
+    setOpen(false);
   };
 
   const handleOpen = () => {
@@ -92,9 +93,9 @@ export default function SimpleModal() {
                 margin='normal'
                 id='date-picker-inline-start'
                 label='Class Start Date'
-                value={classData.startDate}
+                value={classData.start_date}
                 onChange={(date) =>
-                  setClassData({ ...classData, startDate: date })
+                  setClassData({ ...classData, start_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
@@ -109,9 +110,9 @@ export default function SimpleModal() {
                 margin='normal'
                 id='date-picker-inline-end'
                 label='Class End Date'
-                value={classData.endDate}
+                value={classData.end_date}
                 onChange={(date) =>
-                  setClassData({ ...classData, endDate: date })
+                  setClassData({ ...classData, end_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',

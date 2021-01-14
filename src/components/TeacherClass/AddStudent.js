@@ -28,11 +28,13 @@ const AddStudentModal = () => {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
+
   const [studentData, setStudentData] = useState({
     first_name: '',
     last_name: '',
     email: '',
-    startDate: new Date('2019-12-02T11:11:11'),
+    password: '',
+    start_date: new Date('2019-12-02T11:11:11'),
     avatar: '',
     course_id: course.id,
     teacher: teacher,
@@ -40,8 +42,8 @@ const AddStudentModal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'EDIT_STUDENT', payload: studentData });
-    console.log('clicked');
+    dispatch({ type: 'ADD_STUDENT', payload: studentData });
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -101,11 +103,19 @@ const AddStudentModal = () => {
             <TextField
               value={studentData.email}
               fullWidth
-              className={classes.input}
               onChange={(e) =>
                 setStudentData({ ...studentData, email: e.target.value })
               }
               label='Email'
+            />
+            <TextField
+              value={studentData.password}
+              fullWidth
+              className={classes.input}
+              onChange={(e) =>
+                setStudentData({ ...studentData, password: e.target.value })
+              }
+              label='Password'
             />
             <Box className={classes.btnArea}>
               <Button
@@ -133,9 +143,9 @@ const AddStudentModal = () => {
                 margin='normal'
                 id='date-picker-inline'
                 label='Start Date'
-                value={studentData.startDate}
+                value={studentData.start_date}
                 onChange={(date) =>
-                  setStudentData({ ...studentData, startDate: date })
+                  setStudentData({ ...studentData, start_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',

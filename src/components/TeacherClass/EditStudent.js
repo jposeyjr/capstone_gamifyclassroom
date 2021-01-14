@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
@@ -31,7 +31,7 @@ const EditStudent = (props) => {
     first_name: '',
     last_name: '',
     email: '',
-    startDate: new Date('2019-12-02T11:11:11'),
+    start_date: new Date('2019-12-02T11:11:11'),
     avatar: '',
     course_id: course.id,
     teacher: teacher,
@@ -41,6 +41,7 @@ const EditStudent = (props) => {
     e.preventDefault();
     dispatch({ type: 'EDIT_STUDENT', payload: studentData });
     console.log('clicked');
+    close();
   };
 
   const close = () => {
@@ -87,11 +88,19 @@ const EditStudent = (props) => {
             <TextField
               value={studentData.email}
               fullWidth
-              className={classes.input}
               onChange={(e) =>
                 setStudentData({ ...studentData, email: e.target.value })
               }
               label='Email'
+            />
+            <TextField
+              value={studentData.password}
+              fullWidth
+              className={classes.input}
+              onChange={(e) =>
+                setStudentData({ ...studentData, password: e.target.value })
+              }
+              label='Password'
             />
             <Box className={classes.btnArea}>
               <Button
@@ -119,9 +128,9 @@ const EditStudent = (props) => {
                 margin='normal'
                 id='date-picker-inline'
                 label='Start Date'
-                value={studentData.startDate}
+                value={studentData.start_date}
                 onChange={(date) =>
-                  setStudentData({ ...studentData, startDate: date })
+                  setStudentData({ ...studentData, start_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',

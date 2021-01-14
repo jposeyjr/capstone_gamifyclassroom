@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, TextField, Button, Grid, Box } from '@material-ui/core';
+import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -31,8 +31,8 @@ const EditModal = (props) => {
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    startDate: new Date('2019-12-02T11:11:11'),
-    endDate: new Date('2019-12-03T12:12:12'),
+    start_date: new Date('2019-12-02T11:11:11'),
+    end_date: new Date('2019-12-03T12:12:12'),
     id: 0,
   });
 
@@ -42,6 +42,7 @@ const EditModal = (props) => {
       type: 'EDIT_CLASS',
       payload: classData,
     });
+    close();
   };
 
   useEffect(() => {
@@ -53,9 +54,12 @@ const EditModal = (props) => {
       setClassData((classData) => ({ ...classData, id: course.id }));
       setClassData((classData) => ({
         ...classData,
-        startDate: course.start_date,
+        start_date: course.start_date,
       }));
-      setClassData((classData) => ({ ...classData, endDate: course.end_date }));
+      setClassData((classData) => ({
+        ...classData,
+        end_date: course.end_date,
+      }));
     }
   }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -101,9 +105,9 @@ const EditModal = (props) => {
                 margin='normal'
                 id='date-picker-inline-start'
                 label='Class Start Date'
-                value={classData.startDate}
+                value={classData.start_date}
                 onChange={(date) =>
-                  setClassData({ ...classData, startDate: date })
+                  setClassData({ ...classData, start_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
@@ -118,9 +122,9 @@ const EditModal = (props) => {
                 margin='normal'
                 id='date-picker-inline-end'
                 label='Class End Date'
-                value={classData.endDate}
+                value={classData.end_date}
                 onChange={(date) =>
-                  setClassData({ ...classData, endDate: date })
+                  setClassData({ ...classData, end_date: date })
                 }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
