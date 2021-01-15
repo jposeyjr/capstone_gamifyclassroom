@@ -73,7 +73,7 @@ const TeacherClass = () => {
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
       dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
-    sendPoints(id.first_name);
+    if (!edit && !removeStudent) sendPoints(id.first_name);
   };
 
   const sendPoints = (id) => {
