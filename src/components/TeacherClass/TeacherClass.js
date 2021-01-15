@@ -77,7 +77,8 @@ const TeacherClass = () => {
   };
 
   const sendPoints = (id) => {
-    socketRef.current.emit('message', `You got a point! ${id}`);
+    let message = `You got a point! ${id}`;
+    socketRef.current.emit('newMessage', { message });
   };
 
   //adds the option to remove students from DB with a dispatch based on student that is clicked.

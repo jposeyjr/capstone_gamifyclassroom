@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import socketClient from 'socket.io-client';
 
 const StudentPage = () => {
+  const [message, setMessage] = useState([]);
   const endpoint = 'http://localhost:5000';
   const socket = socketClient(endpoint);
 
@@ -9,8 +10,8 @@ const StudentPage = () => {
     socket.on('connection', () => {
       console.log('connect to backend');
     });
-    socket.on('message', ({ message }) => {
-      console.log(message);
+    socket.on('newMessage', ({ message }) => {
+      setMessage({ ...message, message });
     });
   }, [socket]);
 
@@ -25,6 +26,7 @@ const StudentPage = () => {
       <div>
         <p>ClassRoom Name: Teacher Name</p>
         <p>Points Earned: 0 </p>
+        <p>Message: {JSON.stringify(message.message)}</p>
       </div>
     </div>
   );
