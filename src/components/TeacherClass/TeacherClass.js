@@ -17,6 +17,7 @@ import EditStudent from './EditStudent';
 const TeacherClass = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
+  const [removeStudent, setRemoveStudent] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -58,6 +59,14 @@ const TeacherClass = () => {
     } else {
       console.log('points woot!');
     }
+    if (removeStudent) {
+      console.log('working fully');
+    }
+  };
+
+  //adds the option to remove students from DB with a dispatch based on student that is clicked.
+  const handleDelete = () => {
+    setRemoveStudent(!removeStudent);
   };
 
   return (
@@ -68,15 +77,18 @@ const TeacherClass = () => {
         </Typography>
       </div>
       <div className={classes.btnArea}>
-        <AddStudent />
         <Button variant='contained' className={classes.button} color='primary'>
-          Invite Student
+          Select Students
         </Button>
-        <EditStudent
-          isOpen={isOpen}
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-        />
+        <AddStudent />
+        <Button
+          variant='contained'
+          className={classes.button}
+          onClick={handleDelete}
+          color='primary'
+        >
+          Remove Student
+        </Button>
         <Button
           variant='contained'
           className={classes.button}
@@ -86,9 +98,15 @@ const TeacherClass = () => {
           Edit Student
         </Button>
         <Button variant='contained' className={classes.button} color='primary'>
-          Select Students
+          Invite Student
         </Button>
+        <EditStudent
+          isOpen={isOpen}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
       </div>
+
       <Grid container spacing={1}>
         {students?.map((student) => (
           <Grid item xs={12} md={2} key={student.student_id}>
