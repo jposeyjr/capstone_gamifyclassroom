@@ -121,3 +121,14 @@ INSERT INTO public.student_courses(
 	VALUES ( 0, 3, 2);
 
 SELECT * FROM student_courses
+
+SELECT 
+	(SELECT COUNT(*) FROM courses sub_c
+		-- get the students for the courses
+		JOIN student_courses on sub_c.id = student_courses.course
+		WHERE sub_c.id = courses.id) as count, 
+	courses.id, courses.course_name, courses.start_date, courses.end_date
+FROM courses
+--JOIN student_courses on student_courses.id = courses.id
+JOIN person on courses.teacher_id = person.id
+WHERE courses.teacher_id = 3;

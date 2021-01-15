@@ -13,7 +13,6 @@ function* addStudent(action) {
 function* editStudent(action) {
   try {
     yield axios.put('/api/student/id', action.payload);
-    yield getStudents();
   } catch (error) {
     console.log('Error updating Student with new info: ', error);
   }
@@ -33,7 +32,6 @@ function* removeStudent(action) {
   try {
     const id = action.payload;
     yield axios.delete(`/api/student/${id}`);
-    yield getStudents();
   } catch (error) {
     console.log('Error with remove Student data: ', error);
   }

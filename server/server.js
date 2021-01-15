@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
-
 // Route includes
 const userRouter = require('./routes/user.router');
 const classRouter = require('./routes/class.router');
@@ -32,7 +31,32 @@ app.use(express.static('build'));
 // App Set //
 const PORT = process.env.PORT || 5000;
 
+//setting up WS and allow traffic to come through
+const http = require('http').createServer(app);
+//allow us to send data without cors issue
+const io = require('socket.io')(http, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
+
+let socket_id = [];
+io.on('connection', (socket) => {
+  socket_id.push(socket_id);
+  //if the same user re-connects with the same id it will remove the old one to stop duplicates from same client
+  if (socket_id[0] === socket.id) {
+    io.removeAllListeners('connection');
+  }
+  console.log('New client connected');
+  //listen for the new message then it will emit it to everyone but the person that sent it.
+  socket.on('newMessage', (data) => {
+    io.emit('newMessage', data);
+  });
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
+
 /** Listen * */
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+http.listen(PORT, () => {
+  console.log('Websocket listing on port: ' + PORT);
 });

@@ -48,12 +48,12 @@ const TeacherHome = () => {
     setOpen(false);
   };
 
-  //handles opening of the modal 
+  //handles opening of the modal
   const handleOpen = () => {
     setOpen(true);
   };
 
-  //converting the date to readable format 
+  //converting the date to readable format
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
   };
@@ -69,6 +69,7 @@ const TeacherHome = () => {
       <div className={classes.btnArea}>
         <AddModal />
         <EditModal
+          isEdit={edit}
           isOpen={isOpen}
           handleOpen={handleOpen}
           handleClose={handleClose}
@@ -94,7 +95,7 @@ const TeacherHome = () => {
                     </Typography>
                     <CardContent>
                       <Typography variant='body2' component='p'>
-                        Student Total:{course.student_total}
+                        Student Total: {course.count}
                       </Typography>
                       <Typography variant='body2' component='p'>
                         Start Date: {handleDate(course.start_date)}

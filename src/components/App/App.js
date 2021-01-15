@@ -11,14 +11,13 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import StudentPage from '../StudentPage/StudentPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import TeacherHome from '../TeachHome/TeacherHome';
 import TeacherClass from '../TeacherClass/TeacherClass';
-import TeacherOverview from '../TeacherOverview/TeacherOverview';
+// import TeacherOverview from '../TeacherOverview/TeacherOverview';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';
@@ -53,20 +52,13 @@ const App = () => {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            <ProtectedRoute exact path='/user' component={UserPage} />
             <ProtectedRoute exact path='/teacherhome' component={TeacherHome} />
             <ProtectedRoute
               exact
               path='/teacherclass'
               component={TeacherClass}
             />
-            <ProtectedRoute
-              exact
-              path='/teacheroverview'
-              component={TeacherOverview}
-            />
-
-            <ProtectedRoute exact path='/info' component={StudentPage} />
+            <ProtectedRoute exact path='/student' component={StudentPage} />
 
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
@@ -78,7 +70,7 @@ const App = () => {
               exact
               path='/login'
               component={LoginPage}
-              authRedirect='/user'
+              authRedirect='/teacherhome'
             />
             <ProtectedRoute
               // with authRedirect:
@@ -87,7 +79,7 @@ const App = () => {
               exact
               path='/registration'
               component={RegisterPage}
-              authRedirect='/user'
+              authRedirect='/teacherhome'
             />
             <ProtectedRoute
               // with authRedirect:
@@ -96,7 +88,7 @@ const App = () => {
               exact
               path='/home'
               component={LandingPage}
-              authRedirect='/user'
+              authRedirect='/teacherhome'
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

@@ -8,10 +8,16 @@ const {
  * GET route template
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-  let sqlText = `SELECT courses.id, person.last_name, courses.course_name, courses.start_date, courses.end_date, courses.coteacher_id
-  FROM courses
-  JOIN person on courses.teacher_id = person.id
-  WHERE person.id = $1`;
+  let sqlText = `SELECT 
+	          (SELECT COUNT(*) FROM courses sub_c
+		        -- get the students for the courses
+		          JOIN student_courses on sub_c.id = student_courses.course
+		          WHERE sub_c.id = courses.id) as count, 
+	            courses.id, courses.course_name, courses.start_date, courses.end_date
+              FROM courses
+            --JOIN student_courses on student_courses.id = courses.id
+              JOIN person on courses.teacher_id = person.id
+              WHERE courses.teacher_id = $1;`;
   pool
     .query(sqlText, [req.user.id])
     .then((result) => res.send(result.rows))
