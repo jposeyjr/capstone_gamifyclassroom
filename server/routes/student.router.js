@@ -11,7 +11,7 @@ const router = express.Router();
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
-  let sqlText = `SELECT student_id, first_name, last_name, email, points, last_point_date, avatar FROM student_courses
+  let sqlText = `SELECT student_id, first_name, last_name, email, points, last_point_date, avatar, course FROM student_courses
   JOIN courses on student_courses.course = courses.id 
   JOIN person on student_courses.student_id = person.id
   WHERE courses.id = $1`;
@@ -26,7 +26,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
-  let sqlText = `SELECT person.first_name, person.id, person.last_name, person.avatar, person.email, person.start_date, student_courses.points 
+  let sqlText = `SELECT person.first_name, person.id, person.last_name, person.avatar, person.email, person.start_date, student_courses.points, student_courses.course 
   FROM person 
   JOIN student_courses on student_courses.student_id = person.id
   WHERE person.id = $1`;
@@ -34,7 +34,7 @@ router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
     .query(sqlText, [id])
     .then((result) => res.send(result.rows[0]))
     .catch((error) => {
-      console.log('Error getting student info from DB: ', error);
+      console.log('Error getting solo student info from DB: ', error);
       res.sendStatus(500);
     });
 });
@@ -68,8 +68,8 @@ RETURNING id;`;
       const nextSQL = `INSERT INTO student_courses (points, student_id, course) 
      VALUES ($1, $2, $3)`;
       const createdStudentID = result.rows[0].id;
-      const courseID = req.body.course_id;
-      pool.query(nextSQL, [0, createdStudentID, courseID]);
+      const courseID = req.body.course;
+      pool.query(nextSQL, [0, createdStudentID, Number(courseID)]);
     })
     .then((result) => {
       res.sendStatus(201);
@@ -99,6 +99,18 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log('Error on server updating student: ', error);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  const sqlText = `DELETE FROM person WHERE id=$1`;
+  pool
+    .query(sqlText, [id])
+    .then((result) => res.sendStatus(204))
+    .catch((error) => {
+      console.log('Error on server deleting student: ', error);
       res.sendStatus(500);
     });
 });

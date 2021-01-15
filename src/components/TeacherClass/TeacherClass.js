@@ -23,15 +23,17 @@ const TeacherClass = () => {
   const location = useLocation();
   const students = useSelector((store) => store.student);
   const [className, setName] = useState('');
+  const [courseID, setCourse] = useState('');
 
   //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
   useEffect(() => {
     const urlID = new URLSearchParams(location.search).get('classid');
+    setCourse(urlID);
     const courseName = new URLSearchParams(location.search).get('course');
     setName(courseName);
     //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
-    dispatch({ type: 'GET_STUDENTS', payload: urlID });
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes date to a readable format
   const handleDate = (date) => {
@@ -41,6 +43,7 @@ const TeacherClass = () => {
   //changes state of open to close the modal
   const handleClose = () => {
     setOpen(false);
+    dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
   };
 
   //changes state of open to true to open the modal
@@ -56,11 +59,9 @@ const TeacherClass = () => {
     //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
     if (edit) {
       handleOpen();
-    } else {
-      console.log('points woot!');
     }
     if (removeStudent) {
-      console.log('working fully');
+      dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
     }
   };
 
@@ -73,7 +74,11 @@ const TeacherClass = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
-          {!edit ? className : 'Select a student to edit'}
+          {!removeStudent
+            ? 'Select a student to remove'
+            : !edit
+            ? className
+            : 'Select a student to edit'}
         </Typography>
       </div>
       <div className={classes.btnArea}>
