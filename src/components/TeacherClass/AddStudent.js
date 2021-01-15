@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -30,7 +31,7 @@ const AddStudentModal = () => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
-  const course = useSelector((store) => store.course);
+  const students = useSelector((store) => store.student);
 
   const [studentData, setStudentData] = useState({
     first_name: '',
@@ -39,9 +40,14 @@ const AddStudentModal = () => {
     password: '',
     start_date: new Date('2019-12-02T11:11:11'),
     avatar: '',
-    course_id: course.id,
+    course: students[0]?.course,
     teacher: teacher,
   });
+
+  useEffect(() => {
+    let courseID = students[0]?.course;
+    setStudentData({ ...studentData, course: courseID });
+  }, [students]);
 
   //on click of submit dispatch the data from state added to the form fields to get the student added to the db
   const handleSubmit = (e) => {

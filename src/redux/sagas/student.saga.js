@@ -20,8 +20,8 @@ function* editStudent(action) {
 }
 
 function* getStudents(action) {
-  const id = action.payload;
   try {
+    const id = action.payload;
     const results = yield axios.get(`/api/student/${id}`);
     yield put({ type: 'SET_STUDENT', payload: results.data });
   } catch (error) {
@@ -29,10 +29,21 @@ function* getStudents(action) {
   }
 }
 
+function* removeStudent(action) {
+  try {
+    const id = action.payload;
+    yield axios.delete(`/api/student/${id}`);
+    yield getStudents();
+  } catch (error) {
+    console.log('Error with remove Student data: ', error);
+  }
+}
+
 function* studentSaga() {
   yield takeLatest('GET_STUDENTS', getStudents);
   yield takeLatest('ADD_STUDENT', addStudent);
   yield takeLatest('EDIT_STUDENT', editStudent);
+  yield takeLatest('DELETE_STUDENT', removeStudent);
 }
 
 export default studentSaga;
