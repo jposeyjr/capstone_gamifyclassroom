@@ -47,7 +47,6 @@ const EditStudent = (props) => {
   //TODO make a point reducer to hold that info and try to make this DRY
   useEffect(() => {
     if (props.isOpen) {
-      console.log('working', studentInfo.first_name);
       setStudentData((studentData) => ({
         ...studentData,
         first_name: studentInfo.first_name,

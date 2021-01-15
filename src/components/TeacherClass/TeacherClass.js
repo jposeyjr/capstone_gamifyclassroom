@@ -33,7 +33,7 @@ const TeacherClass = () => {
     setName(courseName);
     //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
     dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes date to a readable format
   const handleDate = (date) => {
@@ -54,17 +54,16 @@ const TeacherClass = () => {
   //this will be used to get the current student than it will call the point reducer to get current selected students info and points
   //TODO make the reducer and break this out of student to prevent mutating the same array used to render
   const handleClick = (id) => {
+    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
     const selectedStudent = id;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
-    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
     if (edit) {
       handleOpen();
     }
-    if (removeStudent) {
+    if (removeStudent && id !== undefined) {
+      console.log(selectedStudent);
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
-    }
-    if (!edit && !removeStudent) {
-      dispatch({ type: 'SEND_POINT', payload: selectedStudent });
+      dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
   };
 
@@ -77,7 +76,7 @@ const TeacherClass = () => {
     <div className={classes.contentWrapper}>
       <div className={classes.headerArea}>
         <Typography variant='h3' component='h1'>
-          {!removeStudent
+          {removeStudent
             ? 'Select a student to remove'
             : !edit
             ? className

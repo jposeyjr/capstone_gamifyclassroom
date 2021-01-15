@@ -29,6 +29,7 @@ export default function SimpleModal() {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const [open, setOpen] = useState(false);
+
   const [classData, setClassData] = useState({
     className: '',
     inviteCoteacher: '',
@@ -37,20 +38,19 @@ export default function SimpleModal() {
     end_date: new Date('2019-12-03T12:12:12'),
   });
 
-  //when they click the submit button it will send the state info to ADD_CLASS saga to post it to the DB 
+  //when they click the submit button it will send the state info to ADD_CLASS saga to post it to the DB
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('added', classData);
     dispatch({ type: 'ADD_CLASS', payload: classData });
     setOpen(false);
   };
 
-  //changes the state to open so they modal pops up 
+  //changes the state to open so they modal pops up
   const handleOpen = () => {
     setOpen(true);
   };
 
-  //changes the state to close modal and reset the state data for the class to null 
+  //changes the state to close modal and reset the state data for the class to null
   const handleClose = () => {
     setOpen(false);
     setClassData('');

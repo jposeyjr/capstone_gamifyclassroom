@@ -1,6 +1,6 @@
 const socketReducer = (points = {}, action) => {
   switch (action.type) {
-    case 'SEND_POINT':
+    case 'SET_POINT':
       return action.payload;
     default:
       return points;

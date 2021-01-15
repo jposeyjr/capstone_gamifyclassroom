@@ -49,7 +49,7 @@ const EditModal = (props) => {
   };
 
   useEffect(() => {
-      //if the modal is open we will set the state to the course that was clicked to enable pre-filled form data 
+    //if the modal is open we will set the state to the course that was clicked to enable pre-filled form data
     if (props.isOpen) {
       setClassData((classData) => ({
         ...classData,
@@ -67,7 +67,7 @@ const EditModal = (props) => {
     }
   }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //just handles resetting the state data to null and closing the modal 
+  //just handles resetting the state data to null and closing the modal
   const close = () => {
     props.handleClose();
     setClassData('');
@@ -76,8 +76,9 @@ const EditModal = (props) => {
   return (
     <div>
       <p>
-        Click on a class to edit the information or click edit class again to
-        end edit mode!
+        {props.isEdit
+          ? 'Click on a class to edit the information or click edit class again to end edit mode!'
+          : null}
       </p>
       <Modal
         aria-labelledby='simple-modal-title'
