@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
@@ -13,6 +13,8 @@ import {
 import useStyles from './styles';
 import AddStudent from './AddStudent';
 import EditStudent from './EditStudent';
+import InviteStudent from './InviteStudent';
+import socketClient from 'socket.io-client';
 
 const TeacherClass = () => {
   const [edit, setEdit] = useState(false);
@@ -24,15 +26,21 @@ const TeacherClass = () => {
   const students = useSelector((store) => store.student);
   const [className, setName] = useState('');
   const [courseID, setCourse] = useState('');
+  const endpoint = 'http://localhost:5000';
+  const socketRef = useRef();
 
   //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
   useEffect(() => {
+    socketRef.current = socketClient(endpoint);
     const urlID = new URLSearchParams(location.search).get('classid');
     setCourse(urlID);
     const courseName = new URLSearchParams(location.search).get('course');
     setName(courseName);
     //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
     dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
+    return () => {
+      socketRef.current.disconnect();
+    };
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes date to a readable format
@@ -55,7 +63,7 @@ const TeacherClass = () => {
   //TODO make the reducer and break this out of student to prevent mutating the same array used to render
   const handleClick = (id) => {
     //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
-    const selectedStudent = id;
+    const selectedStudent = id.student_id;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
     if (edit) {
       handleOpen();
@@ -65,6 +73,11 @@ const TeacherClass = () => {
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
       dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
+    sendPoints(id.first_name);
+  };
+
+  const sendPoints = (id) => {
+    socketRef.current.emit('message', `You got a point! ${id}`);
   };
 
   //adds the option to remove students from DB with a dispatch based on student that is clicked.
@@ -104,9 +117,11 @@ const TeacherClass = () => {
         >
           Edit Student
         </Button>
-        <Button variant='contained' className={classes.button} color='primary'>
-          Invite Student
-        </Button>
+        <InviteStudent
+          isOpen={isOpen}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
         <EditStudent
           isOpen={isOpen}
           handleOpen={handleOpen}
@@ -118,7 +133,7 @@ const TeacherClass = () => {
         {students?.map((student) => (
           <Grid item xs={12} md={2} key={student.student_id}>
             <Card className={classes.card}>
-              <CardActionArea onClick={() => handleClick(student.student_id)}>
+              <CardActionArea onClick={() => handleClick(student)}>
                 {/* for now this will render an avatar if they have it if not a blank image, TODO better placeholder image */}
                 {student.avatar ? (
                   <CardMedia

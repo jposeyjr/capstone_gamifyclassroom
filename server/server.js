@@ -8,7 +8,6 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const classRouter = require('./routes/class.router');
 const studentRouter = require('./routes/student.router');
-const pointsRouter = require('./routes/points.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -25,7 +24,6 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/class', classRouter);
 app.use('/api/student', studentRouter);
-app.use('/api/points', pointsRouter);
 
 // Serve static files
 app.use(express.static('build'));
@@ -43,15 +41,16 @@ const io = require('socket.io')(http, {
 });
 
 let socket_id = [];
-app.locals.io = io;
 io.on('connection', (socket) => {
   socket_id.push(socket_id);
   if (socket_id[0] === socket.id) {
     io.removeAllListeners('connection');
   }
   console.log('New client connected');
-  socket.emit('connection', null);
-  io.on('disconnect', () => console.log('Client disconnected'));
+  socket.on('message', function (data) {
+    console.log('Got message: ', data);
+  });
+  socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
 /** Listen * */

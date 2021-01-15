@@ -9,6 +9,9 @@ const StudentPage = () => {
     socket.on('connection', () => {
       console.log('connect to backend');
     });
+    socket.on('message', ({ message }) => {
+      console.log(message);
+    });
   }, [socket]);
 
   return (
