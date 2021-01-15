@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -47,7 +46,7 @@ const AddStudentModal = () => {
   useEffect(() => {
     let courseID = students[0]?.course;
     setStudentData({ ...studentData, course: courseID });
-  }, [students]);
+  }, [students]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //on click of submit dispatch the data from state added to the form fields to get the student added to the db
   const handleSubmit = (e) => {

@@ -63,6 +63,9 @@ const TeacherClass = () => {
     if (removeStudent) {
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
     }
+    if (!edit && !removeStudent) {
+      dispatch({ type: 'SEND_POINT', payload: selectedStudent });
+    }
   };
 
   //adds the option to remove students from DB with a dispatch based on student that is clicked.
