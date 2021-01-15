@@ -39,6 +39,7 @@ const EditStudent = (props) => {
     avatar: '',
     course_id: course.id,
     teacher: teacher,
+    id: 0,
   };
   const [studentData, setStudentData] = useState(initState);
 
@@ -50,6 +51,10 @@ const EditStudent = (props) => {
       setStudentData((studentData) => ({
         ...studentData,
         first_name: studentInfo.first_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        id: studentInfo.id,
       }));
       setStudentData((studentData) => ({
         ...studentData,
@@ -127,15 +132,6 @@ const EditStudent = (props) => {
                 setStudentData({ ...studentData, email: e.target.value })
               }
               label='Email'
-            />
-            <TextField
-              value={studentData?.password || ''}
-              fullWidth
-              className={classes.input}
-              onChange={(e) =>
-                setStudentData({ ...studentData, password: e.target.value })
-              }
-              label='Password'
             />
             <Box className={classes.btnArea}>
               <Button

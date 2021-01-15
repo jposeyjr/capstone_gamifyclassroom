@@ -26,7 +26,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
-  let sqlText = `SELECT person.first_name, person.last_name, person.avatar, person.email, person.start_date, student_courses.points 
+  let sqlText = `SELECT person.first_name, person.id, person.last_name, person.avatar, person.email, person.start_date, student_courses.points 
   FROM person 
   JOIN student_courses on student_courses.student_id = person.id
   WHERE person.id = $1`;
@@ -81,17 +81,18 @@ RETURNING id;`;
 });
 
 router.put('/id', rejectUnauthenticated, (req, res) => {
-  console.log('in put route', req.body, req.body.id);
+  console.log('in put route', req.body);
   const data = req.body;
   const id = req.body.id;
-  const sqlText = `UPDATE courses SET start_date = $1, end_date = $2, course_name = $3, teacher_id=$4,
-  WHERE id = ${id} `;
+  const sqlText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, start_date=$4, avatar=$5
+  WHERE person.id = ${id} `;
   pool
     .query(sqlText, [
-      data.startDate,
-      data.endDate,
-      data.className,
-      Number(req.user.id),
+      data.first_name,
+      data.last_name,
+      data.email,
+      data.start_date,
+      data.avatar,
     ])
     .then((result) => {
       res.send(result.rows);
