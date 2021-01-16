@@ -2,26 +2,30 @@ import { makeStyles } from '@material-ui/core/styles';
 import { shadows } from '@material-ui/system';
 
 export default makeStyles((theme) => ({
-  contentWrapper: {
-    maxWidth: 1280,
-    width: '100%',
-    background: theme.palette.background.default,
-    margin: theme.spacing(1),
-  },
   headerArea: {
     display: 'flex',
     justifyContent: 'center',
   },
+  imgHolder: {
+    maxWidth: 250,
+  },
+  imgWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  textArea: {
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  },
   btnArea: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     margin: theme.spacing(1),
   },
   button: {
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
     padding: '0 1em',
     boxShadow: shadows[0],
     '&:hover': {
@@ -33,46 +37,6 @@ export default makeStyles((theme) => ({
     '&:focus': {
       boxShadow: shadows[0],
     },
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  card: {
-    display: 'flex',
-    maxWidth: 245,
-    height: '100%',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    background: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-    margin: theme.spacing(1),
-  },
-  input: {
-    marginBottom: theme.spacing(3),
-  },
-  avatar: {
-    maxHeight: 200,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
-  },
-  cardActions: {
-    display: 'flex',
-    margin: '0 10px',
-    justifyContent: 'space-between',
   },
   cancel: {
     backgroundColor: theme.status.danger,
