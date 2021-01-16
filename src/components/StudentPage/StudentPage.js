@@ -1,79 +1,77 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import {
-  Grid,
-  Card,
-  CardMedia,
-  CardActionArea,
-  CardContent,
-  Typography,
-  Button,
-} from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { Grid, Typography, Button, Box, Slide, Paper } from '@material-ui/core';
 import useStyles from './styles';
 import socketClient from 'socket.io-client';
 
 const StudentPage = () => {
   const student = useSelector((store) => store.user.id);
+  const studentData = useSelector((store) => store.socketStudent);
   const [message, setMessage] = useState([]);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  //used to set the end point to get messages from the teacher
   const endpoint = 'http://localhost:5000';
+  //assigned it to a socket so we can get the messages.
   const socket = socketClient(endpoint);
 
+  const handleAvatar = () => {
+    console.log('why');
+  };
+
   useEffect(() => {
+    //getting their info from the DB to display it to the dom
+    dispatch({ type: 'GET_SOCKET_STUDENT', payload: student });
+    //used to establish a connection to the backend to watch for messages from the teacher
     socket.on('connection', () => {
       console.log('connect to backend');
     });
+    //when we gt a message we will save it to the state so we can display it
     socket.on('newMessage', ({ message }) => {
       setMessage({ ...message, message });
+      setTimeout(() => setMessage([]), 5000);
     });
-  }, [socket]);
+  }, []);
 
   return (
-    <div>
-      {/* <Grid container spacing={1}>
-        {students?.map((student) => (
-          <Grid item xs={12} md={2} key={student.student_id}>
-            <Card className={classes.card}>
-              <CardActionArea onClick={() => handleClick(student)}> */}
-      {/* for now this will render an avatar if they have it if not a blank image, TODO better placeholder image */}
-      {/* {student.avatar ? (
-                  <CardMedia
-                    component='img'
-                    className={classes.avatar}
-                    image={student.avatar}
-                    title='avatar'
-                    aria-label='an avatar character'
-                  />
-                ) : (
-                  <CardMedia
-                    className={classes.media}
-                    image={'https://via.placeholder.com/150'}
-                    title='avatar'
-                    aria-label='blank place holder'
-                  />
-                )}
-                <CardContent>
-                  <Typography variant='body2' color='textPrimary' component='p'>
-                    Points: {student.points}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-      </Grid> */}
-      <h1>Welcome Student Name</h1>
-      <div>
-        <p>{JSON.stringify(student)}</p>
-        {/* Avatar Image  */}
-        <img src='https://via.placeholder.com/150' alt='placeholder blank' />
-        <button>Change Avatar</button>
-      </div>
-      <div>
-        <p>ClassRoom Name: Teacher Name</p>
-        <p>Points Earned: 0 </p>
-        <p>Message: {JSON.stringify(message.message)}</p>
-      </div>
-    </div>
+    <Grid
+      container
+      spacing={1}
+      container
+      direction='row'
+      justify='center'
+      alignItems='center'
+    >
+      <Grid item xs={5}>
+        <Typography variant='h3' component='h1' className={classes.headerArea}>
+          Welcome {studentData.first_name}!
+        </Typography>
+        <Box className={classes.btnArea}>
+          <Button variant='contained' color='primary' onClick={handleAvatar}>
+            Change Avatar
+          </Button>
+          <Button variant='contained' color='primary' onClick={handleAvatar}>
+            Buy Gear
+          </Button>
+        </Box>
+        <Box className={classes.imgWrapper}>
+          <Typography variant='h4' className={classes.textArea} component='p'>
+            Points: {studentData.points}
+          </Typography>
+          <img
+            className={classes.imgHolder}
+            src={studentData.avatar}
+            alt='avatar for student'
+          ></img>
+        </Box>
+        <Slide direction='up' in={message} mountOnEnter unmountOnExit>
+          <Paper className={classes.paper}>
+            {JSON.stringify(message.message)}
+          </Paper>
+        </Slide>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -2,6 +2,10 @@
 
 Gamify classroom allow teachers to easily and quickly reward students for participating in the classroom and keep track of all students and activity levels throughout one or many classrooms. Gamify classroom is aimed to be quick, simple, and easy with limited intrusiveness to allow for quick approval by parents and school boards.
 
+## Built With
+
+React, Redux, Websockets, Passport, BCrypt, PG, PostgreSQL, Node, Express, Axios, React-Sage, React-Router, Material-UI
+
 ## Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:

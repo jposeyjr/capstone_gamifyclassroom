@@ -1,9 +1,9 @@
-const socketReducer = (points = {}, action) => {
+const socketReducer = (socketStudent = {}, action) => {
   switch (action.type) {
-    case 'SET_POINT':
+    case 'SET_SOCKET_STUDENT':
       return action.payload;
     default:
-      return points;
+      return socketStudent;
   }
 };
 
