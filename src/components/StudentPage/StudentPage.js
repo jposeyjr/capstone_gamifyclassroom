@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid, Typography, Button, Box } from '@material-ui/core';
+import { Grid, Typography, Button, Box, Slide, Paper } from '@material-ui/core';
 import useStyles from './styles';
 import socketClient from 'socket.io-client';
 
@@ -30,6 +30,7 @@ const StudentPage = () => {
     //when we gt a message we will save it to the state so we can display it
     socket.on('newMessage', ({ message }) => {
       setMessage({ ...message, message });
+      setTimeout(() => setMessage([]), 5000);
     });
   }, []);
 
@@ -55,7 +56,6 @@ const StudentPage = () => {
           </Button>
         </Box>
         <Box className={classes.imgWrapper}>
-          {JSON.stringify(message.message)}
           <Typography variant='h4' className={classes.textArea} component='p'>
             Points: {studentData.points}
           </Typography>
@@ -65,6 +65,11 @@ const StudentPage = () => {
             alt='avatar for student'
           ></img>
         </Box>
+        <Slide direction='up' in={message} mountOnEnter unmountOnExit>
+          <Paper className={classes.paper}>
+            {JSON.stringify(message.message)}
+          </Paper>
+        </Slide>
       </Grid>
     </Grid>
   );

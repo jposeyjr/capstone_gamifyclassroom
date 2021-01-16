@@ -18,6 +18,14 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column-reverse',
   },
+  paper: {
+    fontSize: '2em',
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+    width: 550,
+    padding: 30,
+    margin: theme.spacing(1),
+  },
   btnArea: {
     display: 'flex',
     justifyContent: 'space-between',
