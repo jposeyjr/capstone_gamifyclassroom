@@ -49,30 +49,40 @@ export default makeStyles((theme) => ({
     width: '100%',
     marginTop: theme.spacing(1),
   },
+  atnArea: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   card: {
     display: 'flex',
     maxWidth: 245,
     height: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'column',
     background: theme.palette.background.paper,
     color: theme.palette.text.primary,
-    margin: theme.spacing(1),
   },
   input: {
     marginBottom: theme.spacing(3),
   },
   avatar: {
     maxHeight: 200,
+    height: '100%',
+    objectFit: 'unset',
   },
   media: {
-    height: 0,
+    width: '100%',
     paddingTop: '56.25%',
   },
   cardActions: {
     display: 'flex',
     margin: '0 10px',
     justifyContent: 'space-between',
+  },
+  textArea: {
+    margin: theme.spacing(2),
   },
   cancel: {
     backgroundColor: theme.status.danger,

@@ -7,7 +7,9 @@ import socketClient from 'socket.io-client';
 const StudentPage = () => {
   const student = useSelector((store) => store.user.id);
   const studentData = useSelector((store) => store.socketStudent);
+  const pointsData = useSelector((store) => store.pointStudent);
   const [message, setMessage] = useState([]);
+  const [gotMessage, setGotMessage] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -30,9 +32,13 @@ const StudentPage = () => {
     //when we gt a message we will save it to the state so we can display it
     socket.on('newMessage', ({ message }) => {
       setMessage({ ...message, message });
-      setTimeout(() => setMessage([]), 5000);
+      setGotMessage(true);
+      setTimeout(() => {
+        setMessage([]);
+        setGotMessage(false);
+      }, 5000);
     });
-  }, []);
+  }, [pointsData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Grid
@@ -65,7 +71,7 @@ const StudentPage = () => {
             alt='avatar for student'
           ></img>
         </Box>
-        <Slide direction='up' in={message} mountOnEnter unmountOnExit>
+        <Slide direction='up' in={gotMessage} mountOnEnter unmountOnExit>
           <Paper className={classes.paper}>
             {JSON.stringify(message.message)}
           </Paper>

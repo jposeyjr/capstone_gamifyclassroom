@@ -11,8 +11,8 @@ function* getSelectStudent(action) {
   }
 }
 
-function* pointSaga() {
+function* selectStudentSaga() {
   yield takeLatest('GET_SELECT_STUDENT', getSelectStudent);
 }
 
-export default pointSaga;
+export default selectStudentSaga;

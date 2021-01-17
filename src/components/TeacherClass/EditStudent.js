@@ -30,7 +30,7 @@ const EditStudent = (props) => {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
-  const studentInfo = useSelector((store) => store.point);
+  const studentInfo = useSelector((store) => store.selectStudent);
   const initState = {
     first_name: '',
     last_name: '',

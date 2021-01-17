@@ -60,10 +60,10 @@ const TeacherClass = () => {
   };
 
   //this will be used to get the current student than it will call the point reducer to get current selected students info and points
-  //TODO make the reducer and break this out of student to prevent mutating the same array used to render
   const handleClick = (id) => {
-    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points
+    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points, or remove student
     const selectedStudent = id.student_id;
+    const firstName = id.first_name;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
     if (edit) {
       handleOpen();
@@ -73,12 +73,16 @@ const TeacherClass = () => {
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
       dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
-    if (!edit && !removeStudent) sendPoints(id.first_name);
+    if (!edit && !removeStudent) sendPoints(firstName, selectedStudent);
   };
 
-  const sendPoints = (id) => {
-    let message = `You got a point! ${id}`;
+  //handles sending the message via sockets to all students but not the teacher, then dispatches to adjust DB
+  //TODO look into emitting to just that student maybe? clarify with client on preference
+  const sendPoints = (name, id) => {
+    let message = `${name} got 1 point!`;
     socketRef.current.emit('newMessage', { message });
+    dispatch({ type: 'GET_POINT_STUDENT', payload: id });
+    dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
   };
 
   //adds the option to remove students from DB with a dispatch based on student that is clicked.
@@ -130,11 +134,14 @@ const TeacherClass = () => {
         />
       </div>
 
-      <Grid container spacing={1}>
+      <Grid container spacing={3}>
         {students?.map((student) => (
           <Grid item xs={12} md={2} key={student.student_id}>
             <Card className={classes.card}>
-              <CardActionArea onClick={() => handleClick(student)}>
+              <CardActionArea
+                onClick={() => handleClick(student)}
+                className={classes.atnArea}
+              >
                 {/* for now this will render an avatar if they have it if not a blank image, TODO better placeholder image */}
                 {student.avatar ? (
                   <CardMedia
@@ -152,22 +159,23 @@ const TeacherClass = () => {
                     aria-label='blank place holder'
                   />
                 )}
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant='h5'
-                    color='textPrimary'
-                    component='h2'
-                  >
-                    {student.first_name} {student.last_name.slice(0, 1)}
-                  </Typography>
-                  <Typography variant='body2' color='textPrimary' component='p'>
-                    Points: {student.points}
-                  </Typography>
-                  <Typography variant='body2' color='textPrimary' component='p'>
-                    Last Point Earned: {handleDate(student.last_point_date)}
-                  </Typography>
-                </CardContent>
+                <Grid container justify='flex-end'>
+                  <CardContent>
+                    <Typography variant='h5' color='textPrimary' component='h2'>
+                      {student.first_name} {student.last_name.slice(0, 1)}
+                    </Typography>
+                    <Typography variant='h6' color='textPrimary' component='p'>
+                      Points: {student.points}
+                    </Typography>
+                    <Typography
+                      variant='body1'
+                      color='textPrimary'
+                      component='p'
+                    >
+                      Last Point Earned: {handleDate(student.last_point_date)}
+                    </Typography>
+                  </CardContent>
+                </Grid>
               </CardActionArea>
             </Card>
           </Grid>
