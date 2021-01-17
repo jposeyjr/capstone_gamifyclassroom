@@ -14,7 +14,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
   let sqlText = `SELECT student_id, first_name, last_name, email, points, last_point_date, avatar, course FROM student_courses
   JOIN courses on student_courses.course = courses.id 
   JOIN person on student_courses.student_id = person.id
-  WHERE courses.id = $1`;
+  WHERE courses.id = $1 ORDER BY first_name, last_name `;
   pool
     .query(sqlText, [id])
     .then((result) => res.send(result.rows))
@@ -35,6 +35,18 @@ router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
     .then((result) => res.send(result.rows[0]))
     .catch((error) => {
       console.log('Error getting solo student info from DB: ', error);
+      res.sendStatus(500);
+    });
+});
+
+router.get('/point/:id', rejectUnauthenticated, (req, res) => {
+  const id = req.params.id;
+  let sqlText = `UPDATE student_courses SET points = points + 1 WHERE student_id = $1`;
+  pool
+    .query(sqlText, [id])
+    .then((result) => res.send(result.rows[0]))
+    .catch((error) => {
+      console.log('Error adding points to student info in the DB: ', error);
       res.sendStatus(500);
     });
 });

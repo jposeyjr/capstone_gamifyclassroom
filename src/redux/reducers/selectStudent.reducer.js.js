@@ -1,4 +1,4 @@
-const pointReducer = (students = {}, action) => {
+const selectStudentReducer = (students = {}, action) => {
   switch (action.type) {
     case 'SET_SELECT_STUDENT':
       return action.payload;
@@ -9,4 +9,4 @@ const pointReducer = (students = {}, action) => {
   }
 };
 
-export default pointReducer;
+export default selectStudentReducer;
