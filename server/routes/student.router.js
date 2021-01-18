@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const sendEmail = require('../strategies/email.strategies');
 const encryptLib = require('../modules/encryption');
 const {
   rejectUnauthenticated,
@@ -44,6 +45,10 @@ router.get('/point/:id', rejectUnauthenticated, (req, res) => {
   let sqlText = `UPDATE student_courses SET points = points + 1 WHERE student_id = $1`;
   pool
     .query(sqlText, [id])
+    .then((result) => {
+      let nextSQL = `UPDATE person SET last_point_date = now() WHERE id = $1`;
+      pool.query(nextSQL, [id]);
+    })
     .then((result) => res.send(result.rows[0]))
     .catch((error) => {
       console.log('Error adding points to student info in the DB: ', error);
@@ -90,6 +95,14 @@ RETURNING id;`;
       console.log('Error posting to the DB for student on server:', error);
       res.sendStatus(500);
     });
+});
+
+router.post('/email', rejectUnauthenticated, (req, res) => {
+  console.log(req.body);
+  const teacher = req.user;
+  const student_email = req.body.studentEmail;
+  const courseID = req.body.courseID;
+  sendEmail(teacher, student_email, courseID);
 });
 
 router.put('/id', rejectUnauthenticated, (req, res) => {

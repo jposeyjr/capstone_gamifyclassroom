@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import useStyles from './styles';
 
@@ -23,13 +24,16 @@ const AddStudentModal = () => {
   const [isOpen, setOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const location = useLocation();
   const [modalStyle] = useState(getModalStyle);
   const [emailData, setEmailData] = useState('');
 
-  //on click of submit dispatch the data from state added to the form fields to get the student added to the db
+  //on click of submit dispatch the data from state to saga to send out email from backend
   const handleSubmit = (e) => {
+    const urlID = new URLSearchParams(location.search).get('classid');
+    const studentInfo = { courseID: urlID, studentEmail: emailData };
     e.preventDefault();
-    dispatch({ type: 'INVITE_STUDENT', payload: emailData });
+    dispatch({ type: 'INVITE_STUDENT', payload: studentInfo });
     setOpen(false);
   };
 
