@@ -20,6 +20,7 @@ const TeacherClass = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [removeStudent, setRemoveStudent] = useState(false);
+  const [multi, setMulti] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
