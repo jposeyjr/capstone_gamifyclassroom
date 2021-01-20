@@ -1,49 +1,47 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
-import './LandingPage.css';
-// CUSTOM COMPONENTS
+import React from 'react';
+import { Button, Grid, Typography } from '@material-ui/core';
+import useStyles from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import { useHistory } from 'react-router-dom';
 
-class LandingPage extends Component {
-  state = {
-    heading: 'Class Component',
-  };
+const LandingPage = () => {
+  const history = useHistory();
+  const classes = useStyles();
 
-  onLogin = (event) => {
-    this.props.history.push('/login');
-  };
+  return (
+    <div>
+      <Typography variant='h2' component='h1'>
+        Welcome
+      </Typography>
+      <Grid container spacing={6}>
+        <Grid item xs={6}>
+          <p>
+            Gamified classrooms allow teachers to easily and quickly reward
+            students for participating in the classroom and keep track of all
+            students and activity levels throughout one or many classrooms. The
+            gamified classroom is aimed to be quick, simple, and easy with
+            limited intrusiveness to allow for quick approval by parents and
+            school boards
+          </p>
+        </Grid>
+        <Grid item xs={6}>
+          <RegisterForm />
+          <center>
+            <h4>Already a Member?</h4>
+            <Button
+              className={classes.loginBtn}
+              type='button'
+              onClick={() => {
+                this.props.history.push('/login');
+              }}
+            >
+              Login
+            </Button>
+          </center>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div className='container'>
-        <h2>{this.state.heading}</h2>
-
-        <div className='grid'>
-          <div className='grid-col grid-col_8'>
-            <p>
-              Gamified classrooms allow teachers to easily and quickly reward
-              students for participating in the classroom and keep track of all
-              students and activity levels throughout one or many classrooms.
-              The gamified classroom is aimed to be quick, simple, and easy with
-              limited intrusiveness to allow for quick approval by parents and
-              school boards
-            </p>
-          </div>
-          <div className='grid-col grid-col_4'>
-            <RegisterForm />
-
-            <center>
-              <h4>Already a Member?</h4>
-              <button className='btn btn_sizeSm' onClick={this.onLogin}>
-                Login
-              </button>
-            </center>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default connect(mapStoreToProps)(LandingPage);
+export default LandingPage;
