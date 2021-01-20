@@ -1,33 +1,31 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { shadows } from '@material-ui/system';
 
 export default makeStyles((theme) => ({
-  root: {
-    maxWidth: 1280,
-    width: '100%',
-    margin: theme.spacing(1),
-    overflow: 'hidden',
-    padding: 10,
-  },
-  wrapper: {
-    backgroundColor: theme.palette.background.paper,
-    width: 450,
-    borderRadius: 15,
-    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
-  },
-  linkArea: {
+  headerArea: {
     display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(3),
+    fontSize: '1.8em',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '3em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '3.6em',
+    },
+  },
+  btnArea: {
+    display: 'flex',
+    width: '100%',
+    padding: 0,
     justifyContent: 'center',
     marginBottom: theme.spacing(2),
   },
-  loginLink: {
-    color: theme.palette.text.primary,
-    fontSize: '1.7em',
-    '&:focus, &:hover, &:visited, &:link, &:active': {
-      color: '#d41ce8',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '1em',
-    },
+  form: {
+    width: '100%',
+  },
+  textArea: {
+    margin: theme.spacing(2),
   },
   submit: {
     backgroundColor: theme.status.submit,
@@ -35,7 +33,6 @@ export default makeStyles((theme) => ({
     borderRadius: 40,
     minHeight: 15,
     maxHeight: 30,
-    padding: '0 1em',
     '&:hover': {
       backgroundColor: theme.status.back,
       borderColor: theme.palette.text.primary,

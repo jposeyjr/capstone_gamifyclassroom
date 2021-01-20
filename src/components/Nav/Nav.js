@@ -11,8 +11,13 @@ const Nav = (props) => {
     text: 'Login / Register',
   };
 
-  if (props.store.user.id != null) {
+  if (props.store.user.id != null && props.store.user.role_id <= 2) {
     loginLinkData.path = '/teacherhome';
+    loginLinkData.text = 'Home';
+  }
+
+  if (props.store.user.id != null) {
+    loginLinkData.path = '/student';
     loginLinkData.text = 'Home';
   }
 
@@ -24,9 +29,6 @@ const Nav = (props) => {
           but call this link 'Home' if they are logged in,
           and call this link 'Login / Register' if they are not */}
           {loginLinkData.text}
-        </Link>
-        <Link className='nav-link' to={'/student'}>
-          Student
         </Link>
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {props.store.user.id && (

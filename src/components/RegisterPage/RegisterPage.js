@@ -17,6 +17,9 @@ const RegisterPage = () => {
           <Link
             color='inherit'
             component='button'
+            role='link'
+            underline='always'
+            className={classes.loginLink}
             onClick={() => {
               history.push('/login');
             }}

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-
+import { shadows } from '@material-ui/system';
 export default makeStyles((theme) => ({
   root: {
     maxWidth: 1280,
@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
   },
   wrapper: {
     backgroundColor: theme.palette.background.paper,
-    width: 450,
+    width: 480,
     borderRadius: 15,
     boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
   },
@@ -21,12 +21,9 @@ export default makeStyles((theme) => ({
   },
   loginLink: {
     color: theme.palette.text.primary,
-    fontSize: '1.7em',
+    fontSize: '1em',
     '&:focus, &:hover, &:visited, &:link, &:active': {
       color: '#d41ce8',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '1em',
     },
   },
   submit: {

@@ -22,7 +22,6 @@ import TeacherList from '../TeacherClass/TeacherList';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';
-import './App.css';
 
 const App = () => {
   const userInfo = useSelector((store) => store.user);

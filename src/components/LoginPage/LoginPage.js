@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from '../LoginForm/LoginForm';
+import { Link, Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import useStyles from './styles';
 
-class LoginPage extends Component {
-  render() {
-    return (
-      <div>
+const LoginPage = () => {
+  const history = useHistory();
+  const classes = useStyles();
+  return (
+    <Grid container justify='center' className={classes.root}>
+      <Grid item xs={12} sm={6} className={classes.wrapper}>
         <LoginForm />
-
-        <center>
-          <button
-            type="button"
-            className="btn btn_asLink"
+        <div className={classes.linkArea}>
+          <Link
+            role='link'
+            underline='always'
+            className={classes.loginLink}
+            component='button'
             onClick={() => {
-              this.props.history.push('/registration');
+              history.push('/registration');
             }}
           >
             Register
-          </button>
-        </center>
-      </div>
-    );
-  }
-}
+          </Link>
+        </div>
+      </Grid>
+    </Grid>
+  );
+};
 
 export default connect(mapStoreToProps)(LoginPage);
