@@ -1,98 +1,91 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { TextField, Typography, Box, Button } from '@material-ui/core';
+import useStyles from './styles';
 
-class RegisterForm extends Component {
-  state = {
+const RegisterForm = () => {
+  const errors = useSelector((store) => store.errors);
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const initState = {
     email: '',
     firstName: '',
     lastName: '',
     password: '',
   };
+  const [newUser, setNewUser] = useState(initState);
 
-  registerUser = (event) => {
+  const registerUser = (event) => {
     event.preventDefault();
 
-    this.props.dispatch({
+    dispatch({
       type: 'REGISTER',
       payload: {
-        email: this.state.email,
-        password: this.state.password,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
+        email: newUser.email,
+        password: newUser.password,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
       },
     });
   }; // end registerUser
 
-  handleInputChangeFor = (propertyName) => (event) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  };
-
-  render() {
-    return (
-      <form className='formPanel' onSubmit={this.registerUser}>
-        <h2>Register User</h2>
-        {this.props.store.errors.registrationMessage && (
+  return (
+    <form
+      className={classes.form}
+      noValidate
+      autoComplete='off'
+      onSubmit={registerUser}
+    >
+      <Typography variant='h4' component='h2'>
+        Register User
+        {errors.registrationMessage && (
           <h3 className='alert' role='alert'>
-            {this.props.store.errors.registrationMessage}
+            {errors.registrationMessage}
           </h3>
         )}
-        <div>
-          <label htmlFor='email'>
-            Email:
-            <input
-              type='text'
-              name='email'
-              value={this.state.email}
-              required
-              onChange={this.handleInputChangeFor('email')}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor='firstName'>
-            First Name:
-            <input
-              type='text'
-              name='firstName'
-              value={this.state.firstName}
-              required
-              onChange={this.handleInputChangeFor('firstName')}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor='lastName'>
-            Last Name:
-            <input
-              type='text'
-              name='lastName'
-              value={this.state.lastName}
-              required
-              onChange={this.handleInputChangeFor('lastName')}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor='password'>
-            Password:
-            <input
-              type='password'
-              name='password'
-              value={this.state.password}
-              required
-              onChange={this.handleInputChangeFor('password')}
-            />
-          </label>
-        </div>
-        <div>
-          <input className='btn' type='submit' name='submit' value='Register' />
-        </div>
-      </form>
-    );
-  }
-}
+      </Typography>
+      <TextField
+        value={newUser.email}
+        fullWidth
+        required
+        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+        label='Email'
+      />
+      <TextField
+        value={newUser.firstName}
+        fullWidth
+        required
+        onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
+        label='First Name'
+      />
+      <TextField
+        value={newUser.lastName}
+        fullWidth
+        required
+        onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
+        label='Last Name'
+      />
+      <TextField
+        value={newUser.password}
+        fullWidth
+        required
+        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+        label='Password'
+        type='password'
+      />
+      <Box className={classes.btnArea}>
+        <Button className={classes.submit} type='submit'>
+          Submit
+        </Button>
+        <Button
+          className={classes.cancel}
+          onClick={() => setNewUser(initState)}
+        >
+          Cancel
+        </Button>
+      </Box>
+    </form>
+  );
+};
 
-export default connect(mapStoreToProps)(RegisterForm);
+export default RegisterForm;
