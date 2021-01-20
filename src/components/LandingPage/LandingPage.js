@@ -31,7 +31,7 @@ const LandingPage = () => {
               className={classes.loginBtn}
               type='button'
               onClick={() => {
-                this.props.history.push('/login');
+                history.push('/login');
               }}
             >
               Login
