@@ -9,22 +9,21 @@ const LandingPage = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Typography variant='h2' component='h1'>
-        Welcome
-      </Typography>
-      <Grid container spacing={6}>
-        <Grid item xs={6}>
-          <p>
-            Gamified classrooms allow teachers to easily and quickly reward
-            students for participating in the classroom and keep track of all
-            students and activity levels throughout one or many classrooms. The
-            gamified classroom is aimed to be quick, simple, and easy with
-            limited intrusiveness to allow for quick approval by parents and
-            school boards
-          </p>
-        </Grid>
-        <Grid item xs={6}>
+    <Grid container spacing={6}>
+      <Grid item xs={6}>
+        <Typography variant='h2' component='h1' className={classes.textArea}>
+          Welcome
+        </Typography>
+        <Typography variant='body1' component='p' className={classes.textArea}>
+          Gamified classrooms allow teachers to easily and quickly reward
+          students for participating in the classroom and keep track of all
+          students and activity levels throughout one or many classrooms. The
+          gamified classroom is aimed to be quick, simple, and easy with limited
+          intrusiveness to allow for quick approval by parents and school boards
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <div className={classes.textArea}>
           <RegisterForm />
           <center>
             <h4>Already a Member?</h4>
@@ -38,9 +37,9 @@ const LandingPage = () => {
               Login
             </Button>
           </center>
-        </Grid>
+        </div>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 

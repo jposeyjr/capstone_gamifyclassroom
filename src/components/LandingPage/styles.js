@@ -6,6 +6,9 @@ export default makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
+  textArea: {
+    margin: theme.spacing(3),
+  },
   loginBtn: {
     backgroundColor: theme.status.submit,
     color: theme.palette.text.primary,
