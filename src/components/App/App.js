@@ -16,7 +16,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import TeacherHome from '../TeachHome/TeacherHome';
-import TeacherClass from '../TeacherClass/TeacherClass';
+// import TeacherClass from '../TeacherClass/TeacherClass';
+import TeacherList from '../TeacherClass/TeacherList';
 // import TeacherOverview from '../TeacherOverview/TeacherOverview';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -56,7 +57,7 @@ const App = () => {
             <ProtectedRoute
               exact
               path='/teacherclass'
-              component={TeacherClass}
+              component={TeacherList}
             />
             <ProtectedRoute exact path='/student' component={StudentPage} />
 

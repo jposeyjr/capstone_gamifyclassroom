@@ -44,7 +44,6 @@ const StudentPage = () => {
     <Grid
       container
       spacing={1}
-      container
       direction='row'
       justify='center'
       alignItems='center'

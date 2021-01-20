@@ -46,10 +46,10 @@ router.get('/point/:id', rejectUnauthenticated, (req, res) => {
   pool
     .query(sqlText, [id])
     .then((result) => {
-      let nextSQL = `UPDATE person SET last_point_date = now() WHERE id = $1`;
-      pool.query(nextSQL, [id]);
+      sqlText = `UPDATE person SET last_point_date = now() WHERE id = $1`;
+      pool.query(sqlText, [id]);
     })
-    .then((result) => res.send(result.rows[0]))
+    .then((result) => res.send(id))
     .catch((error) => {
       console.log('Error adding points to student info in the DB: ', error);
       res.sendStatus(500);

@@ -4,7 +4,7 @@ Gamify classroom allow teachers to easily and quickly reward students for partic
 
 ## Built With
 
-React, Redux, Websockets, Passport, BCrypt, PG, PostgreSQL, Node, Express, Axios, React-Sage, React-Router, Material-UI
+React, Redux, Websockets, Passport, BCrypt, PG, PostgreSQL, Node, Express, Axios, Nodemailer, React-Sage, React-Router, Material-UI
 
 ## Prerequisites
 

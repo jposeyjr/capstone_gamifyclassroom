@@ -7,7 +7,7 @@ import studentSaga from './student.saga';
 import selectStudentSaga from './selectStudent.saga';
 import socketSaga from './socket.saga';
 import pointSaga from './point.saga';
-import emailSaga from './emial.saga';
+import emailSaga from './email.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
