@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Link, Grid, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import { useHistory } from 'react-router-dom';
@@ -10,8 +10,8 @@ const LandingPage = () => {
 
   return (
     <Grid container spacing={6}>
-      <Grid item xs={6}>
-        <Typography variant='h2' component='h1' className={classes.textArea}>
+      <Grid item xs={12} sm={12} md={6}>
+        <Typography variant='h2' component='h1' className={classes.headerArea}>
           Welcome
         </Typography>
         <Typography variant='body1' component='p' className={classes.textArea}>
@@ -22,20 +22,22 @@ const LandingPage = () => {
           intrusiveness to allow for quick approval by parents and school boards
         </Typography>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={12} md={6}>
         <div className={classes.textArea}>
           <RegisterForm />
           <center>
             <h4>Already a Member?</h4>
-            <Button
-              className={classes.loginBtn}
+            <Link
+              role='link'
+              underline='always'
+              className={classes.loginLink}
               type='button'
               onClick={() => {
-                this.props.history.push('/login');
+                history.push('/login');
               }}
             >
               Login
-            </Button>
+            </Link>
           </center>
         </div>
       </Grid>

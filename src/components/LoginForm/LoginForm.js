@@ -39,23 +39,25 @@ class LoginForm extends Component {
             {this.props.store.errors.loginMessage}
           </h3>
         )}
-        <div>
+        <div className='inputForm'>
           <label htmlFor='email'>
-            Email:
+            Email
             <input
               type='text'
               name='email'
+              className='inputForm'
               required
               value={this.state.email}
               onChange={this.handleInputChangeFor('email')}
             />
           </label>
         </div>
-        <div>
+        <div className='inputForm'>
           <label htmlFor='password'>
-            Password:
+            Password
             <input
               type='password'
+              className='inputForm'
               name='password'
               required
               value={this.state.password}

@@ -6,30 +6,32 @@ export default makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
+  headerArea: {
+    margin: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: '3em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '3.6em',
+    },
+  },
   textArea: {
     margin: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.8em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '2.4em',
+    },
   },
-  loginBtn: {
-    backgroundColor: theme.status.submit,
+  loginLink: {
     color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
-    padding: '0 1em',
-    '&:hover': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
+    fontSize: '1.7em',
+    '&:focus, &:hover, &:visited, &:link, &:active': {
+      color: '#d41ce8',
     },
-    '&:focus': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:active': {
-      backgroundColor: theme.status.nack,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1em',
     },
   },
 }));

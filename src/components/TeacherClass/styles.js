@@ -20,8 +20,8 @@ export default makeStyles((theme) => ({
   button: {
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
+    minHeight: 15,
+    maxHeight: 30,
     padding: '0 1em',
     boxShadow: shadows[0],
     '&:hover': {
@@ -88,8 +88,8 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.status.danger,
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
+    minHeight: 15,
+    maxHeight: 30,
     padding: '0 1em',
     '&:hover': {
       backgroundColor: theme.status.secondary,
@@ -111,8 +111,8 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.status.submit,
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
+    minHeight: 15,
+    maxHeight: 30,
     padding: '0 1em',
     '&:hover': {
       backgroundColor: theme.status.back,
