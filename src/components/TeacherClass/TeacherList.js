@@ -68,7 +68,7 @@ const TeacherList = () => {
     }
 
     if (multi) {
-      setStudentArray({ ...studentArray, id });
+      setStudentArray([...studentArray, id]);
     }
   };
 
@@ -86,8 +86,16 @@ const TeacherList = () => {
     setRemoveStudent(!removeStudent);
   };
 
-  const sendMultiPoints = () => {
-    console.log(studentArray);
+  //used to allow us to send multiple points but each student gets the ability to see the points got given
+  //need to delay the send by the time it is set to display on the students page
+  const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  //using async and await to delay sending points for each student to correspond with the pop up timeout on student page
+  const sendMultiPoints = async () => {
+    for (let eachStudent of studentArray) {
+      sendPoints(eachStudent.first_name, eachStudent.student_id);
+      await timer(5000);
+    }
   };
 
   return (
@@ -156,7 +164,11 @@ const TeacherList = () => {
       <Grid container spacing={3}>
         {students.map((student) => (
           <Grid key={student.id} item xs={12} md={2}>
-            <TeacherClass student={student} multi={multi} handleClick={handleClick} />
+            <TeacherClass
+              student={student}
+              multi={multi}
+              handleClick={handleClick}
+            />
           </Grid>
         ))}
       </Grid>

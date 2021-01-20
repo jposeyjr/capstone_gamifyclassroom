@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
   Grid,
@@ -8,7 +8,6 @@ import {
   CardActionArea,
   CardContent,
   Typography,
-  Button,
 } from '@material-ui/core';
 import useStyles from './styles';
 
@@ -18,6 +17,8 @@ const TeacherClass = (props) => {
   const location = useLocation();
   const [className, setName] = useState('');
   const [courseID, setCourse] = useState('');
+  const studentData = useSelector((store) => store.socketStudent);
+  const pointsData = useSelector((store) => store.pointStudent);
   const [colorChange, setColorChange] = useState(false);
 
   //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
@@ -28,7 +29,7 @@ const TeacherClass = (props) => {
     setName(courseName);
     //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
     dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location, studentData, pointsData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes date to a readable format
   const handleDate = (date) => {
@@ -45,7 +46,7 @@ const TeacherClass = (props) => {
       className={classes.card}
       onClick={() => handleColor()}
       style={{
-        backgroundColor: colorChange && props.multi ? 'red' : '#0f3057',
+        backgroundColor: colorChange && props.multi ? '#944545' : '#0f3057',
       }}
     >
       <CardActionArea

@@ -7,7 +7,6 @@ import socketClient from 'socket.io-client';
 const StudentPage = () => {
   const student = useSelector((store) => store.user.id);
   const studentData = useSelector((store) => store.socketStudent);
-  const pointsData = useSelector((store) => store.pointStudent);
   const [message, setMessage] = useState([]);
   const [gotMessage, setGotMessage] = useState(false);
   const classes = useStyles();
@@ -26,9 +25,7 @@ const StudentPage = () => {
     //getting their info from the DB to display it to the dom
     dispatch({ type: 'GET_SOCKET_STUDENT', payload: student });
     //used to establish a connection to the backend to watch for messages from the teacher
-    socket.on('connection', () => {
-      console.log('connect to backend');
-    });
+    socket.on('connection', () => {});
     //when we gt a message we will save it to the state so we can display it
     socket.on('newMessage', ({ message }) => {
       setMessage({ ...message, message });
@@ -36,9 +33,9 @@ const StudentPage = () => {
       setTimeout(() => {
         setMessage([]);
         setGotMessage(false);
-      }, 5000);
+      }, 3000);
     });
-  }, [pointsData]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [gotMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Grid

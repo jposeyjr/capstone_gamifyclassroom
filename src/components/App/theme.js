@@ -12,10 +12,10 @@ let theme = createMuiTheme({
     fontWeight: 500,
   },
   status: {
-    danger: '#f44336',
-    secondary: '#a82520',
-    submit: '#050bb3',
-    back: '#030659',
+    danger: '#bf463d',
+    secondary: '#c92a1e',
+    submit: '#2767e6',
+    back: '#050ce6',
   },
   palette: {
     primary: {
