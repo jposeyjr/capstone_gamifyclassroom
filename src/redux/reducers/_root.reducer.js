@@ -7,7 +7,7 @@ import student from './student.reducer';
 import selectStudent from './selectStudent.reducer.js';
 import socketStudent from './socket.reducer';
 import pointReducer from './point.reducer';
-import emailReducer from './emai.reducer';
+import emailReducer from './email.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
