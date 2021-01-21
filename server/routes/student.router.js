@@ -98,7 +98,6 @@ RETURNING id;`;
 });
 
 router.post('/email', rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   const teacher = req.user;
   const student_email = req.body.studentEmail;
   const courseID = req.body.courseID;
@@ -106,7 +105,6 @@ router.post('/email', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/id', rejectUnauthenticated, (req, res) => {
-  console.log('in put route', req.body);
   const data = req.body;
   const id = req.body.id;
   const sqlText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, start_date=$4, avatar=$5
@@ -130,9 +128,13 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
-  const sqlText = `DELETE FROM person WHERE id=$1`;
+  let sqlText = `DELETE FROM person WHERE id=$1`;
   pool
     .query(sqlText, [id])
+    .then((result) => {
+      let sqlText = `DELETE FROM student_courses WHERE student_id = $1`;
+      pool.query(sqlText, [id]);
+    })
     .then((result) => res.sendStatus(204))
     .catch((error) => {
       console.log('Error on server deleting student: ', error);

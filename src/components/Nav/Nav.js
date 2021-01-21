@@ -55,7 +55,7 @@ const Nav = (props) => {
             className={classes.menuButton}
             aria-label='Menu'
           >
-            <MenuIcon />
+            <MenuIcon className={classes.icon} />
           </IconButton>
           <Typography className={classes.title} variant='h1'>
             Gamified Classroom
@@ -75,7 +75,7 @@ const Nav = (props) => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerOpen}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon className={classes.icon} />
           </IconButton>
         </div>
         <List className={classes.listItems}>
@@ -90,7 +90,7 @@ const Nav = (props) => {
           {/* Always show this link since the about page is not protected */}
           <ListItem button component={Link} to={'/about'}>
             <ListItemIcon>
-              <InfoIcon />
+              <InfoIcon className={classes.icon} />
             </ListItemIcon>
             <ListItemText>About</ListItemText>
           </ListItem>
@@ -98,7 +98,7 @@ const Nav = (props) => {
             <>
               <ListItem button onClick={() => dispatch({ type: 'LOGOUT' })}>
                 <ListItemIcon>
-                  <ExitToAppIcon />
+                  <ExitToAppIcon className={classes.icon} />
                 </ListItemIcon>
                 <ListItemText>Log Out</ListItemText>
               </ListItem>

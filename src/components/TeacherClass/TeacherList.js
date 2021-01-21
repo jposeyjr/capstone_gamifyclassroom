@@ -163,7 +163,7 @@ const TeacherList = () => {
       </div>
       <Grid container spacing={3}>
         {students.map((student, i) => (
-          <Grid key={i} item xs={12} md={2}>
+          <Grid key={i} item xs={12} sm={2} md={2}>
             <TeacherClass
               student={student}
               multi={multi}

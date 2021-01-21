@@ -9,6 +9,9 @@ export default makeStyles((theme) => ({
   flex: {
     flex: 1,
   },
+  icon: {
+    color: theme.palette.text.primary,
+  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
