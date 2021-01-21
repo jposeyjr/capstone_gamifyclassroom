@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { TextField, Typography, Box, Button, Grid } from '@material-ui/core';
+import { TextField, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -69,7 +68,7 @@ const LoginPage = () => {
             value={user.password}
             onChange={handleInputChangeFor('password')}
             type='password'
-            label='First Name'
+            label='Password'
           />
         </div>
         <div className={classes.btnArea}>

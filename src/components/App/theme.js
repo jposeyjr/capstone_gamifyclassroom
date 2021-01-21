@@ -10,7 +10,6 @@ let theme = createMuiTheme({
     ].join(','),
     textTransform: 'none',
     fontWeight: 500,
-    fontSize: '1.3rem',
   },
   status: {
     danger: '#bf463d',
