@@ -30,7 +30,8 @@ export default makeStyles((theme) => ({
   },
   form: {
     width: '100%',
-    marginTop: theme.spacing(1),
+    padding: 10,
+    margin: theme.spacing(1),
   },
   input: {
     marginBottom: theme.spacing(3),
@@ -42,8 +43,8 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.status.danger,
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
+    minHeight: 15,
+    maxHeight: 30,
     padding: '0 1em',
     '&:hover': {
       backgroundColor: theme.status.secondary,
@@ -65,8 +66,8 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.status.submit,
     color: theme.palette.text.primary,
     borderRadius: 40,
-    minHeight: 39,
-    maxHeight: 39,
+    minHeight: 15,
+    maxHeight: 30,
     padding: '0 1em',
     '&:hover': {
       backgroundColor: theme.status.back,

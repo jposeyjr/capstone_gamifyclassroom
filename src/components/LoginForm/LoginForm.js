@@ -1,74 +1,84 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Typography, Button } from '@material-ui/core';
+import useStyles from './styles';
+const LoginPage = () => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const errors = useSelector((redux) => redux.errors);
+  const [user, setUser] = useState({ email: '', password: '' });
 
-class LoginForm extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
-
-  login = (event) => {
+  const login = (event) => {
     event.preventDefault();
+    const { email, password } = user;
 
-    if (this.state.email && this.state.password) {
-      this.props.dispatch({
+    if (email && password) {
+      dispatch({
         type: 'LOGIN',
         payload: {
-          email: this.state.email,
-          password: this.state.password,
+          email,
+          password,
         },
       });
     } else {
-      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
   }; // end login
 
-  handleInputChangeFor = (propertyName) => (event) => {
-    this.setState({
+  const handleInputChangeFor = (propertyName) => (event) => {
+    console.log(propertyName);
+    setUser({
+      ...user,
       [propertyName]: event.target.value,
     });
   };
 
-  render() {
-    return (
-      <form className='formPanel' onSubmit={this.login}>
-        <h2>Login</h2>
-        {this.props.store.errors.loginMessage && (
-          <h3 className='alert' role='alert'>
-            {this.props.store.errors.loginMessage}
-          </h3>
-        )}
-        <div>
-          <label htmlFor='email'>
-            Email:
-            <input
-              type='text'
-              name='email'
-              required
-              value={this.state.email}
-              onChange={this.handleInputChangeFor('email')}
-            />
-          </label>
+  return (
+    <div>
+      {errors.loginMessage && (
+        <h2 className='alert' role='alert'>
+          {errors.loginMessage}
+        </h2>
+      )}
+      <form
+        className={classes.form}
+        noValidate
+        autoComplete='off'
+        onSubmit={login}
+      >
+        <div className={classes.textArea}>
+          <Typography
+            variant='h4'
+            component='h2'
+            className={classes.headerArea}
+          >
+            Login
+          </Typography>
+          <TextField
+            fullWidth
+            required
+            value={user.email}
+            onChange={handleInputChangeFor('email')}
+            label='Email'
+          />
+          <TextField
+            fullWidth
+            required
+            name='password'
+            value={user.password}
+            onChange={handleInputChangeFor('password')}
+            type='password'
+            label='Password'
+          />
         </div>
-        <div>
-          <label htmlFor='password'>
-            Password:
-            <input
-              type='password'
-              name='password'
-              required
-              value={this.state.password}
-              onChange={this.handleInputChangeFor('password')}
-            />
-          </label>
-        </div>
-        <div>
-          <input className='btn' type='submit' name='submit' value='Log In' />
+        <div className={classes.btnArea}>
+          <Button className={classes.submit} type='submit'>
+            Login
+          </Button>
         </div>
       </form>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default connect(mapStoreToProps)(LoginForm);
+export default LoginPage;

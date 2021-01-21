@@ -162,8 +162,8 @@ const TeacherList = () => {
         />
       </div>
       <Grid container spacing={3}>
-        {students.map((student) => (
-          <Grid key={student.id} item xs={12} md={2}>
+        {students.map((student, i) => (
+          <Grid key={i} item xs={12} md={2}>
             <TeacherClass
               student={student}
               multi={multi}
