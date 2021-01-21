@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { shadows } from '@material-ui/system';
+
 export default makeStyles((theme) => ({
   root: {
     maxWidth: 1280,

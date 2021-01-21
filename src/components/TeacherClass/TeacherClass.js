@@ -15,8 +15,6 @@ const TeacherClass = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [className, setName] = useState('');
-  const [courseID, setCourse] = useState('');
   const studentData = useSelector((store) => store.socketStudent);
   const pointsData = useSelector((store) => store.pointStudent);
   const [colorChange, setColorChange] = useState(false);
@@ -24,9 +22,7 @@ const TeacherClass = (props) => {
   //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
   useEffect(() => {
     const urlID = new URLSearchParams(location.search).get('classid');
-    setCourse(urlID);
     const courseName = new URLSearchParams(location.search).get('course');
-    setName(courseName);
     //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
     dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
   }, [location, studentData, pointsData]); // eslint-disable-line react-hooks/exhaustive-deps

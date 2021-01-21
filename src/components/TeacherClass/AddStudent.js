@@ -8,7 +8,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
-
+import AvatarSelector from './AvatarSelector';
 //used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -27,6 +27,7 @@ function getModalStyle() {
 
 const AddStudentModal = () => {
   const [isOpen, setOpen] = useState(false);
+  const [avatarOpen, setAvatarOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -67,9 +68,13 @@ const AddStudentModal = () => {
     setOpen(true);
   };
 
+  const handleAvatarClose = () => {
+    setAvatarOpen(false);
+  };
+
   //TODO will be used to select pre-chosen avatars
   const handleAvatar = () => {
-    console.log('why');
+    setAvatarOpen(true);
   };
 
   return (
@@ -138,6 +143,7 @@ const AddStudentModal = () => {
               >
                 Avatar
               </Button>
+              <AvatarSelector avatarOpen={avatarOpen} handleAvatarClose={handleAvatarClose}/>
             </Box>
             <TextField
               value={studentData.avatar}

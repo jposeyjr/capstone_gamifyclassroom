@@ -52,81 +52,81 @@ const App = () => {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            {userInfo.role_id <= 2 ? (
-              <>
-                <ProtectedRoute
-                  exact
-                  path='/teacherhome'
-                  component={TeacherHome}
-                />
-                <ProtectedRoute
-                  exact
-                  path='/teacherclass'
-                  component={TeacherList}
-                />
-                {/* When a value is supplied for the authRedirect prop the user will
+            {/* {userInfo.role_id <= 2 ? ( */}
+            <>
+              <ProtectedRoute
+                exact
+                path='/teacherclass'
+                component={TeacherList}
+              />
+              <ProtectedRoute
+                exact
+                path='/teacherhome'
+                component={TeacherHome}
+              />
+              {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/teacherhome"
-                  // - else shows RegisterPage at "/login"
-                  exact
-                  path='/login'
-                  component={LoginPage}
-                  authRedirect='/teacherhome'
-                />
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/teacherhome"
-                  // - else shows RegisterPage at "/registration"
-                  exact
-                  path='/registration'
-                  component={RegisterPage}
-                  authRedirect='/teacherhome'
-                />
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/teacherhome"
-                  // - else shows RegisterPage at "/home"
-                  exact
-                  path='/home'
-                  component={LandingPage}
-                  authRedirect='/teacherhome'
-                />
-              </>
-            ) : (
-              <>
-                <ProtectedRoute exact path='/student' component={StudentPage} />
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/student"
-                  // - else shows RegisterPage at "/login"
-                  exact
-                  path='/login'
-                  component={LoginPage}
-                  authRedirect='/student'
-                />
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/student"
-                  // - else shows RegisterPage at "/registration"
-                  exact
-                  path='/registration'
-                  component={RegisterPage}
-                  authRedirect='/student'
-                />
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/student"
-                  // - else shows RegisterPage at "/home"
-                  exact
-                  path='/home'
-                  component={LandingPage}
-                  authRedirect='/student'
-                />
-              </>
-            )}
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/teacherhome"
+                // - else shows RegisterPage at "/login"
+                exact
+                path='/login'
+                component={LoginPage}
+                authRedirect='/teacherhome'
+              />
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/teacherhome"
+                // - else shows RegisterPage at "/registration"
+                exact
+                path='/registration'
+                component={RegisterPage}
+                authRedirect='/teacherhome'
+              />
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/teacherhome"
+                // - else shows RegisterPage at "/home"
+                exact
+                path='/home'
+                component={LandingPage}
+                authRedirect='/teacherhome'
+              />
+            </>
+            {/* ) : ( */}
+            <>
+              <ProtectedRoute exact path='/student' component={StudentPage} />
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/student"
+                // - else shows RegisterPage at "/login"
+                exact
+                path='/login'
+                component={LoginPage}
+                authRedirect='/student'
+              />
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/student"
+                // - else shows RegisterPage at "/registration"
+                exact
+                path='/registration'
+                component={RegisterPage}
+                authRedirect='/student'
+              />
+              <ProtectedRoute
+                // with authRedirect:
+                // - if logged in, redirects to "/student"
+                // - else shows RegisterPage at "/home"
+                exact
+                path='/home'
+                component={LandingPage}
+                authRedirect='/student'
+              />
+            </>
+            {/* )} */}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
