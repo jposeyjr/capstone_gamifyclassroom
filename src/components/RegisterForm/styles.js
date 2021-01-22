@@ -29,7 +29,6 @@ export default makeStyles((theme) => ({
     },
   },
   form: {
-    width: '100%',
     padding: 10,
     margin: theme.spacing(1),
   },

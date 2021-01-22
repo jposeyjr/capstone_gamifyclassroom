@@ -8,7 +8,8 @@ const {
 const router = express.Router();
 
 /**
- * GET route template
+ * GET route
+ * used to get a list of students from a specific course
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
@@ -25,6 +26,10 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+/**
+ * GET route
+ * used to get a single students detailed information
+ */
 router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   let sqlText = `SELECT person.first_name, person.id, person.last_name, person.avatar, person.email, person.start_date, student_courses.points, student_courses.course 
@@ -39,6 +44,11 @@ router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+/**
+ * GET route
+ * used to get updated information from DB to reflect the teacher clicking on a student
+ */
 
 router.get('/point/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
@@ -57,7 +67,7 @@ router.get('/point/:id', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route adding a new student into the DB
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   const data = req.body;
@@ -81,6 +91,7 @@ RETURNING id;`;
       data.start_date,
       data.avatar,
     ])
+    //used to add them to the current course the teacher was in at the time of adding the student
     .then((result) => {
       const nextSQL = `INSERT INTO student_courses (points, student_id, course) 
      VALUES ($1, $2, $3)`;
@@ -97,12 +108,21 @@ RETURNING id;`;
     });
 });
 
+/**
+ * POST route
+ * sends data to nodemailer to create a custom url string for the student to register for the teachers school and course
+ */
 router.post('/email', rejectUnauthenticated, (req, res) => {
   const teacher = req.user;
   const student_email = req.body.studentEmail;
   const courseID = req.body.courseID;
   sendEmail(teacher, student_email, courseID);
 });
+
+/**
+ * PUT route
+ * updating any information that might of been changed by the teacher
+ */
 
 router.put('/id', rejectUnauthenticated, (req, res) => {
   const data = req.body;

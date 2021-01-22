@@ -9,7 +9,7 @@ const LandingPage = () => {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={6} justify='center'>
       <Grid item xs={12} sm={12} md={6}>
         <Typography variant='h2' component='h1' className={classes.headerArea}>
           Welcome
@@ -22,7 +22,7 @@ const LandingPage = () => {
           intrusiveness to allow for quick approval by parents and school boards
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={12} md={6}>
+      <Grid item xs={12} sm={12} md={4}>
         <div className={classes.textArea}>
           <RegisterForm />
           <center>

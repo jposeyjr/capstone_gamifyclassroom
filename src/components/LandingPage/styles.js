@@ -18,10 +18,10 @@ export default makeStyles((theme) => ({
   textArea: {
     margin: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
-      fontSize: '1.8em',
+      fontSize: '1.2em',
     },
     [theme.breakpoints.up('lg')]: {
-      fontSize: '2.4em',
+      fontSize: '1.8em',
     },
   },
   loginLink: {
