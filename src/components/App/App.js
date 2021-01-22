@@ -51,24 +51,6 @@ const App = () => {
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/student"
-              // - else shows RegisterPage at "/login"
-              exact
-              path='/login'
-              component={LoginPage}
-              authRedirect='/student'
-            />
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/student"
-              // - else shows RegisterPage at "/registration"
-              exact
-              path='/registration'
-              component={RegisterPage}
-              authRedirect='/student'
-            />
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/student"
               // - else shows RegisterPage at "/home"
               exact
               path='/home'
@@ -90,7 +72,6 @@ const App = () => {
               path='/teacherhome'
               component={TeacherHome}
             />
-
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -120,6 +101,24 @@ const App = () => {
               path='/home'
               component={LandingPage}
               authRedirect='/teacherhome'
+            />
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/student"
+              // - else shows RegisterPage at "/login"
+              exact
+              path='/login'
+              component={LoginPage}
+              authRedirect='/student'
+            />
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/student"
+              // - else shows RegisterPage at "/registration"
+              exact
+              path='/registration'
+              component={RegisterPage}
+              authRedirect='/student'
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

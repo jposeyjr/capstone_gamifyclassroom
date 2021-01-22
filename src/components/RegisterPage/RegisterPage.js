@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const classes = useStyles();
   return (
     <Grid container justify='center' className={classes.root}>
-      <Grid item xs={12} sm={7} className={classes.wrapper}>
+      <Grid item xs={12} sm={4} className={classes.wrapper}>
         <RegisterForm />
         <div className={classes.linkArea}>
           <Link
