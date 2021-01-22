@@ -1,7 +1,7 @@
 import { takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getPointStudent(action) {
+function* emailStudent(action) {
   try {
     yield axios.post(`/api/student/email`, action.payload);
   } catch (error) {
@@ -9,8 +9,8 @@ function* getPointStudent(action) {
   }
 }
 
-function* pointSaga() {
-  yield takeLatest('INVITE_STUDENT', getPointStudent);
+function* emailSaga() {
+  yield takeLatest('INVITE_STUDENT', emailStudent);
 }
 
-export default pointSaga;
+export default emailSaga;

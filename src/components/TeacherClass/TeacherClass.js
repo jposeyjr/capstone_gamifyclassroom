@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import {
   Grid,
   Card,
@@ -13,19 +11,7 @@ import useStyles from './styles';
 
 const TeacherClass = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const studentData = useSelector((store) => store.socketStudent);
-  const pointsData = useSelector((store) => store.pointStudent);
   const [colorChange, setColorChange] = useState(false);
-
-  //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
-  useEffect(() => {
-    const urlID = new URLSearchParams(location.search).get('classid');
-    const courseName = new URLSearchParams(location.search).get('course');
-    //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
-    dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
-  }, [location, studentData, pointsData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes date to a readable format
   const handleDate = (date) => {

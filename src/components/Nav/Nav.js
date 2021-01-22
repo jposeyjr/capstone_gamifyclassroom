@@ -31,7 +31,7 @@ const Nav = (props) => {
   };
 
   //if the user is an admin or teacher show the teacher home page
-  if (props.store.user.id != null && props.store.user.role_id <= 2) {
+  if (props.store.user.id != null && props.store.user.role_id === 2) {
     loginLinkData.path = '/teacherhome';
     loginLinkData.text = 'Home';
   }
@@ -44,6 +44,10 @@ const Nav = (props) => {
 
   const handleDrawerOpen = () => {
     setOpen(!menuOpen);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -63,11 +67,11 @@ const Nav = (props) => {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant='persistent'
         classes={{
           paper: classes.drawerPaper,
         }}
         ModalProps={{
+          onBackdropClick: handleDrawerClose,
           keepMounted: true,
         }}
         open={menuOpen}
