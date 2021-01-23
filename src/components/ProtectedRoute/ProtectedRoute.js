@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
+import StudentPage from '../StudentPage/StudentPage';
+import TeacherHome from '../TeachHome/TeacherHome';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
@@ -34,21 +36,19 @@ const ProtectedRoute = (props) => {
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
   } else {
-    // if they are not logged in, check the loginMode on Redux State
-    // if the mode is 'login', show the LoginPage
     ComponentToShow = LoginPage;
   }
 
   // redirect a logged in user if an authRedirect prop has been provided
-  if (store.user.id && authRedirect != null && store.user.role_id === 3) {
+  if (authRedirect != null && store.user.role_id === 3) {
     return <Redirect exact from={otherProps.path} to={authRedirect} />;
-  } else if (
-    store.user.id &&
-    teacherRedirect != null &&
-    store.user.role_id === 2
-  ) {
+  } else if (teacherRedirect != null && store.user.role_id === 2) {
     return <Redirect exact from={otherProps.path} to={teacherRedirect} />;
-  } else if (!store.user.id && authRedirect != null) {
+  } else if (
+    !store.user.id &&
+    authRedirect != null &&
+    teacherRedirect != null
+  ) {
     ComponentToShow = ComponentToProtect;
   }
 

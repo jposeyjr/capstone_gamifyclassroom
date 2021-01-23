@@ -73,7 +73,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   const data = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
   const role_id = 3;
-  const school = 1;
+  const school = data.school || 1;
   console.log(data);
   const sqlText = `
   INSERT INTO person (first_name, last_name, email, password, role_id, school, start_date, avatar)

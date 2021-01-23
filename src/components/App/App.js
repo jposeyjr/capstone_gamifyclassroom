@@ -12,6 +12,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import StudentPage from '../StudentPage/StudentPage';
+import StudentRegister from '../StudentRegister/StudentRegister';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -46,7 +47,19 @@ const App = () => {
               path='/about'
               component={AboutPage}
             />
-            <ProtectedRoute exact path='/student' component={StudentPage} />
+            <Route
+              exact
+              path='/studentregister'
+              component={StudentRegister}
+              authRedirect='/student'
+            />
+
+            <ProtectedRoute
+              exact
+              path='/student'
+              component={StudentPage}
+              teacherRedirect='/teacherhome'
+            />
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/student"
