@@ -23,7 +23,10 @@ const TeacherClass = (props) => {
   };
 
   const handleColor = () => {
-    setColorChange(!colorChange);
+    //only change the color if in multi select mode
+    if (props.multi) {
+      setColorChange(!colorChange);
+    }
   };
 
   return (
@@ -38,7 +41,10 @@ const TeacherClass = (props) => {
       <CardActionArea
         id={props.student.student_id}
         onClick={(e) => props.handleClick(e, props.student)}
-        className={classes.atnArea}
+        classes={{
+          root: classes.atnArea,
+          focusHighlight: classes.focusHighlight,
+        }}
       >
         {/* for now this will render an avatar if they have it if not a blank image,
         TODO better placeholder image */}

@@ -33,8 +33,8 @@ const EditModal = (props) => {
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    start_date: new Date('2019-12-02T11:11:11'),
-    end_date: new Date('2019-12-03T12:12:12'),
+    start_date: Date.now(),
+    end_date: Date.now(),
     id: 0,
   });
 
@@ -65,7 +65,7 @@ const EditModal = (props) => {
         end_date: course.end_date,
       }));
     }
-  }, [course]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //just handles resetting the state data to null and closing the modal
   const close = () => {
@@ -80,14 +80,9 @@ const EditModal = (props) => {
           ? 'Click on a class to edit the information or click edit class again to end edit mode!'
           : null}
       </p>
-      <Modal
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
-        open={props.isOpen}
-        onClose={close}
-      >
+      <Modal open={props.isOpen} onClose={close}>
         <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Student</h2>
+          <h2>Edit Class</h2>
           <form
             className={classes.form}
             onSubmit={(e) => handleSubmit(e)}

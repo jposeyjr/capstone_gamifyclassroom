@@ -21,9 +21,11 @@ export default makeStyles((theme) => ({
   paper: {
     fontSize: '2em',
     boxShadow: 'none',
-    backgroundColor: 'transparent',
+    backgroundColor: theme.palette.background.primary,
+    color: theme.palette.text.primary,
     width: 550,
     padding: 30,
+    border: '.5px solid #bf463d',
     margin: theme.spacing(1),
   },
   btnArea: {
@@ -44,52 +46,6 @@ export default makeStyles((theme) => ({
     },
     '&:focus': {
       boxShadow: shadows[0],
-    },
-  },
-  cancel: {
-    backgroundColor: theme.status.danger,
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 15,
-    maxHeight: 30,
-    padding: '0 1em',
-    '&:hover': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:focus': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:active': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-  },
-  submit: {
-    backgroundColor: theme.status.submit,
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 15,
-    maxHeight: 30,
-    padding: '0 1em',
-    '&:hover': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:focus': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:active': {
-      backgroundColor: theme.status.nack,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
     },
   },
 }));

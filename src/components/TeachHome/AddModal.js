@@ -34,8 +34,8 @@ export default function SimpleModal() {
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    start_date: new Date('2019-12-02T11:11:11'),
-    end_date: new Date('2019-12-03T12:12:12'),
+    start_date: Date.now(),
+    end_date: Date.now(),
   });
 
   //when they click the submit button it will send the state info to ADD_CLASS saga to post it to the DB
@@ -67,12 +67,7 @@ export default function SimpleModal() {
         Add Class
       </Button>
 
-      <Modal
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal open={open} onClose={handleClose}>
         <div style={modalStyle} className={classes.paper}>
           <h2>Add Class</h2>
           <form

@@ -41,8 +41,8 @@ export default makeStyles((theme) => ({
     position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
+    border: '2px solid #FFFFFF',
+    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
     padding: theme.spacing(2, 4, 3),
   },
   form: {
@@ -50,18 +50,24 @@ export default makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   atnArea: {
+    '&:hover $focusHighlight': {
+      opacity: 0.2,
+      color: '#FFF',
+    },
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
   },
+  focusHighlight: {},
   card: {
     display: 'flex',
     maxWidth: 245,
     height: '100%',
     justifyContent: 'center',
     flexDirection: 'column',
-    background: theme.palette.background.paper,
+    // border: '.3px solid #FFFFFF',
+    boxShadow: 'none',
     color: theme.palette.text.primary,
   },
   input: {

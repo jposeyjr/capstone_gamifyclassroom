@@ -22,7 +22,7 @@ let theme = createMuiTheme({
       main: '#f4a261', //orange
     },
     secondary: {
-      main: '#FFFFFF', //GREEN
+      main: '#FFFFFF',
     },
     background: {
       default: '#0f3057', //blue
@@ -32,7 +32,7 @@ let theme = createMuiTheme({
       primary: '#FFFFFF', //white
       secondary: '#e9c46a', //yellow
     },
-    divider: '#FFFFFF', //e76f51 darker orange place holder
+    divider: '#FFFFFF',
   },
 });
 theme = responsiveFontSizes(theme);
