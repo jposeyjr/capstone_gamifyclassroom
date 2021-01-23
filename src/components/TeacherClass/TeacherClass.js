@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Card,
@@ -12,6 +12,10 @@ import useStyles from './styles';
 const TeacherClass = (props) => {
   const classes = useStyles();
   const [colorChange, setColorChange] = useState(false);
+
+  useEffect(() => {
+    if (props.multi === false) setColorChange(false);
+  }, [props.multi]);
 
   //changes date to a readable format
   const handleDate = (date) => {

@@ -45,7 +45,7 @@ const StudentPage = () => {
       justify='center'
       alignItems='center'
     >
-      <Grid item xs={5}>
+      <Grid item xs={6}>
         <Typography variant='h3' component='h1' className={classes.headerArea}>
           Welcome {studentData.first_name}!
         </Typography>

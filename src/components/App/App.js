@@ -6,11 +6,10 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProtectedRouteTeacher from '../ProtectedRoute/ProtectedRoutesTeacher';
 import AboutPage from '../AboutPage/AboutPage';
 import StudentPage from '../StudentPage/StudentPage';
 import LandingPage from '../LandingPage/LandingPage';
@@ -55,6 +54,7 @@ const App = () => {
               exact
               path='/login'
               component={LoginPage}
+              teacherRedirect='/teacherhome'
               authRedirect='/student'
             />
             <ProtectedRoute
@@ -64,6 +64,7 @@ const App = () => {
               exact
               path='/registration'
               component={RegisterPage}
+              teacherRedirect='/teacherhome'
               authRedirect='/student'
             />
             <ProtectedRoute
@@ -73,53 +74,25 @@ const App = () => {
               exact
               path='/home'
               component={LandingPage}
+              teacherRedirect='/teacherhome'
               authRedirect='/student'
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            <ProtectedRouteTeacher
+            <ProtectedRoute
               exact
               path='/teacherclass'
               component={TeacherList}
+              authRedirect='/student'
             />
 
-            <ProtectedRouteTeacher
+            <ProtectedRoute
               exact
               path='/teacherhome'
               component={TeacherHome}
-            />
-
-            {/* When a value is supplied for the authRedirect prop the user will
-            be redirected to the path supplied when logged in, otherwise they will
-            be taken to the component and path supplied. */}
-            <ProtectedRouteTeacher
-              // with authRedirect:
-              // - if logged in, redirects to "/teacherhome"
-              // - else shows RegisterPage at "/login"
-              exact
-              path='/login'
-              component={LoginPage}
-              authRedirect='/teacherhome'
-            />
-            <ProtectedRouteTeacher
-              // with authRedirect:
-              // - if logged in, redirects to "/teacherhome"
-              // - else shows RegisterPage at "/registration"
-              exact
-              path='/registration'
-              component={RegisterPage}
-              authRedirect='/teacherhome'
-            />
-            <ProtectedRouteTeacher
-              // with authRedirect:
-              // - if logged in, redirects to "/teacherhome"
-              // - else shows RegisterPage at "/home"
-              exact
-              path='/home'
-              component={LandingPage}
-              authRedirect='/teacherhome'
+              authRedirect='/student'
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

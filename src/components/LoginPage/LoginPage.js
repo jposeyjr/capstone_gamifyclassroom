@@ -11,7 +11,7 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <Grid container justify='center' className={classes.root}>
-      <Grid item xs={12} sm={6} className={classes.wrapper}>
+      <Grid item xs={12} sm={4} className={classes.wrapper}>
         <LoginForm />
         <div className={classes.linkArea}>
           <Link

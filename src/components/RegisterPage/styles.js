@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: {
-    maxWidth: 1280,
     width: '100%',
     margin: theme.spacing(1),
     overflow: 'hidden',

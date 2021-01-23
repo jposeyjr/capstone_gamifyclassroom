@@ -21,7 +21,6 @@ export default makeStyles((theme) => ({
     padding: '0 8px',
   },
   title: {
-    marginLeft: '5%',
     width: '100%',
     color: theme.palette.text.primary,
     fontSize: '3.5rem',

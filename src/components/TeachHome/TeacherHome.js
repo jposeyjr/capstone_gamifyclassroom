@@ -84,8 +84,8 @@ const TeacherHome = () => {
         </Button>
       </div>
       <Grid justify='center' container spacing={3}>
-        {classroom.map((course) => (
-          <Grid item xs={12} md={4} key={course.id}>
+        {classroom.map((course, i) => (
+          <Grid item xs={12} md={4} key={i}>
             <Box>
               <Card className={classes.card}>
                 <CardActionArea onClick={() => sendCourse(course)}>

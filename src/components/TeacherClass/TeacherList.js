@@ -36,7 +36,7 @@ const TeacherList = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes state of open to close the modal
   const handleClose = () => {
@@ -92,10 +92,19 @@ const TeacherList = () => {
 
   //using async and await to delay sending points for each student to correspond with the pop up timeout on student page
   const sendMultiPoints = async () => {
-    for (let eachStudent of studentArray) {
+    //used to remove any possible duplicates in the student array
+    let uniqueOnly = [...new Set(studentArray)];
+    for (let eachStudent of uniqueOnly) {
       sendPoints(eachStudent.first_name, eachStudent.student_id);
       await timer(5000);
     }
+    setMulti(false);
+    setStudentArray([]);
+  };
+
+  const handleCancel = () => {
+    setMulti(false);
+    setStudentArray([]);
   };
 
   return (
@@ -119,7 +128,7 @@ const TeacherList = () => {
             >
               Submit
             </Button>
-            <Button className={classes.cancel} onClick={() => setMulti(false)}>
+            <Button className={classes.cancel} onClick={() => handleCancel()}>
               Cancel
             </Button>
           </>
