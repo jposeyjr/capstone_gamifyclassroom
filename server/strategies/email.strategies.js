@@ -21,12 +21,18 @@ smtpTransport.verify((error, success) => {
   console.log('Working!');
 });
 
+//used to make sure the first char in the name is capitalize encase they didn't do it in registration.
+function titleCase(string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
 const getOptions = (teacher, student, courseID) => {
+  let teacherName = titleCase(teacher.first_name);
   const mailOptions = {
     from: teacher,
     to: student,
-    subject: 'You are invited to join ' + teacher.first_name + "'s classroom!",
-    html: `<h1>${teacher.first_name} has invited you to join their classroom!</h1>
+    subject: 'You are invited to join ' + teacherName + "'s classroom!",
+    html: `<h1>${teacherName} has invited you to join their classroom!</h1>
         <p>Please follow the link below to register.</p>
         <a href=${url}?school=${teacher.school}&course=${courseID}&email=${student}>Register here</a>
         `,

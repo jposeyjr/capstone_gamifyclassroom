@@ -14,7 +14,8 @@ const avatarImages = importAll(
 );
 const AvatarSelector = (props) => {
   const handleListItemClick = (e) => {
-    console.log(e.target.id);
+    const avatarImg = e.target.src;
+    props.handleAvatarClose(avatarImg);
   };
 
   return (
@@ -23,7 +24,7 @@ const AvatarSelector = (props) => {
       aria-labelledby='simple-dialog-title'
       open={props.avatarOpen}
     >
-      <DialogTitle id='simple-dialog-title'></DialogTitle>
+      <DialogTitle id='simple-dialog-title'>Avatar Selector</DialogTitle>
       <List>
         {avatarImages.map((avtImg, i) => (
           <ListItem button onClick={(e) => handleListItemClick(e)} key={i}>

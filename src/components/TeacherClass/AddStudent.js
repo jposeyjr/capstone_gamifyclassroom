@@ -68,8 +68,9 @@ const AddStudentModal = () => {
     setOpen(true);
   };
 
-  const handleAvatarClose = () => {
+  const handleAvatarClose = (img) => {
     setAvatarOpen(false);
+    setStudentData({ ...studentData, avatar: img });
   };
 
   //TODO will be used to select pre-chosen avatars
@@ -88,8 +89,8 @@ const AddStudentModal = () => {
         Add Student
       </Button>
       <Modal
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
+        aria-labelledby='add student modal pop-up'
+        aria-describedby='pop-up form to add students to class'
         open={isOpen}
         onClose={handleClose}
       >
@@ -143,7 +144,10 @@ const AddStudentModal = () => {
               >
                 Avatar
               </Button>
-              <AvatarSelector avatarOpen={avatarOpen} handleAvatarClose={handleAvatarClose}/>
+              <AvatarSelector
+                avatarOpen={avatarOpen}
+                handleAvatarClose={handleAvatarClose}
+              />
             </Box>
             <TextField
               value={studentData.avatar}

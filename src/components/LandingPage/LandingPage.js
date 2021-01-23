@@ -16,10 +16,11 @@ const LandingPage = () => {
         </Typography>
         <Typography variant='body1' component='p' className={classes.textArea}>
           Gamified classrooms allow teachers to easily and quickly reward
-          students for participating in the classroom and keep track of all
+          students for participating in the classroom, keep track of all
           students and activity levels throughout one or many classrooms. The
           gamified classroom is aimed to be quick, simple, and easy with limited
-          intrusiveness to allow for quick approval by parents and school boards
+          intrusiveness to allow for quick approval by parents and school
+          boards.
         </Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>

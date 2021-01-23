@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
+import AvatarSelector from './AvatarSelector';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -28,6 +29,7 @@ const EditStudent = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const [avatarOpen, setAvatarOpen] = useState(false);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
   const studentInfo = useSelector((store) => store.selectStudent);
@@ -87,9 +89,15 @@ const EditStudent = (props) => {
     setStudentData(initState);
   };
 
-  //TODO will be used to select pre-chosen avatars
+  //used to close the avatar dialog and set the state to the selected avatar image
+  const handleAvatarClose = (img) => {
+    setAvatarOpen(false);
+    setStudentData({ ...studentData, avatar: img });
+  };
+
+  //used to open the avatar dialog
   const handleAvatar = () => {
-    console.log('why');
+    setAvatarOpen(true);
   };
 
   return (
@@ -140,6 +148,10 @@ const EditStudent = (props) => {
               >
                 Avatar
               </Button>
+              <AvatarSelector
+                avatarOpen={avatarOpen}
+                handleAvatarClose={handleAvatarClose}
+              />
             </Box>
             <TextField
               value={studentData.avatar || ''}

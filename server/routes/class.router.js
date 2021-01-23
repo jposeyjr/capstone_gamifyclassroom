@@ -32,7 +32,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   let data = req.body;
-  console.log(data);
   const sqlText = `
   INSERT INTO courses (start_date, end_date, course_name, teacher_id,  coteacher_id)
 VALUES ($1, $2, $3, $4, $5)
@@ -44,7 +43,7 @@ RETURNING id;`;
       data.end_date,
       data.className,
       Number(req.user.id),
-      Number(data.inviteCoteacher),
+      data.inviteCoteacher || '',
     ])
     .then((result) => {
       res.sendStatus(201);
@@ -56,7 +55,6 @@ RETURNING id;`;
 });
 
 router.put('/id', rejectUnauthenticated, (req, res) => {
-  console.log('in put route', req.body, req.body.id);
   const data = req.body;
   const id = req.body.id;
   const sqlText = `UPDATE courses SET start_date = $1, end_date = $2, course_name = $3, teacher_id=$4,  coteacher_id=$5

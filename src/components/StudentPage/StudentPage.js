@@ -33,7 +33,7 @@ const StudentPage = () => {
       setTimeout(() => {
         setMessage([]);
         setGotMessage(false);
-      }, 3000);
+      }, 1500);
     });
   }, [gotMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
