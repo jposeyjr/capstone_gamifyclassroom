@@ -25,7 +25,7 @@ const getOptions = (teacher, student, courseID) => {
   const mailOptions = {
     from: teacher,
     to: student,
-    subject: 'You are invited to join ' + teacher.first_name + 'classroom!',
+    subject: 'You are invited to join ' + teacher.first_name + "'s classroom!",
     html: `<h1>${teacher.first_name} has invited you to join their classroom!</h1>
         <p>Please follow the link below to register.</p>
         <a href=${url}?school=${teacher.school}&course=${courseID}&email=${student}>Register here</a>

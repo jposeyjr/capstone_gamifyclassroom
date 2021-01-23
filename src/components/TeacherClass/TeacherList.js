@@ -18,7 +18,6 @@ const TeacherList = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const students = useSelector((store) => store.student);
-  const updateInfo = useSelector((store) => store.selectedStudent);
   const [className, setName] = useState('');
   const [courseID, setCourse] = useState('');
   const [studentArray, setStudentArray] = useState([]);
@@ -37,7 +36,7 @@ const TeacherList = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [updateInfo]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //changes state of open to close the modal
   const handleClose = () => {
