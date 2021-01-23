@@ -1,37 +1,67 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { TextField, Typography, Box, Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
+import { useLocation } from 'react-router-dom';
+import {
+  TextField,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  FormControl,
+  Input,
+  InputLabel,
+} from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import useStyles from './styles';
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
+  const location = useLocation();
+  const schoolID = new URLSearchParams(location.search).get('school');
+  const courseID = new URLSearchParams(location.search).get('course');
+  const emailID = new URLSearchParams(location.search).get('email');
   const errors = useSelector((store) => store.errors);
+  const [showPass, setPass] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
   const initState = {
     email: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     password: '',
   };
   const [newUser, setNewUser] = useState(initState);
+  const [newStudent, setStudent] = useState({
+    course: courseID,
+    school: schoolID,
+    role: 2,
+  });
+
+  useEffect(() => {
+    if (emailID) {
+      setNewUser({ email: emailID });
+    }
+  }, [location]);
 
   const registerUser = (event) => {
     event.preventDefault();
 
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        email: newUser.email,
-        password: newUser.password,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-      },
-    });
+    if (props.studentReg) {
+      const mergeInfo = { ...newUser, ...newStudent };
+      dispatch({ type: 'ADD_STUDENT', payload: mergeInfo });
+    } else if (!emailID) {
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          newUser,
+        },
+      });
+    }
   }; // end registerUser
 
   return (
-    // <Grid container justify='center' className={classes.root}>
-    //   <Grid item xs={12}>
     <form
       className={classes.form}
       noValidate
@@ -59,7 +89,7 @@ const RegisterForm = () => {
           fullWidth
           required
           onChange={(e) =>
-            setNewUser({ ...newUser, firstName: e.target.value })
+            setNewUser({ ...newUser, first_name: e.target.value })
           }
           label='First Name'
         />
@@ -67,17 +97,32 @@ const RegisterForm = () => {
           value={newUser.lastName}
           fullWidth
           required
-          onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
+          onChange={(e) =>
+            setNewUser({ ...newUser, last_name: e.target.value })
+          }
           label='Last Name'
         />
-        <TextField
-          value={newUser.password}
-          fullWidth
-          required
-          onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-          label='Password'
-          type='password'
-        />
+        <FormControl fullWidth required>
+          <InputLabel htmlFor='password'>Password</InputLabel>
+          <Input
+            id='password'
+            value={newUser.password}
+            onChange={(e) =>
+              setNewUser({ ...newUser, password: e.target.value })
+            }
+            type={showPass ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position='end'>
+                <IconButton
+                  aria-label='Toggle password visibility'
+                  onClick={() => setPass(!showPass)}
+                >
+                  {showPass ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
       </div>
       <Box className={classes.btnArea}>
         <Button className={classes.submit} type='submit'>
@@ -91,9 +136,7 @@ const RegisterForm = () => {
         </Button>
       </Box>
     </form>
-    //   </Grid>
-    // </Grid>
   );
 };
 
-export default RegisterForm;
+export default connect(mapStoreToProps)(RegisterForm);
