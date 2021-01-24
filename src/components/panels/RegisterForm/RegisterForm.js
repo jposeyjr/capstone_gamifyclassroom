@@ -49,6 +49,7 @@ const RegisterForm = (props) => {
     event.preventDefault();
 
     if (props.studentReg) {
+      //merges the new user info with the info we get from the email page if they got invited by a teacher
       const mergeInfo = { ...newUser, ...newStudent };
       dispatch({ type: 'ADD_STUDENT', payload: mergeInfo });
     } else if (!emailID) {
@@ -59,7 +60,7 @@ const RegisterForm = (props) => {
         },
       });
     }
-  }; // end registerUser
+  };
 
   return (
     <form

@@ -86,10 +86,16 @@ const TeacherList = () => {
     setOpen(true);
   };
 
-  //this will be used to get the current student than it will call the point reducer to get current selected students info and points
+  /**
+   * Takes in an object from the clicked on student card
+   * @param {Object} id holds all students info from the currently selected student
+   * @param {Boolean} edit signifies if they have chosen to edit the student, if so it opens a modal
+   * @param {Boolean} removeStudent signifies if they have chosen to remove a student, if so it confirm they want to delete it
+   * @param {Boolean} multi signifies if they are trying to send more than one student a point at a time
+   * If not then we send a single point to that student
+   * */
+
   const handleClick = (e, id) => {
-    //checking if it is edit mode if so change open to true so the pop up opens when clicked,
-    //if not it will send points, or remove student
     const selectedStudent = id.student_id;
     const firstName = id.first_name;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
@@ -131,7 +137,13 @@ const TeacherList = () => {
     }
   };
 
-  //handles sending the message via sockets to all students but not the teacher, then dispatches to adjust DB
+  /**
+   * Takes in the name and id from the current student or students if MULTI is true
+   * @param {String} name holds the students first name
+   * @param {Number} id holds selected students id
+   * Sends message to socket for it to appear on every students screen (excludes the teacher) and refreshes the points
+   * */
+
   const sendPoints = (name, id) => {
     let message = `${name} got 1 point!`;
     socketRef.current.emit('newMessage', { message });
@@ -146,14 +158,20 @@ const TeacherList = () => {
   //needed to delay the send by the time it is set to display on the students page
   const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
-  //using async and await to delay sending points for each student to correspond with the pop up timeout on student page
+  /**
+   * Used to send more than one student a point at time, delays the message to allow each student to see who got one
+   * Will trigger a visual progression bar to appear to info the teacher that it is working
+   * @param {Boolean} setSendMulti enables the progress bar to display
+   * @param {TimerHandler} timer allows enough time for the student message to disappear before sending the next one
+   * Empties the array and turns multi and sendmulti to false to disable selections
+   * */
   const sendMultiPoints = async () => {
     setSendMulti(true);
     //used to remove any possible duplicates in the student array
     let uniqueOnly = [...new Set(studentArray)];
     for (let eachStudent of uniqueOnly) {
       sendPoints(eachStudent.first_name, eachStudent.student_id);
-      await timer(1900);
+      await timer(1700);
     }
     setMulti(false);
     setStudentArray([]);
