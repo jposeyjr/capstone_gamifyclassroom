@@ -1,8 +1,44 @@
 import React from 'react';
 import { Link, Grid, Typography } from '@material-ui/core';
-import useStyles from './styles';
 import RegisterForm from '../../panels/RegisterForm/RegisterForm';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  headerArea: {
+    margin: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: '3em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '3.6em',
+    },
+  },
+  textArea: {
+    margin: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.2em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.8em',
+    },
+  },
+  loginLink: {
+    color: theme.palette.text.primary,
+    fontSize: '1.7em',
+    '&:focus, &:hover, &:visited, &:link, &:active': {
+      color: '#d41ce8',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1em',
+    },
+  },
+}));
 
 const LandingPage = () => {
   const history = useHistory();
