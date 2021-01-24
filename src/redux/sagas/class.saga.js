@@ -1,6 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+/**
+ * Add a new class to the current teacher's home page and DB
+ * @param {Object} action Action payload that holds the class name, start/end date and co-teachers email
+ * */
 function* addClass(action) {
   try {
     yield axios.post('/api/class', action.payload);
@@ -9,6 +13,10 @@ function* addClass(action) {
     console.log('Error with adding classroom data: ', error);
   }
 }
+/**
+ * Edits classes on the current teacher's home page and DB
+ * @param {Object} action Action payload that holds the class name, start/end date and co-teachers email
+ * */
 
 function* editClass(action) {
   try {
@@ -19,6 +27,10 @@ function* editClass(action) {
   }
 }
 
+/**
+ * Gets all classes of the current teacher
+ * @param {Object} action Action payload that holds the class name, start/end date and co-teachers email
+ * */
 function* getClasses() {
   try {
     const results = yield axios.get('/api/class');
@@ -28,6 +40,10 @@ function* getClasses() {
   }
 }
 
+/**
+ * Removes an old class from the current teacher's home page and DB
+ * @param {Object} action Action payload that holds the class name, start/end date and co-teachers email
+ * */
 function* removeClass(action) {
   const id = action.payload;
   try {
