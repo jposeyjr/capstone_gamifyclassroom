@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
-import AvatarSelector from './AvatarSelector';
+import AvatarSelector from '../AvatarSelector/AvatarSelector';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,

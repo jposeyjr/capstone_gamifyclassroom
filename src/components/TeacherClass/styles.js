@@ -78,10 +78,6 @@ export default makeStyles((theme) => ({
     height: '100%',
     objectFit: 'unset',
   },
-  media: {
-    width: '100%',
-    paddingTop: '56.25%',
-  },
   cardActions: {
     display: 'flex',
     margin: '0 10px',

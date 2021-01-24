@@ -7,6 +7,7 @@ import EditStudent from './EditStudent';
 import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
 import useStyles from './styles';
+import Swal from 'sweetalert2';
 import { Grid, Typography, Button } from '@material-ui/core';
 
 const TeacherList = () => {
@@ -59,9 +60,30 @@ const TeacherList = () => {
       handleOpen();
     }
     if (removeStudent && id !== undefined) {
-      console.log(selectedStudent);
-      dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
-      dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this students info!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it',
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Deleted!',
+            'You have removed the student from the class.',
+            'success'
+          );
+          dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
+          dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Your student is still in the class. :)',
+            'error'
+          );
+        }
+      });
     }
     if (edit === false && removeStudent === false && multi === false) {
       sendPoints(firstName, selectedStudent);

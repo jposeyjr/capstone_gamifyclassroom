@@ -5,7 +5,6 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { connect, useDispatch } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -17,9 +16,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import TeacherHome from '../TeachHome/TeacherHome';
-// import TeacherClass from '../TeacherClass/TeacherClass';
 import TeacherList from '../TeacherClass/TeacherList';
-// import TeacherOverview from '../TeacherOverview/TeacherOverview';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';

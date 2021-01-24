@@ -7,16 +7,17 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
   },
   imgHolder: {
-    maxWidth: 250,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '2em',
   },
-  imgWrapper: {
+  buttonWrapper: { 
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  textArea: {
-    display: 'flex',
-    flexDirection: 'column-reverse',
+  imgWrapper: {
+    maxWidth: 250,
   },
   paper: {
     fontSize: '2em',
@@ -28,15 +29,12 @@ export default makeStyles((theme) => ({
     border: '.5px solid #bf463d',
     margin: theme.spacing(1),
   },
-  btnArea: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: theme.spacing(1),
-  },
   button: {
     color: theme.palette.text.primary,
     borderRadius: 40,
     padding: '0 1em',
+    // alignSelf: 'flex-end',
+    minHeight: 33,
     boxShadow: shadows[0],
     '&:hover': {
       boxShadow: shadows[0],

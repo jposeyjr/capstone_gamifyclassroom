@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -9,9 +9,12 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
+//grabs the images from avatars folder stopping at the top folder (false) and looking for the following file extensions
 const avatarImages = importAll(
   require.context('../../Avatars', false, /\.(png|jpe?g|svg)$/)
 );
+
+//used to handle selecting of an avatar image
 const AvatarSelector = (props) => {
   const handleListItemClick = (e) => {
     const avatarImg = e.target.src;

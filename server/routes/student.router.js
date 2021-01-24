@@ -1,6 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
-const sendEmail = require('../strategies/email.strategies');
+const sendEmail = require('../controllers/email.controller');
 const encryptLib = require('../modules/encryption');
 const {
   rejectUnauthenticated,
@@ -74,7 +74,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   const password = encryptLib.encryptPassword(req.body.password);
   const role_id = 3;
   const school = data.school || 1;
-  console.log(data);
   const sqlText = `
   INSERT INTO person (first_name, last_name, email, password, role_id, school, start_date, avatar)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -128,7 +127,7 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
   const data = req.body;
   const id = req.body.id;
   const sqlText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, start_date=$4, avatar=$5
-  WHERE person.id = ${id} `;
+  WHERE person.id = $6 `;
   pool
     .query(sqlText, [
       data.first_name,
@@ -136,6 +135,31 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
       data.email,
       data.start_date,
       data.avatar,
+      id,
+    ])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log('Error on server updating student: ', error);
+      res.sendStatus(500);
+    });
+});
+
+router.put('/avatar', rejectUnauthenticated, (req, res) => {
+  console.log(req.body);
+  const data = req.body.student;
+  const avatarImg = req.body.avatar;
+  const sqlText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, start_date=$4, avatar=$5
+  WHERE person.id = $6 `;
+  pool
+    .query(sqlText, [
+      data.first_name,
+      data.last_name,
+      data.email,
+      data.start_date,
+      avatarImg,
+      data.id,
     ])
     .then((result) => {
       res.send(result.rows);
