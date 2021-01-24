@@ -7,7 +7,40 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
-import useStyles from './styles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  atnArea: {
+    '&:hover $focusHighlight': {
+      opacity: 0.2,
+      color: '#FFF',
+    },
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+  focusHighlight: {},
+  card: {
+    display: 'flex',
+    maxWidth: 245,
+    height: '100%',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    // border: '.3px solid #FFFFFF',
+    boxShadow: 'none',
+    color: theme.palette.text.primary,
+  },
+  avatar: {
+    maxHeight: 200,
+    height: '100%',
+    objectFit: 'unset',
+  },
+  media: {
+    width: '100%',
+    paddingTop: '56.25%',
+  },
+}));
 
 const TeacherClass = (props) => {
   const classes = useStyles();

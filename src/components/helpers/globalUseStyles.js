@@ -16,7 +16,7 @@ const globalUseStyles = makeStyles((theme) => ({
     width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
-    boxShadow: theme.shadows[5],
+    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
     padding: theme.spacing(2, 4, 3),
   },
   contentWrapper: {

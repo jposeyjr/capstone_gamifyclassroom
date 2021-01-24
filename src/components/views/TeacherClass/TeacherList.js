@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import TeacherClass from './TeacherClass';
+import TeacherClass from '../../panels/TeacherClass/TeacherClass';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AddStudent from '../../panels/TeacherModals/AddStudent';
 import EditStudent from '../../panels/TeacherModals/EditStudent';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
-import InviteStudent from './InviteStudent';
+import InviteStudent from '../../panels/InviteStudent/InviteStudent';
 import socketClient from 'socket.io-client';
 import {
   Grid,

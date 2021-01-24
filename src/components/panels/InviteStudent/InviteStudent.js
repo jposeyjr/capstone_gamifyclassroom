@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
-import useStyles from './styles';
-import globalUseStyles from '../../helpers/globalUseStyles';
 import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
+import globalUseStyles from '../../helpers/globalUseStyles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+}));
 //used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -13,7 +20,7 @@ function rand() {
 
 //used to set modal location on page taken from Mat-UI example
 function getModalStyle() {
-  const top = 50 + rand();
+  const top = 30 + rand();
   const left = 50 + rand();
   return {
     top: `${top}%`,
@@ -67,7 +74,7 @@ const AddStudentModal = () => {
         open={isOpen}
         onClose={handleCancel}
       >
-        <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className={globalClass.paper}>
           <h2>Invite Student</h2>
           <form
             className={classes.form}
