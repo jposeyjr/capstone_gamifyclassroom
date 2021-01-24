@@ -8,8 +8,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import useStyles from './styles';
-import globalUseStyles from '../../App/globalUseStyles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 //used to set modal location on page taken from Mat-UI example
 function rand() {
@@ -28,7 +27,6 @@ function getModalStyle() {
 
 export default function SimpleModal() {
   const dispatch = useDispatch();
-  const classes = useStyles();
   const globalClass = globalUseStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
@@ -62,24 +60,14 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <Button
-        variant='contained'
-        className={globalClass.button}
-        color='primary'
-        onClick={handleOpen}
-      >
+      <Button variant='contained' color='primary' onClick={handleOpen}>
         Add Class
       </Button>
 
       <Modal open={open} onClose={handleCancel}>
-        <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className={globalClass.paper}>
           <h2>Add Class</h2>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit}
-            noValidate
-            autoComplete='off'
-          >
+          <form onSubmit={handleSubmit} noValidate autoComplete='off'>
             <TextField
               value={classData.className}
               fullWidth
@@ -125,7 +113,7 @@ export default function SimpleModal() {
             </MuiPickersUtilsProvider>
             <TextField
               fullWidth
-              className={classes.input}
+              className={globalClass.input}
               value={classData.inviteCoteacher}
               onChange={(e) =>
                 setClassData({

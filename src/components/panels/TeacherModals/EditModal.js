@@ -8,7 +8,7 @@ import {
 } from '@material-ui/pickers';
 import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
-import useStyles from './styles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 //used to set modal location on page taken from Mat-UI example
 function rand() {
@@ -27,7 +27,7 @@ function getModalStyle() {
 
 const EditModal = (props) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const globalClass = globalUseStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const course = useSelector((store) => store.course);
@@ -84,10 +84,9 @@ const EditModal = (props) => {
             : null}
         </p>
         <Modal open={props.isOpen} onClose={handleCancel}>
-          <div style={modalStyle} className={classes.paper}>
+          <div style={modalStyle} className={globalClass.paper}>
             <h2>Edit Class</h2>
             <form
-              className={classes.form}
               onSubmit={(e) => handleSubmit(e)}
               noValidate
               autoComplete='off'
@@ -136,7 +135,7 @@ const EditModal = (props) => {
               </MuiPickersUtilsProvider>
               <TextField
                 fullWidth
-                className={classes.input}
+                className={globalClass.input}
                 value={classData.inviteCoteacher}
                 onChange={(e) =>
                   setClassData({
@@ -146,7 +145,7 @@ const EditModal = (props) => {
                 }
                 label='Invite Co-teacher'
               />
-              <Box className={classes.btnArea}>
+              <Box className={globalClass.btnArea}>
                 <SubmitButton />
                 <CancelButton handleCancel={handleCancel} />
               </Box>

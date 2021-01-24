@@ -8,7 +8,7 @@ import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
 import { Grid, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
-import globalUseStyles from '../../App/globalUseStyles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 const TeacherList = () => {
   const [edit, setEdit] = useState(false);

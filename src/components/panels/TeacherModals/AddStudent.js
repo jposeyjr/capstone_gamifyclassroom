@@ -11,7 +11,7 @@ import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
 import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import { makeStyles } from '@material-ui/core/styles';
-import globalUseStyles from '../../App/globalUseStyles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

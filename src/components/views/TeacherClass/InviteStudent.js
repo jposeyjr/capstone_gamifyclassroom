@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import useStyles from './styles';
-import globalUseStyles from '../../App/globalUseStyles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 //used to set modal location on page taken from Mat-UI example

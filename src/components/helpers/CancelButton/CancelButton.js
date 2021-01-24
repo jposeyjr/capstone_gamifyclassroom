@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const CancelButton = (props) => {
   const classes = useStyles();
   return (
-    <Button className={classes.cancel} onClick={() => props.handleCancel}>
+    <Button className={classes.cancel} onClick={props.handleCancel}>
       Cancel
     </Button>
   );

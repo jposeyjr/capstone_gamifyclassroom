@@ -10,10 +10,30 @@ import {
   Button,
   Box,
 } from '@material-ui/core';
-import AddModal from './AddModal';
-import EditModal from './EditModal';
-import globalUseStyles from '../../App/globalUseStyles';
-import useStyles from './styles';
+import AddModal from '../../panels/TeacherModals/AddModal';
+import EditModal from '../../panels/TeacherModals/EditModal';
+import { makeStyles } from '@material-ui/core/styles';
+import globalUseStyles from '../../helpers/globalUseStyles';
+
+const useStyles = makeStyles((theme) => ({
+  contentWrapper: {
+    maxWidth: 1280,
+    width: '100%',
+    background: theme.palette.background.default,
+    margin: theme.spacing(1),
+  },
+  headerArea: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  card: {
+    display: 'flex',
+    maxWidth: 450,
+    background: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    margin: theme.spacing(1),
+  },
+}));
 
 const TeacherHome = () => {
   const [edit, setEdit] = useState(false);
