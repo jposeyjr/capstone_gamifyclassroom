@@ -7,19 +7,51 @@ import EditStudent from '../../panels/TeacherModals/EditStudent';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
-import { Grid, Typography, Button } from '@material-ui/core';
-import useStyles from './styles';
+import {
+  Grid,
+  Typography,
+  Button,
+  LinearProgress,
+  Box,
+} from '@material-ui/core';
 import globalUseStyles from '../../helpers/globalUseStyles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  submit: {
+    backgroundColor: theme.status.submit,
+    color: theme.palette.text.primary,
+    borderRadius: 40,
+    minHeight: 15,
+    maxHeight: 30,
+    padding: '0 1em',
+    '&:hover': {
+      backgroundColor: theme.status.back,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
+    '&:focus': {
+      backgroundColor: theme.status.back,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
+    '&:active': {
+      backgroundColor: theme.status.nack,
+      borderColor: theme.palette.text.primary,
+      boxShadow: 'none',
+    },
+  },
+}));
 
 const TeacherList = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [removeStudent, setRemoveStudent] = useState(false);
   const [multi, setMulti] = useState(false);
+  const [sendMulti, setSendMulti] = useState(false);
   const [className, setName] = useState('');
   const [courseID, setCourse] = useState('');
   const [studentArray, setStudentArray] = useState([]);
-
   const classes = useStyles();
   const globalClass = globalUseStyles();
   const dispatch = useDispatch();
@@ -93,6 +125,7 @@ const TeacherList = () => {
 
   //using async and await to delay sending points for each student to correspond with the pop up timeout on student page
   const sendMultiPoints = async () => {
+    setSendMulti(true);
     //used to remove any possible duplicates in the student array
     let uniqueOnly = [...new Set(studentArray)];
     for (let eachStudent of uniqueOnly) {
@@ -101,6 +134,7 @@ const TeacherList = () => {
     }
     setMulti(false);
     setStudentArray([]);
+    setSendMulti(false);
   };
 
   const handleCancel = () => {
@@ -114,11 +148,23 @@ const TeacherList = () => {
         <Typography variant='h3' component='h1'>
           {removeStudent
             ? 'Select a student to remove'
-            : !edit
-            ? className
-            : 'Select a student to edit'}
+            : edit
+            ? 'Select a student to edit'
+            : sendMulti
+            ? 'Sending points please wait....'
+            : multi
+            ? 'Select multiple students'
+            : className}
         </Typography>
       </div>
+      {sendMulti ? (
+        <Box width='100%'>
+          <LinearProgress
+            variant='indeterminate'
+            style={{ borderRadius: 10, backgroundColor: '#FFF' }}
+          />
+        </Box>
+      ) : null}
       <div className={globalClass.btnArea}>
         {multi ? (
           <>
@@ -141,15 +187,15 @@ const TeacherList = () => {
           </Button>
         )}
         <AddStudent />
-        <Button variant='contained' onClick={handleDelete} color='primary'>
-          Remove Student
-        </Button>
         <Button
           variant='contained'
           color='primary'
           onClick={() => setEdit(!edit)}
         >
           Edit Student
+        </Button>
+        <Button variant='contained' onClick={handleDelete} color='primary'>
+          Remove Student
         </Button>
         <InviteStudent
           isOpen={isOpen}
