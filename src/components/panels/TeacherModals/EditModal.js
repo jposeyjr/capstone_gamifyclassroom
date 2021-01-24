@@ -50,6 +50,10 @@ const EditModal = (props) => {
     handleCancel();
   };
 
+  /**
+   * @todo Try to see if a way to make this DRY
+   * */
+
   useEffect(() => {
     //if the modal is open we will set the state to the course that was clicked to enable pre-filled form data
     if (props.isOpen) {

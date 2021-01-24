@@ -1,5 +1,3 @@
-// No changes should be required in this file
-
 const cookieSession = require('cookie-session');
 const warnings = require('../constants/warnings');
 
@@ -31,6 +29,6 @@ module.exports = cookieSession({
   key: 'user', // this is the name of the req.variable. 'user' is convention, but not required
   resave: 'false',
   saveUninitialized: false,
-  maxAge: 500 * 60 * 1000, // Set to 1 hour - 60 min/hour * 60 s/min * 1000 ms/s
+  maxAge: 500 * 60 * 1000, // Set to 500 hours - 60 min/hour * 60 s/min * 1000 ms/s
   secure: false,
 });

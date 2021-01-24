@@ -73,8 +73,10 @@ const EditStudent = (props) => {
   };
   const [studentData, setStudentData] = useState(initState);
 
-  //will set the state to the currently selected student when we have that info
-  //TODO make a point reducer to hold that info and try to make this DRY
+  /**
+   * @todo Try to see if a way to make this DRY
+   * */
+
   useEffect(() => {
     if (props.isOpen) {
       setStudentData((studentData) => ({

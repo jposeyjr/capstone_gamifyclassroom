@@ -20,6 +20,11 @@ const LoginPage = () => {
   const errors = useSelector((redux) => redux.errors);
   const [user, setUser] = useState({ email: '', password: '' });
   const [showPass, setPass] = useState(false);
+
+  /** Logins in the user if the info matches in the DB
+   * @param {Object} event email and password from the login form fields to be sent to the server for validation
+   * */
+
   const login = (event) => {
     event.preventDefault();
     const { email, password } = user;
@@ -35,7 +40,7 @@ const LoginPage = () => {
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-  }; // end login
+  };
 
   const handleInputChangeFor = (propertyName) => (event) => {
     setUser({

@@ -39,6 +39,10 @@ const RegisterForm = (props) => {
     role: 2,
   });
 
+  /**
+   * @var {String} emailID used to inform the server if it is a teacher or student registering
+   * */
+
   useEffect(() => {
     if (emailID) {
       setNewUser({ email: emailID });

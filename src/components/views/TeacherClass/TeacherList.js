@@ -99,10 +99,13 @@ const TeacherList = () => {
     const selectedStudent = id.student_id;
     const firstName = id.first_name;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
-    if (edit) {
+    if (edit && !removeStudent) {
       handleOpen();
     }
-    if (removeStudent && id !== undefined) {
+    if (edit && removeStudent) {
+      Swal.fire('Please turn off other edit or remove mode!');
+    }
+    if (removeStudent && id !== undefined && !edit) {
       Swal.fire({
         title: 'Are you sure?',
         text: 'You will not be able to recover this students info!',

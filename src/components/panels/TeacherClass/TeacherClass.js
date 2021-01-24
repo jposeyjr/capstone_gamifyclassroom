@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     justifyContent: 'center',
     flexDirection: 'column',
-    // border: '.3px solid #FFFFFF',
     boxShadow: 'none',
     color: theme.palette.text.primary,
   },
@@ -50,7 +49,9 @@ const TeacherClass = (props) => {
     if (props.multi === false) setColorChange(false);
   }, [props.multi]);
 
-  //changes date to a readable format
+  /** Used to re-format date given to use from the DB
+   * @param {String} date takes in the date and returns it in a easily readable format i.e Sun Dec 02 2018
+   * */
   const handleDate = (date) => {
     return (date = new Date(date).toDateString());
   };
@@ -79,8 +80,6 @@ const TeacherClass = (props) => {
           focusHighlight: classes.focusHighlight,
         }}
       >
-        {/* for now this will render an avatar if they have it if not a blank image,
-        TODO better placeholder image */}
         {props.student.avatar ? (
           <CardMedia
             component='img'

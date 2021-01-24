@@ -99,7 +99,6 @@ const AddStudentModal = () => {
     setStudentData({ ...studentData, avatar: img });
   };
 
-  //TODO will be used to select pre-chosen avatars
   const handleAvatar = () => {
     setAvatarOpen(true);
   };

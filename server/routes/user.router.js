@@ -5,18 +5,23 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
-
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
+/**
+ * GET ROUTE
+ * Handles Ajax request for user information if user is authenticated
+ * Sends back user object from the session
+ * */
 router.get('/', rejectUnauthenticated, (req, res) => {
-  // Send back user object from the session (previously queried from the database)
   res.send(req.user);
 });
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
+/**
+ * POST ROUTE
+ * Handles a request for new user data and encrypts the password before sending it to the DB
+ * Sends back new users ID
+ * */
+
 router.post('/register', (req, res, next) => {
   const email = req.body.newUser.email;
   const password = encryptLib.encryptPassword(req.body.newUser.password);
@@ -34,10 +39,11 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-// Handles login form authenticate/login POST
-// userStrategy.authenticate('local') is middleware that we run on this route
-// this middleware will run our POST if successful
-// this middleware will send a 404 if not successful
+/**
+ * POST ROUTE
+ * Handles login form authenticate/login POST
+ * uses userStrategy.local as middleware that we will our POST if successful or 404 if not
+ * */
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });

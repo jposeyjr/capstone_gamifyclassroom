@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
+
 // Route includes
 const userRouter = require('./routes/user.router');
 const classRouter = require('./routes/class.router');
@@ -13,7 +14,7 @@ const studentRouter = require('./routes/student.router');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Passport Session Configuration //
+// Passport Session Configuration
 app.use(sessionMiddleware);
 
 // start up passport sessions
@@ -31,7 +32,7 @@ app.use(express.static('build'));
 // App Set //
 const PORT = process.env.PORT || 5000;
 
-//setting up WS and allow traffic to come through
+//setting up Web sockets and allow traffic to come through
 const http = require('http').createServer(app);
 //allow us to send data without cors issue
 const io = require('socket.io')(http, {
@@ -56,7 +57,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-/** Listen * */
+/** Listen **/
 http.listen(PORT, () => {
   console.log('Websocket listing on port: ' + PORT);
 });

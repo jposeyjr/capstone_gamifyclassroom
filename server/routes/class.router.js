@@ -4,9 +4,11 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
+
 /**
- * GET route template
+ * GET ROUTE for all classes the current logged in teacher has and students in them.
  */
+
 router.get('/', rejectUnauthenticated, (req, res) => {
   let sqlText = `SELECT 
 	          (SELECT COUNT(*) FROM courses sub_c
@@ -28,15 +30,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * POST route template
+ * POST ROUTE to add a new course to the current teachers DB
  */
+
 router.post('/', rejectUnauthenticated, (req, res) => {
   let data = req.body;
   const sqlText = `
   INSERT INTO courses (start_date, end_date, course_name, teacher_id,  coteacher_id)
 VALUES ($1, $2, $3, $4, $5)
 RETURNING id;`;
-
   pool
     .query(sqlText, [
       data.start_date,
@@ -54,6 +56,10 @@ RETURNING id;`;
     });
 });
 
+/**
+ * PUT ROUTE
+ * Handles the route to update the class with the sent ID
+ * */
 router.put('/id', rejectUnauthenticated, (req, res) => {
   const data = req.body;
   const id = req.body.id;
@@ -75,6 +81,11 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+/**
+ * DELETE ROUTE
+ * Handles Ajax request to delete the class with the matching ID from the DB
+ * */
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;

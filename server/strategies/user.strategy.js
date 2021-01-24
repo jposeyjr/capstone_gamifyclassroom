@@ -7,6 +7,12 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+/** Does the work to see if user can login or not
+ * @param {String} id email from the login field
+ * @param {Function} done checks to see if username matches or not
+ * @event delete makes sure we remove the password so we don't send it for others to capture
+ * @event done (null, user) user found , (null, null) no user found, (error, null) error happened
+ * */
 passport.deserializeUser((id, done) => {
   pool
     .query(
@@ -14,29 +20,27 @@ passport.deserializeUser((id, done) => {
       [id]
     )
     .then((result) => {
-      // Handle Errors
       const user = result && result.rows && result.rows[0];
       if (user) {
-        // user found
-        delete user.password; // remove password so it doesn't get sent
-        // done takes an error (null in this case) and a user
+        delete user.password;
         done(null, user);
       } else {
-        // user not found
-        // done takes an error (null in this case) and a user (also null in this case)
-        // this will result in the server returning a 401 status code
         done(null, null);
       }
     })
     .catch((error) => {
       console.log('Error with query during deserializing user ', error);
-      // done takes an error (we have one) and a user (null in this case)
-      // this will result in the server returning a 500 status code
       done(error, null);
     });
 });
 
-// Does actual work of logging in
+/** Does the work to see if user can login or not
+ * @param {String} username username from the login field
+ * @param {String} password password from the login field
+ * @param {Function} done checks to see if password and username matches or not
+ * @event done (null, user) all good passwords match , (null, null) not good they don't match, (error, null) error happened
+ * */
+
 passport.use(
   new LocalStrategy(
     {
@@ -50,20 +54,13 @@ passport.use(
         .then((result) => {
           const user = result && result.rows && result.rows[0];
           if (user && encryptLib.comparePassword(password, user.password)) {
-            // All good! Passwords match!
-            // done takes an error (null in this case) and a user
             done(null, user);
           } else {
-            // Not good! Username and password do not match.
-            // done takes an error (null in this case) and a user (also null in this case)
-            // this will result in the server returning a 401 status code
             done(null, null);
           }
         })
         .catch((error) => {
           console.log('Error with query for user ', error);
-          // done takes an error (we have one) and a user (null in this case)
-          // this will result in the server returning a 500 status code
           done(error, null);
         });
     }

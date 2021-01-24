@@ -47,7 +47,7 @@ export default function SimpleModal() {
     setOpen(false);
   };
 
-  //changes the state to open so they modal pops up
+  //changes the state to open so modal pops up
   const handleOpen = () => {
     setOpen(true);
   };
