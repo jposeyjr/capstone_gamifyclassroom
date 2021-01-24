@@ -1,10 +1,3 @@
---used to verify after inserting fake data
-SELECT * FROM person 
-SELECT * FROM roles
-SELECT * FROM courses
-SELECT * FROM school 
-SELECT * FROM student_courses 
-
 --Adds users 
 INSERT INTO person(
 	first_name, last_name, email, password, role_id, school)

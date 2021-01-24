@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const serviceEmail = process.env.GMAIL_USER_NAME;
 const servicePassword = process.env.GMAIL_USER_PASSWORD;
-const url = 'http://localhost:3000/#/studentregister';
+const url = process.env.NODEMAILER_URL + '/#/studentregister';
 
 //connects us to gmail's smtp server
 const smtpTransport = nodemailer.createTransport({
