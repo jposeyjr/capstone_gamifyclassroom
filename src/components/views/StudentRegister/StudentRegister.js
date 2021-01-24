@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StudentRegister = () => {
   const history = useHistory();
+  //used to re-use register form component they should only get to this page from an email invite
   const studentReg = true;
   const classes = useStyles();
   return (

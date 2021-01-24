@@ -1,8 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, Button, Box, Slide, Paper } from '@material-ui/core';
-import useStyles from './styles';
 import socketClient from 'socket.io-client';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  headerArea: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  imgHolder: {
+    maxWidth: 250,
+  },
+  imgWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  textArea: {
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  },
+  paper: {
+    fontSize: '2em',
+    boxShadow: 'none',
+    backgroundColor: theme.palette.background.primary,
+    color: theme.palette.text.primary,
+    width: 550,
+    padding: 30,
+    border: '.5px solid #bf463d',
+    margin: theme.spacing(1),
+  },
+  btnArea: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: theme.spacing(1),
+  },
+}));
 
 const StudentPage = () => {
   const student = useSelector((store) => store.user.id);
