@@ -1,6 +1,11 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+/**
+ * Fetches student data from the DB so we can add points and send a message with their name
+ * @param {Number} action Action payload that holds the students id
+ * Server will send back corresponding info to be stored in redux state
+ * */
 function* getSocketStudent(action) {
   const id = action.payload;
   try {
