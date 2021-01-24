@@ -8,6 +8,7 @@ import selectStudentSaga from './selectStudent.saga';
 import socketSaga from './socket.saga';
 import pointSaga from './point.saga';
 import emailSaga from './email.saga';
+import updateSaga from './updateStudent.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -26,5 +27,6 @@ export default function* rootSaga() {
     socketSaga(),
     pointSaga(),
     emailSaga(),
+    updateSaga(),
   ]);
 }

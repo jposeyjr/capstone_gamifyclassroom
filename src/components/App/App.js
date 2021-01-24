@@ -5,7 +5,6 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { connect, useDispatch } from 'react-redux';
 import Nav from '../panels/Nav/Nav';
 import Footer from '../panels/Footer/Footer';

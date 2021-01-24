@@ -38,7 +38,6 @@ const LoginPage = () => {
   }; // end login
 
   const handleInputChangeFor = (propertyName) => (event) => {
-    console.log(propertyName);
     setUser({
       ...user,
       [propertyName]: event.target.value,
