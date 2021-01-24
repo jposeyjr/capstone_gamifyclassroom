@@ -47,13 +47,7 @@ const StudentPage = () => {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  //will set the state to the currently selected student when we have that info
-  //TODO make a point reducer to hold that info and try to make this DRY
-
-  //used to set the end point to get messages from the teacher
   const endpoint = 'http://localhost:5000';
-  //assigned it to a socket so we can get the messages.
   const socket = socketClient(endpoint);
 
   useEffect(() => {
@@ -76,9 +70,13 @@ const StudentPage = () => {
     setAvatarOpen(true);
   };
 
+  /**
+   * Handles avatar dialog box
+   * @param {String} img holds selected img base64 string if chosen
+   * If not do not select an image it will be an object not a string and will not cause their current avatar to change
+   * */
   const handleAvatarClose = (img) => {
     setAvatarOpen(false);
-    //makes sure the student truly did pick an image
     if (typeof img === 'string') {
       dispatch({
         type: 'UPDATE_AVATAR',
