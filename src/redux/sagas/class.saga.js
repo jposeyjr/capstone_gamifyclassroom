@@ -28,10 +28,20 @@ function* getClasses() {
   }
 }
 
+function* removeClass(action) {
+  try {
+    yield axios.put('/api/class/remove', action.payload);
+    yield getClasses();
+  } catch (error) {
+    console.log('Error updating class with new info: ', error);
+  }
+}
+
 function* classSaga() {
   yield takeLatest('GET_CLASSES', getClasses);
   yield takeLatest('ADD_CLASS', addClass);
   yield takeLatest('EDIT_CLASS', editClass);
+  yield takeLatest('REMOVE_CLASS', removeClass);
 }
 
 export default classSaga;

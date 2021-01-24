@@ -43,7 +43,7 @@ RETURNING id;`;
       data.end_date,
       data.className,
       Number(req.user.id),
-      data.inviteCoteacher || '',
+      data.inviteCoteacher || null,
     ])
     .then((result) => {
       res.sendStatus(201);

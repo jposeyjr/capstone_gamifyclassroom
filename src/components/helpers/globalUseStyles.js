@@ -19,6 +19,16 @@ const globalUseStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  contentWrapper: {
+    maxWidth: 1280,
+    width: '100%',
+    background: theme.palette.background.default,
+    margin: theme.spacing(1),
+  },
+  headerArea: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 export default globalUseStyles;

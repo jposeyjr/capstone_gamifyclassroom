@@ -16,16 +16,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import globalUseStyles from '../../helpers/globalUseStyles';
 
 const useStyles = makeStyles((theme) => ({
-  contentWrapper: {
-    maxWidth: 1280,
-    width: '100%',
-    background: theme.palette.background.default,
-    margin: theme.spacing(1),
-  },
-  headerArea: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
   card: {
     display: 'flex',
     maxWidth: 450,
@@ -38,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const TeacherHome = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
+  const [remove, setRemove] = useState(false);
   const classroom = useSelector((store) => store.classroom);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -63,6 +54,9 @@ const TeacherHome = () => {
         search: `?classid=${course.id}&course=${course.course_name}`,
       });
     }
+    if (!edit && remove) {
+      dispatch({ type: 'REMOVE_CLASS', payload: course });
+    }
   };
 
   //handling closing of the modal
@@ -81,8 +75,8 @@ const TeacherHome = () => {
   };
 
   return (
-    <div className={classes.contentWrapper}>
-      <div className={classes.headerArea}>
+    <div className={globalClass.contentWrapper}>
+      <div className={globalClass.headerArea}>
         <Typography variant='h3' component='h1'>
           {/* if they are in edit mode display correct text */}
           {edit ? 'Edit Classes' : 'My Classes'}
@@ -102,6 +96,13 @@ const TeacherHome = () => {
           onClick={() => setEdit(!edit)}
         >
           Edit Class
+        </Button>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => setRemove(!remove)}
+        >
+          Remove Class
         </Button>
       </div>
       <Grid justify='center' container spacing={3}>

@@ -31,13 +31,13 @@ export default function SimpleModal() {
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const [open, setOpen] = useState(false);
-
+  const currentDate = Date.now();
   const [classData, setClassData] = useState({
     className: '',
     inviteCoteacher: '',
     teacher_id: teacher,
-    start_date: Date.now(),
-    end_date: Date.now(),
+    start_date: new Date(currentDate),
+    end_date: new Date(currentDate),
   });
 
   //when they click the submit button it will send the state info to ADD_CLASS saga to post it to the DB
@@ -67,7 +67,7 @@ export default function SimpleModal() {
       <Modal open={open} onClose={handleCancel}>
         <div style={modalStyle} className={globalClass.paper}>
           <h2>Add Class</h2>
-          <form onSubmit={handleSubmit} noValidate autoComplete='off'>
+          <form onSubmit={(e) => handleSubmit(e)} noValidate autoComplete='off'>
             <TextField
               value={classData.className}
               fullWidth

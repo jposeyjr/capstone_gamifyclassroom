@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AddStudent from '../../panels/TeacherModals/AddStudent';
 import EditStudent from '../../panels/TeacherModals/EditStudent';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
 import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
 import { Grid, Typography, Button } from '@material-ui/core';
@@ -15,25 +17,26 @@ const TeacherList = () => {
   const [isOpen, setOpen] = useState(false);
   const [removeStudent, setRemoveStudent] = useState(false);
   const [multi, setMulti] = useState(false);
+  const [className, setName] = useState('');
+  const [courseID, setCourse] = useState('');
+  const [studentArray, setStudentArray] = useState([]);
+
   const classes = useStyles();
   const globalClass = globalUseStyles();
   const dispatch = useDispatch();
   const location = useLocation();
-  const students = useSelector((store) => store.student);
-  const [className, setName] = useState('');
-  const [courseID, setCourse] = useState('');
-  const [studentArray, setStudentArray] = useState([]);
-  const endpoint = 'http://localhost:5000';
   const socketRef = useRef();
+  const endpoint = 'http://localhost:5000';
+  const students = useSelector((store) => store.student);
 
-  //when the component 'mounts' it will get the ID and name of course from the URL to persist after reloads
   useEffect(() => {
+    //turns on sockets when they get to the class page and attaches it to the endpoint
     socketRef.current = socketClient(endpoint);
+    //grabs info from url to keep page on refresh
     const urlID = new URLSearchParams(location.search).get('classid');
     setCourse(urlID);
     const courseName = new URLSearchParams(location.search).get('course');
     setName(courseName);
-    //with that information it will set the name and get students for the current course this allows teachers to bookmark classes
     dispatch({ type: 'GET_STUDENTS', payload: Number(urlID) });
     return () => {
       socketRef.current.disconnect();
@@ -53,7 +56,8 @@ const TeacherList = () => {
 
   //this will be used to get the current student than it will call the point reducer to get current selected students info and points
   const handleClick = (e, id) => {
-    //checking if it is edit mode if so change open to true so the pop up opens when clicked, if not it will send points, or remove student
+    //checking if it is edit mode if so change open to true so the pop up opens when clicked,
+    //if not it will send points, or remove student
     const selectedStudent = id.student_id;
     const firstName = id.first_name;
     dispatch({ type: 'GET_SELECT_STUDENT', payload: selectedStudent });
@@ -61,7 +65,6 @@ const TeacherList = () => {
       handleOpen();
     }
     if (removeStudent && id !== undefined) {
-      console.log(selectedStudent);
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
       dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
@@ -75,7 +78,6 @@ const TeacherList = () => {
   };
 
   //handles sending the message via sockets to all students but not the teacher, then dispatches to adjust DB
-  //TODO look into emitting to just that student maybe? clarify with client on preference
   const sendPoints = (name, id) => {
     let message = `${name} got 1 point!`;
     socketRef.current.emit('newMessage', { message });
@@ -83,13 +85,11 @@ const TeacherList = () => {
     dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
   };
 
-  //adds the option to remove students from DB with a dispatch based on student that is clicked.
   const handleDelete = () => {
     setRemoveStudent(!removeStudent);
   };
 
-  //used to allow us to send multiple points but each student gets the ability to see the points got given
-  //need to delay the send by the time it is set to display on the students page
+  //needed to delay the send by the time it is set to display on the students page
   const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
   //using async and await to delay sending points for each student to correspond with the pop up timeout on student page
@@ -110,8 +110,8 @@ const TeacherList = () => {
   };
 
   return (
-    <div className={classes.contentWrapper}>
-      <div className={classes.headerArea}>
+    <div className={globalClass.contentWrapper}>
+      <div className={globalClass.headerArea}>
         <Typography variant='h3' component='h1'>
           {removeStudent
             ? 'Select a student to remove'
@@ -130,14 +130,11 @@ const TeacherList = () => {
             >
               Submit
             </Button>
-            <Button className={classes.cancel} onClick={() => handleCancel()}>
-              Cancel
-            </Button>
+            <CancelButton handleCancel={handleCancel} />
           </>
         ) : (
           <Button
             variant='contained'
-            className={globalClass.button}
             color='primary'
             onClick={() => setMulti(!multi)}
           >
@@ -145,17 +142,11 @@ const TeacherList = () => {
           </Button>
         )}
         <AddStudent />
-        <Button
-          variant='contained'
-          className={globalClass.button}
-          onClick={handleDelete}
-          color='primary'
-        >
+        <Button variant='contained' onClick={handleDelete} color='primary'>
           Remove Student
         </Button>
         <Button
           variant='contained'
-          // className={globalClass.button}
           color='primary'
           onClick={() => setEdit(!edit)}
         >
