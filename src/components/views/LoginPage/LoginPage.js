@@ -1,23 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
 import LoginForm from '../../panels/LoginForm/LoginForm';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import useStyles from './styles';
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 const LoginPage = () => {
   const history = useHistory();
-  const classes = useStyles();
+  const globalClass = globalUseStyles();
   return (
-    <Grid container justify='center' className={classes.root}>
-      <Grid item xs={12} sm={4} className={classes.wrapper}>
+    <Grid container justify='center' className={globalClass.groot}>
+      <Grid item xs={12} sm={4} className={globalClass.wrapper}>
         <LoginForm />
-        <div className={classes.linkArea}>
+        <div className={globalClass.linkArea}>
           <Link
             role='link'
             underline='always'
-            className={classes.loginLink}
+            className={globalClass.loginLink}
             component='button'
             onClick={() => {
               history.push('/registration');
