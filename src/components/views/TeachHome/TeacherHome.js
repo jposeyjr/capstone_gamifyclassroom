@@ -14,6 +14,7 @@ import AddModal from '../../panels/TeacherModals/AddModal';
 import EditModal from '../../panels/TeacherModals/EditModal';
 import { makeStyles } from '@material-ui/core/styles';
 import globalUseStyles from '../../helpers/globalUseStyles';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,12 +44,16 @@ const TeacherHome = () => {
     dispatch({ type: 'GET_CLASSES' });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  /**
+   * Takes in the course that was clicked on and will alter what it does based on other booleans
+   * @param {Object} course holds course id, name, start/end date and any co-teachers info
+   * @param {Boolean} edit signifies if they have chosen to edit the class, if so it opens a modal
+   * @param {Boolean} remove signifies if they have chosen to remove a class, if so it confirm they want to delete it
+   * If not they get passed onto the teacher class page to view current students of that course
+   * */
   const sendCourse = (course) => {
-    //set the current course that is selected by the teacher on click
     dispatch({ type: 'SET_COURSE', payload: course });
-    //sends the course id to get only the students that belong to it
     dispatch({ type: 'GET_STUDENTS', payload: course.id });
-    //if they are not in edit mode it will send them to the course page
     if (!edit && !remove) {
       history.push({
         pathname: '/teacherclass',
@@ -56,7 +61,23 @@ const TeacherHome = () => {
       });
     }
     if (remove && !edit) {
-      dispatch({ type: 'REMOVE_CLASS', payload: course.id });
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this class info!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it',
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Deleted!',
+            'You have removed the class from your list.',
+            'success'
+          );
+          dispatch({ type: 'REMOVE_CLASS', payload: course.id });
+        }
+      });
     }
     if (edit && !remove) {
       //open the modal
