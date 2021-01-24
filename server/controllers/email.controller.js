@@ -18,7 +18,6 @@ const smtpTransport = nodemailer.createTransport({
 
 smtpTransport.verify((error, success) => {
   if (error) console.log(error, 'email');
-  console.log('Working!');
 });
 
 //used to make sure the first char in the name is capitalize encase they didn't do it in registration.

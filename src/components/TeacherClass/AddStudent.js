@@ -8,7 +8,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
-import AvatarSelector from './AvatarSelector';
+import AvatarSelector from '../AvatarSelector/AvatarSelector';
 //used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;

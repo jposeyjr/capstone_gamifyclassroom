@@ -59,7 +59,6 @@ const TeacherList = () => {
       handleOpen();
     }
     if (removeStudent && id !== undefined) {
-      console.log(selectedStudent);
       dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
       dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
     }
