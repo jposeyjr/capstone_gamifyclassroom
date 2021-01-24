@@ -1,6 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+/**
+ * Gets the current selected student's id
+ * @param {Number} action Action payload that holds the id
+ * */
 function* getPointStudent(action) {
   const id = action.payload;
   try {

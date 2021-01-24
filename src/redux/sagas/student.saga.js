@@ -1,6 +1,11 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+/**
+ * Adds a student to the DB by receiving a payload object to send to the server
+ * @param {Object} action Action payload that holds the students name, email, password, start_date, avatar, course and teacher id
+ * */
+
 function* addStudent(action) {
   try {
     yield axios.post('/api/student', action.payload);
@@ -9,6 +14,10 @@ function* addStudent(action) {
     console.log('Error with adding Student data: ', error);
   }
 }
+/**
+ * Edits a student info in the DB by receiving a payload object to send to the server
+ * @param {Object} action Action payload that holds the students name, email, password, start_date, avatar, course and teacher id
+ * */
 
 function* editStudent(action) {
   try {
@@ -17,6 +26,11 @@ function* editStudent(action) {
     console.log('Error updating Student with new info: ', error);
   }
 }
+
+/**
+ * Gets all student belonging to the id in the DB
+ * @param {Number} action Action payload that holds the course.id
+ * */
 
 function* getStudents(action) {
   try {
@@ -27,6 +41,11 @@ function* getStudents(action) {
     console.log('Error with getting Student data:', error);
   }
 }
+
+/**
+ * Removes a student from the DB by receiving a payload id to send to the server
+ * @param {Number} action Action payload that holds the students id number
+ * */
 
 function* removeStudent(action) {
   try {
