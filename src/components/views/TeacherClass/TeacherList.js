@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AddStudent from '../../panels/TeacherModals/AddStudent';
 import EditStudent from '../../panels/TeacherModals/EditStudent';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';

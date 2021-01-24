@@ -29,8 +29,9 @@ function* getClasses() {
 }
 
 function* removeClass(action) {
+  const id = action.payload;
   try {
-    yield axios.put('/api/class/remove', action.payload);
+    yield axios.delete(`/api/class/${id}`);
     yield getClasses();
   } catch (error) {
     console.log('Error updating class with new info: ', error);

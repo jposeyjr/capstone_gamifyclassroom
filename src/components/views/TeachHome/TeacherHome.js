@@ -29,7 +29,10 @@ const TeacherHome = () => {
   const [edit, setEdit] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [remove, setRemove] = useState(false);
+
+  const teacher = useSelector((store) => store.user.first_name);
   const classroom = useSelector((store) => store.classroom);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -43,19 +46,21 @@ const TeacherHome = () => {
   const sendCourse = (course) => {
     //set the current course that is selected by the teacher on click
     dispatch({ type: 'SET_COURSE', payload: course });
-    //open the modal
-    setOpen(true);
     //sends the course id to get only the students that belong to it
     dispatch({ type: 'GET_STUDENTS', payload: course.id });
     //if they are not in edit mode it will send them to the course page
-    if (!edit) {
+    if (!edit && !remove) {
       history.push({
         pathname: '/teacherclass',
         search: `?classid=${course.id}&course=${course.course_name}`,
       });
     }
-    if (!edit && remove) {
-      dispatch({ type: 'REMOVE_CLASS', payload: course });
+    if (remove && !edit) {
+      dispatch({ type: 'REMOVE_CLASS', payload: course.id });
+    }
+    if (edit && !remove) {
+      //open the modal
+      setOpen(true);
     }
   };
 
@@ -78,8 +83,11 @@ const TeacherHome = () => {
     <div className={globalClass.contentWrapper}>
       <div className={globalClass.headerArea}>
         <Typography variant='h3' component='h1'>
-          {/* if they are in edit mode display correct text */}
-          {edit ? 'Edit Classes' : 'My Classes'}
+          {remove
+            ? 'Select a class to remove'
+            : !edit
+            ? teacher + "'s Overview"
+            : 'Select a class to edit'}
         </Typography>
       </div>
       <div className={globalClass.btnArea}>

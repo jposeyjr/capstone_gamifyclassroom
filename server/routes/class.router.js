@@ -17,7 +17,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
               FROM courses
             --JOIN student_courses on student_courses.id = courses.id
               JOIN person on courses.teacher_id = person.id
-              WHERE courses.teacher_id = $1;`;
+              WHERE courses.teacher_id = $1 ORDER BY start_date;`;
   pool
     .query(sqlText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -72,6 +72,18 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log('Error on server updating course: ', error);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  let sqlText = `DELETE FROM courses WHERE id=$1`;
+  pool
+    .query(sqlText, [id])
+    .then((result) => res.sendStatus(204))
+    .catch((error) => {
+      console.log('Error on server deleting student: ', error);
       res.sendStatus(500);
     });
 });
