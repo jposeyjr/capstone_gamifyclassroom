@@ -2,54 +2,24 @@ import React from 'react';
 import RegisterForm from '../../panels/RegisterForm/RegisterForm';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    margin: theme.spacing(1),
-    overflow: 'hidden',
-    padding: 10,
-  },
-  wrapper: {
-    backgroundColor: theme.palette.background.paper,
-    width: 450,
-    borderRadius: 15,
-    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
-  },
-  linkArea: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: theme.spacing(2),
-  },
-  loginLink: {
-    color: theme.palette.text.primary,
-    fontSize: '1.7em',
-    '&:focus, &:hover, &:visited, &:link, &:active': {
-      color: '#d41ce8',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '1em',
-    },
-  },
-}));
+import globalUseStyles from '../../helpers/globalUseStyles';
 
 const StudentRegister = () => {
   const history = useHistory();
   //used to re-use register form component they should only get to this page from an email invite
   const studentReg = true;
-  const classes = useStyles();
+  const globalClass = globalUseStyles();
   return (
-    <Grid container justify='center' className={classes.root}>
-      <Grid item xs={12} sm={4} className={classes.wrapper}>
+    <Grid container justify='center' className={globalClass.groot}>
+      <Grid item xs={12} sm={4} className={globalClass.wrapper}>
         <RegisterForm studentReg={studentReg} />
-        <div className={classes.linkArea}>
+        <div className={globalClass.linkArea}>
           <Link
             color='inherit'
             component='button'
             role='link'
             underline='always'
-            className={classes.loginLink}
+            className={globalClass.loginLink}
             onClick={() => {
               history.push('/login');
             }}

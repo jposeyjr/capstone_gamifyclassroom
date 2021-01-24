@@ -29,6 +29,33 @@ const globalUseStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  wrapper: {
+    backgroundColor: theme.palette.background.paper,
+    width: 450,
+    borderRadius: 15,
+    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
+  },
+  linkArea: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  loginLink: {
+    color: theme.palette.text.primary,
+    fontSize: '1.7em',
+    '&:focus, &:hover, &:visited, &:link, &:active': {
+      color: '#d41ce8',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1em',
+    },
+  },
+  groot: {
+    width: '100%',
+    margin: theme.spacing(1),
+    overflow: 'hidden',
+    padding: 10,
+  },
 }));
 
 export default globalUseStyles;
