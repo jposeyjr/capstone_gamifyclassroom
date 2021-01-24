@@ -14,6 +14,7 @@ import {
   LinearProgress,
   Box,
 } from '@material-ui/core';
+import Swal from 'sweetalert2';
 import globalUseStyles from '../../helpers/globalUseStyles';
 import { makeStyles } from '@material-ui/core/styles';
 

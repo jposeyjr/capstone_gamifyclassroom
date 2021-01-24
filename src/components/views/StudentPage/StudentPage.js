@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, Button, Box, Slide, Paper } from '@material-ui/core';
 import socketClient from 'socket.io-client';
 import { makeStyles } from '@material-ui/core/styles';
+import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
 
 const useStyles = makeStyles((theme) => ({
   headerArea: {
