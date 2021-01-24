@@ -14,6 +14,9 @@ const StudentPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  //will set the state to the currently selected student when we have that info
+  //TODO make a point reducer to hold that info and try to make this DRY
+
   //used to set the end point to get messages from the teacher
   const endpoint = 'http://localhost:5000';
   //assigned it to a socket so we can get the messages.
@@ -43,7 +46,10 @@ const StudentPage = () => {
     setAvatarOpen(false);
     //makes sure the student truly did pick an image
     if (typeof img === 'string') {
-      console.log('img', img);
+      dispatch({
+        type: 'UPDATE_AVATAR',
+        payload: { avatar: img, student: studentData },
+      });
     }
   };
 
