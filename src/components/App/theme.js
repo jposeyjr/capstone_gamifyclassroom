@@ -1,6 +1,34 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 let theme = createMuiTheme({
+  '@global': {
+    '.btnArea': {
+      display: 'flex',
+      justifyContent: 'space-around',
+      margin: theme.spacing(1),
+    },
+  },
+  overrides: {
+    MuiButton: {
+      text: {
+        color: '#FFFFFF',
+      },
+      borderRadius: 40,
+      minHeight: 15,
+      maxHeight: 30,
+      padding: '0 1em',
+      boxShadow: shadows[0],
+      '&:hover': {
+        boxShadow: shadows[0],
+      },
+      '&:active': {
+        boxShadow: shadows[0],
+      },
+      '&:focus': {
+        boxShadow: shadows[0],
+      },
+    },
+  },
   typography: {
     fontFamily: [
       'Google Sans',

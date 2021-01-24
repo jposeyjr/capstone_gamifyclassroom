@@ -1,13 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
-import AvatarSelector from './AvatarSelector';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import useStyles from './styles';
+import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  btnArea: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    margin: theme.spacing(1),
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #FFFFFF',
+    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
+    padding: theme.spacing(2, 4, 3),
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  input: {
+    marginBottom: theme.spacing(3),
+  },
+}));
 
 //used to set modal location on page taken from Mat-UI example
 function rand() {
@@ -25,99 +54,81 @@ function getModalStyle() {
   };
 }
 
-const EditStudent = (props) => {
+const AddStudentModal = () => {
+  const [isOpen, setOpen] = useState(false);
+  const [avatarOpen, setAvatarOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [avatarOpen, setAvatarOpen] = useState(false);
   const teacher = useSelector((store) => store.user.id);
-  const course = useSelector((store) => store.course);
-  const studentInfo = useSelector((store) => store.selectStudent);
-  const initState = {
+  const location = useLocation();
+
+  const [studentData, setStudentData] = useState({
     first_name: '',
     last_name: '',
     email: '',
+    password: '',
     start_date: new Date('2019-12-02T11:11:11'),
     avatar: '',
-    course_id: course.id,
+    course: 0,
     teacher: teacher,
-    id: 0,
-  };
-  const [studentData, setStudentData] = useState(initState);
+  });
 
-  //will set the state to the currently selected student when we have that info
-  //TODO make a point reducer to hold that info and try to make this DRY
   useEffect(() => {
-    if (props.isOpen) {
-      setStudentData((studentData) => ({
-        ...studentData,
-        first_name: studentInfo.first_name,
-      }));
-      setStudentData((studentData) => ({
-        ...studentData,
-        id: studentInfo.id,
-      }));
-      setStudentData((studentData) => ({
-        ...studentData,
-        last_name: studentInfo.last_name,
-      }));
-      setStudentData((studentData) => ({
-        ...studentData,
-        avatar: studentInfo.avatar,
-      }));
-      setStudentData((studentData) => ({
-        ...studentData,
-        start_date: studentInfo.start_date,
-      }));
-      setStudentData((studentData) => ({
-        ...studentData,
-        email: studentInfo.email,
-      }));
-    }
-  }, [studentInfo]); // eslint-disable-line react-hooks/exhaustive-deps
+    const urlID = new URLSearchParams(location.search).get('classid');
+    setStudentData({ ...studentData, course: urlID });
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //on submit will dispatch the student info that was edited to a PUT route to update that info in the DB
+  //on click of submit dispatch the data from state added to the form fields to get the student added to the db
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'EDIT_STUDENT', payload: studentData });
-    close();
+    dispatch({ type: 'ADD_STUDENT', payload: studentData });
+    setOpen(false);
   };
 
-  //used to close the modal and clear student state info
-  const close = () => {
-    props.handleClose();
-    setStudentData(initState);
+  //closes the modal and clears student state info
+  const handleCancel = () => {
+    setOpen(false);
+    setStudentData('');
   };
 
-  //used to close the avatar dialog and set the state to the selected avatar image
+  //changes state to allow the modal to open
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleAvatarClose = (img) => {
     setAvatarOpen(false);
     setStudentData({ ...studentData, avatar: img });
   };
 
-  //used to open the avatar dialog
+  //TODO will be used to select pre-chosen avatars
   const handleAvatar = () => {
     setAvatarOpen(true);
   };
 
   return (
     <div>
+      <Button variant='contained' color='primary' onClick={handleOpen}>
+        Add Student
+      </Button>
       <Modal
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
-        open={props.isOpen}
-        onClose={close}
+        aria-labelledby='add student modal pop-up'
+        aria-describedby='pop-up form to add students to class'
+        open={isOpen}
+        onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Student</h2>
+          <h2>Add Student</h2>
           <form
-            className={classes.root}
+            className={classes.form}
             onSubmit={(e) => handleSubmit(e)}
             noValidate
             autoComplete='off'
           >
             <TextField
-              value={studentData?.first_name || ''}
+              color='secondary'
+              value={studentData.first_name}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, first_name: e.target.value })
@@ -125,7 +136,7 @@ const EditStudent = (props) => {
               label='First Name'
             />
             <TextField
-              value={studentData?.last_name || ''}
+              value={studentData.last_name}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, last_name: e.target.value })
@@ -133,12 +144,21 @@ const EditStudent = (props) => {
               label='Last Name'
             />
             <TextField
-              value={studentData?.email || ''}
+              value={studentData.email}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, email: e.target.value })
               }
               label='Email'
+            />
+            <TextField
+              value={studentData.password}
+              fullWidth
+              className={classes.input}
+              onChange={(e) =>
+                setStudentData({ ...studentData, password: e.target.value })
+              }
+              label='Password'
             />
             <Box className={classes.btnArea}>
               <Button
@@ -154,7 +174,7 @@ const EditStudent = (props) => {
               />
             </Box>
             <TextField
-              value={studentData.avatar || ''}
+              value={studentData.avatar}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, avatar: e.target.value })
@@ -170,9 +190,7 @@ const EditStudent = (props) => {
                 margin='normal'
                 id='date-picker-inline'
                 label='Start Date'
-                value={
-                  studentData.start_date || new Date('2019-12-02T11:11:11')
-                }
+                value={studentData.start_date}
                 onChange={(date) =>
                   setStudentData({ ...studentData, start_date: date })
                 }
@@ -182,12 +200,8 @@ const EditStudent = (props) => {
               />
             </MuiPickersUtilsProvider>
             <Box className={classes.btnArea}>
-              <Button type='submit' className={classes.submit}>
-                Submit
-              </Button>
-              <Button onClick={close} className={classes.cancel}>
-                Cancel
-              </Button>
+              <SubmitButton />
+              <CancelButton handleCancel={handleCancel} />
             </Box>
           </form>
         </div>
@@ -196,4 +210,4 @@ const EditStudent = (props) => {
   );
 };
 
-export default EditStudent;
+export default AddStudentModal;

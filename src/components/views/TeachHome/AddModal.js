@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -51,19 +53,14 @@ export default function SimpleModal() {
   };
 
   //changes the state to close modal and reset the state data for the class to null
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
     setClassData('');
   };
 
   return (
     <div>
-      <Button
-        variant='contained'
-        color='primary'
-        className={classes.button}
-        onClick={handleOpen}
-      >
+      <Button variant='contained' color='primary' onClick={handleOpen}>
         Add Class
       </Button>
 
@@ -132,12 +129,8 @@ export default function SimpleModal() {
               label='Invite Co-teacher'
             />
             <Box className={classes.btnArea}>
-              <Button className={classes.submit} type='submit'>
-                Submit
-              </Button>
-              <Button className={classes.cancel} onClick={handleClose}>
-                Cancel
-              </Button>
+              <SubmitButton />
+              <CancelButton handleCancel={handleCancel} />
             </Box>
           </form>
         </div>

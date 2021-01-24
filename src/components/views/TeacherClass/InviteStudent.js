@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import useStyles from './styles';
-
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
 //used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -50,12 +51,7 @@ const AddStudentModal = () => {
 
   return (
     <div>
-      <Button
-        variant='contained'
-        className={classes.button}
-        color='primary'
-        onClick={handleOpen}
-      >
+      <Button variant='contained' color='primary' onClick={handleOpen}>
         Invite Student
       </Button>
       <Modal
@@ -81,12 +77,8 @@ const AddStudentModal = () => {
             />
 
             <Box className={classes.btnArea}>
-              <Button className={classes.submit} type='submit'>
-                Submit
-              </Button>
-              <Button className={classes.cancel} onClick={handleClose}>
-                Cancel
-              </Button>
+              <SubmitButton />
+              <CancelButton handleCancel={handleCancel} />
             </Box>
           </form>
         </div>

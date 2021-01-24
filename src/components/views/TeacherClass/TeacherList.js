@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import TeacherClass from './TeacherClass';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import AddStudent from './AddStudent';
-import EditStudent from './EditStudent';
+import AddStudent from '../../panels/TeacherModals/AddStudent';
+import EditStudent from '../../panels/TeacherModals/EditStudent';
 import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
-import useStyles from './styles';
 import { Grid, Typography, Button } from '@material-ui/core';
+import useStyles from './styles';
 
 const TeacherList = () => {
   const [edit, setEdit] = useState(false);

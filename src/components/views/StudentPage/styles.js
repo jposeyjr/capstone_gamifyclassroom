@@ -33,19 +33,4 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     margin: theme.spacing(1),
   },
-  button: {
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    padding: '0 1em',
-    boxShadow: shadows[0],
-    '&:hover': {
-      boxShadow: shadows[0],
-    },
-    '&:active': {
-      boxShadow: shadows[0],
-    },
-    '&:focus': {
-      boxShadow: shadows[0],
-    },
-  },
 }));

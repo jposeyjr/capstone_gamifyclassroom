@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, TextField, Button, Box } from '@material-ui/core';
+import { Modal, TextField, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
 import useStyles from './styles';
 
 //used to set modal location on page taken from Mat-UI example
@@ -68,7 +70,7 @@ const EditModal = (props) => {
   }, [props.isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //just handles resetting the state data to null and closing the modal
-  const close = () => {
+  const handleCancel = () => {
     props.handleClose();
     setClassData('');
   };
@@ -145,12 +147,8 @@ const EditModal = (props) => {
               label='Invite Co-teacher'
             />
             <Box className={classes.btnArea}>
-              <Button type='submit' className={classes.submit}>
-                Submit
-              </Button>
-              <Button className={classes.cancel} onClick={close}>
-                Cancel
-              </Button>
+              <SubmitButton />
+              <CancelButton handleCancel={handleCancel} />
             </Box>
           </form>
         </div>

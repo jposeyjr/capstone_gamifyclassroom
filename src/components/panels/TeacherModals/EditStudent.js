@@ -1,14 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import useStyles from './styles';
-import AvatarSelector from './AvatarSelector';
+import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import CancelButton from '../../helpers/CancelButton/CancelButton';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  btnArea: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    margin: theme.spacing(1),
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #FFFFFF',
+    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
+    padding: theme.spacing(2, 4, 3),
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  input: {
+    marginBottom: theme.spacing(3),
+  },
+}));
+
 //used to set modal location on page taken from Mat-UI example
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -25,77 +53,91 @@ function getModalStyle() {
   };
 }
 
-const AddStudentModal = () => {
-  const [isOpen, setOpen] = useState(false);
-  const [avatarOpen, setAvatarOpen] = useState(false);
+const EditStudent = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const [avatarOpen, setAvatarOpen] = useState(false);
   const teacher = useSelector((store) => store.user.id);
-  const location = useLocation();
-
-  const [studentData, setStudentData] = useState({
+  const course = useSelector((store) => store.course);
+  const studentInfo = useSelector((store) => store.selectStudent);
+  const initState = {
     first_name: '',
     last_name: '',
     email: '',
-    password: '',
     start_date: new Date('2019-12-02T11:11:11'),
     avatar: '',
-    course: 0,
+    course_id: course.id,
     teacher: teacher,
-  });
+    id: 0,
+  };
+  const [studentData, setStudentData] = useState(initState);
 
+  //will set the state to the currently selected student when we have that info
+  //TODO make a point reducer to hold that info and try to make this DRY
   useEffect(() => {
-    const urlID = new URLSearchParams(location.search).get('classid');
-    setStudentData({ ...studentData, course: urlID });
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (props.isOpen) {
+      setStudentData((studentData) => ({
+        ...studentData,
+        first_name: studentInfo.first_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        id: studentInfo.id,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        last_name: studentInfo.last_name,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        avatar: studentInfo.avatar,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        start_date: studentInfo.start_date,
+      }));
+      setStudentData((studentData) => ({
+        ...studentData,
+        email: studentInfo.email,
+      }));
+    }
+  }, [studentInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //on click of submit dispatch the data from state added to the form fields to get the student added to the db
+  //on submit will dispatch the student info that was edited to a PUT route to update that info in the DB
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'ADD_STUDENT', payload: studentData });
-    setOpen(false);
+    dispatch({ type: 'EDIT_STUDENT', payload: studentData });
+    close();
   };
 
-  //closes the modal and clears student state info
-  const handleClose = () => {
-    setOpen(false);
-    setStudentData('');
+  //used to close the modal and clear student state info
+  const handleCancel = () => {
+    props.handleClose();
+    setStudentData(initState);
   };
 
-  //changes state to allow the modal to open
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
+  //used to close the avatar dialog and set the state to the selected avatar image
   const handleAvatarClose = (img) => {
     setAvatarOpen(false);
     setStudentData({ ...studentData, avatar: img });
   };
 
-  //TODO will be used to select pre-chosen avatars
+  //used to open the avatar dialog
   const handleAvatar = () => {
     setAvatarOpen(true);
   };
 
   return (
     <div>
-      <Button
-        variant='contained'
-        className={classes.button}
-        color='primary'
-        onClick={handleOpen}
-      >
-        Add Student
-      </Button>
       <Modal
-        aria-labelledby='add student modal pop-up'
-        aria-describedby='pop-up form to add students to class'
-        open={isOpen}
-        onClose={handleClose}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+        open={props.isOpen}
+        onClose={close}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Add Student</h2>
+          <h2>Edit Student</h2>
           <form
             className={classes.form}
             onSubmit={(e) => handleSubmit(e)}
@@ -103,8 +145,7 @@ const AddStudentModal = () => {
             autoComplete='off'
           >
             <TextField
-              color='secondary'
-              value={studentData.first_name}
+              value={studentData?.first_name || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, first_name: e.target.value })
@@ -112,7 +153,7 @@ const AddStudentModal = () => {
               label='First Name'
             />
             <TextField
-              value={studentData.last_name}
+              value={studentData?.last_name || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, last_name: e.target.value })
@@ -120,21 +161,12 @@ const AddStudentModal = () => {
               label='Last Name'
             />
             <TextField
-              value={studentData.email}
+              value={studentData?.email || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, email: e.target.value })
               }
               label='Email'
-            />
-            <TextField
-              value={studentData.password}
-              fullWidth
-              className={classes.input}
-              onChange={(e) =>
-                setStudentData({ ...studentData, password: e.target.value })
-              }
-              label='Password'
             />
             <Box className={classes.btnArea}>
               <Button
@@ -150,7 +182,7 @@ const AddStudentModal = () => {
               />
             </Box>
             <TextField
-              value={studentData.avatar}
+              value={studentData.avatar || ''}
               fullWidth
               onChange={(e) =>
                 setStudentData({ ...studentData, avatar: e.target.value })
@@ -166,7 +198,9 @@ const AddStudentModal = () => {
                 margin='normal'
                 id='date-picker-inline'
                 label='Start Date'
-                value={studentData.start_date}
+                value={
+                  studentData.start_date || new Date('2019-12-02T11:11:11')
+                }
                 onChange={(date) =>
                   setStudentData({ ...studentData, start_date: date })
                 }
@@ -176,12 +210,8 @@ const AddStudentModal = () => {
               />
             </MuiPickersUtilsProvider>
             <Box className={classes.btnArea}>
-              <Button className={classes.submit} type='submit'>
-                Submit
-              </Button>
-              <Button className={classes.cancel} onClick={handleClose}>
-                Cancel
-              </Button>
+              <SubmitButton />
+              <CancelButton handleCancel={handleCancel} />
             </Box>
           </form>
         </div>
@@ -190,4 +220,4 @@ const AddStudentModal = () => {
   );
 };
 
-export default AddStudentModal;
+export default EditStudent;

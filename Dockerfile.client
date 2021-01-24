@@ -1,0 +1,8 @@
+#Base image we are modifing from hub.docker.com 
+FROM node:12-alpine
+
+# set working directory
+RUN mkdir -p /app-client
+WORKDIR /app-client
+
+

@@ -1,30 +1,29 @@
 import React from 'react';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../../redux/mapStoreToProps';
+import LoginForm from '../../panels/RegisterForm/LoginForm/LoginForm';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-
 import useStyles from './styles';
 
-const StudentRegister = () => {
+const LoginPage = () => {
   const history = useHistory();
-  const studentReg = true;
   const classes = useStyles();
   return (
     <Grid container justify='center' className={classes.root}>
       <Grid item xs={12} sm={4} className={classes.wrapper}>
-        <RegisterForm studentReg={studentReg} />
+        <LoginForm />
         <div className={classes.linkArea}>
           <Link
-            color='inherit'
-            component='button'
             role='link'
             underline='always'
             className={classes.loginLink}
+            component='button'
             onClick={() => {
-              history.push('/login');
+              history.push('/registration');
             }}
           >
-            Login
+            Register
           </Link>
         </div>
       </Grid>
@@ -32,4 +31,4 @@ const StudentRegister = () => {
   );
 };
 
-export default StudentRegister;
+export default connect(mapStoreToProps)(LoginPage);

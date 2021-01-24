@@ -75,7 +75,6 @@ const TeacherHome = () => {
           handleClose={handleClose}
         />
         <Button
-          className={classes.button}
           variant='contained'
           color='primary'
           onClick={() => setEdit(!edit)}

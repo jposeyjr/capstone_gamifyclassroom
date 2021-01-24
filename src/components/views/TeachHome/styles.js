@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { shadows } from '@material-ui/system';
-
 export default makeStyles((theme) => ({
   contentWrapper: {
     maxWidth: 1280,
@@ -17,23 +16,6 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-around',
     margin: theme.spacing(1),
   },
-  button: {
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 15,
-    maxHeight: 30,
-    padding: '0 1em',
-    boxShadow: shadows[0],
-    '&:hover': {
-      boxShadow: shadows[0],
-    },
-    '&:active': {
-      boxShadow: shadows[0],
-    },
-    '&:focus': {
-      boxShadow: shadows[0],
-    },
-  },
   paper: {
     display: 'flex',
     flexDirection: 'column',
@@ -41,54 +23,20 @@ export default makeStyles((theme) => ({
     position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #FFFFFF',
-    boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
   },
-  atnArea: {
-    '&:hover $focusHighlight': {
-      opacity: 0.2,
-      color: '#FFF',
-    },
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-  },
-  focusHighlight: {},
   card: {
     display: 'flex',
-    maxWidth: 245,
-    height: '100%',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    // border: '.3px solid #FFFFFF',
-    boxShadow: 'none',
+    maxWidth: 450,
+    background: theme.palette.background.paper,
     color: theme.palette.text.primary,
-  },
-  input: {
-    marginBottom: theme.spacing(3),
-  },
-  avatar: {
-    maxHeight: 200,
-    height: '100%',
-    objectFit: 'unset',
-  },
-  media: {
-    width: '100%',
-    paddingTop: '56.25%',
-  },
-  cardActions: {
-    display: 'flex',
-    margin: '0 10px',
-    justifyContent: 'space-between',
-  },
-  textArea: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   cancel: {
     backgroundColor: theme.status.danger,

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LoginPage from '../LoginPage/LoginPage';
-import StudentPage from '../StudentPage/StudentPage';
-import TeacherHome from '../TeachHome/TeacherHome';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import LoginPage from '../../views/LoginPage/LoginPage';
+import mapStoreToProps from '../../../redux/mapStoreToProps';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
