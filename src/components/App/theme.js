@@ -1,34 +1,7 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { shadows } from '@material-ui/system';
 
 let theme = createMuiTheme({
-  '@global': {
-    '.btnArea': {
-      display: 'flex',
-      justifyContent: 'space-around',
-      margin: theme.spacing(1),
-    },
-  },
-  overrides: {
-    MuiButton: {
-      text: {
-        color: '#FFFFFF',
-      },
-      borderRadius: 40,
-      minHeight: 15,
-      maxHeight: 30,
-      padding: '0 1em',
-      boxShadow: shadows[0],
-      '&:hover': {
-        boxShadow: shadows[0],
-      },
-      '&:active': {
-        boxShadow: shadows[0],
-      },
-      '&:focus': {
-        boxShadow: shadows[0],
-      },
-    },
-  },
   typography: {
     fontFamily: [
       'Google Sans',
@@ -50,17 +23,41 @@ let theme = createMuiTheme({
       main: '#f4a261', //orange
     },
     secondary: {
-      main: '#FFFFFF',
+      main: '#FFF',
     },
     background: {
       default: '#0f3057', //blue
       paper: '#2e4a6b',
     },
     text: {
-      primary: '#FFFFFF', //white
+      primary: '#FFF', //white
       secondary: '#e9c46a', //yellow
     },
-    divider: '#FFFFFF',
+    divider: '#FFF',
+  },
+  overrides: {
+    MuiButton: {
+      root: {
+        color: '#f4a261',
+        borderRadius: 40,
+        minHeight: 15,
+        maxHeight: 30,
+        padding: '0 1em',
+        boxShadow: shadows[0],
+        '&:hover': {
+          boxShadow: shadows[0],
+        },
+        '&:active': {
+          boxShadow: shadows[0],
+        },
+        '&:focus': {
+          boxShadow: shadows[0],
+        },
+      },
+      label: {
+        color: '#FFF',
+      },
+    },
   },
 });
 theme = responsiveFontSizes(theme);

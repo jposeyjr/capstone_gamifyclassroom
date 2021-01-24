@@ -6,7 +6,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import useStyles from './styles';
 
@@ -47,7 +47,7 @@ const EditModal = (props) => {
       type: 'EDIT_CLASS',
       payload: classData,
     });
-    close();
+    handleCancel();
   };
 
   useEffect(() => {
@@ -76,84 +76,85 @@ const EditModal = (props) => {
   };
 
   return (
-    <div>
-      <p>
-        {props.isEdit
-          ? 'Click on a class to edit the information or click edit class again to end edit mode!'
-          : null}
-      </p>
-      <Modal open={props.isOpen} onClose={close}>
-        <div style={modalStyle} className={classes.paper}>
-          <h2>Edit Class</h2>
-          <form
-            className={classes.form}
-            onSubmit={(e) => handleSubmit(e)}
-            noValidate
-            autoComplete='off'
-          >
-            <TextField
-              fullWidth
-              value={classData.className}
-              onChange={(e) =>
-                setClassData({ ...classData, className: e.target.value })
-              }
-              label='Class Name'
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant='inline'
+    <>
+      <div>
+        <p>
+          {props.isEdit
+            ? 'Click on a class to edit the information or click edit class again to end edit mode!'
+            : null}
+        </p>
+        <Modal open={props.isOpen} onClose={handleCancel}>
+          <div style={modalStyle} className={classes.paper}>
+            <h2>Edit Class</h2>
+            <form
+              className={classes.form}
+              onSubmit={(e) => handleSubmit(e)}
+              noValidate
+              autoComplete='off'
+            >
+              <TextField
                 fullWidth
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline-start'
-                label='Class Start Date'
-                value={classData.start_date}
-                onChange={(date) =>
-                  setClassData({ ...classData, start_date: date })
+                value={classData.className}
+                onChange={(e) =>
+                  setClassData({ ...classData, className: e.target.value })
                 }
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
+                label='Class Name'
               />
-
-              <KeyboardDatePicker
-                disableToolbar
-                variant='inline'
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant='inline'
+                  fullWidth
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-inline-start'
+                  label='Class Start Date'
+                  value={classData.start_date}
+                  onChange={(date) =>
+                    setClassData({ ...classData, start_date: date })
+                  }
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant='inline'
+                  fullWidth
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-inline-end'
+                  label='Class End Date'
+                  value={classData.end_date}
+                  onChange={(date) =>
+                    setClassData({ ...classData, end_date: date })
+                  }
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+              <TextField
                 fullWidth
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline-end'
-                label='Class End Date'
-                value={classData.end_date}
-                onChange={(date) =>
-                  setClassData({ ...classData, end_date: date })
+                className={classes.input}
+                value={classData.inviteCoteacher}
+                onChange={(e) =>
+                  setClassData({
+                    ...classData,
+                    inviteCoteacher: e.target.value,
+                  })
                 }
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
+                label='Invite Co-teacher'
               />
-            </MuiPickersUtilsProvider>
-            <TextField
-              fullWidth
-              className={classes.input}
-              value={classData.inviteCoteacher}
-              onChange={(e) =>
-                setClassData({
-                  ...classData,
-                  inviteCoteacher: e.target.value,
-                })
-              }
-              label='Invite Co-teacher'
-            />
-            <Box className={classes.btnArea}>
-              <SubmitButton />
-              <CancelButton handleCancel={handleCancel} />
-            </Box>
-          </form>
-        </div>
-      </Modal>
-    </div>
+              <Box className={classes.btnArea}>
+                <SubmitButton />
+                <CancelButton handleCancel={handleCancel} />
+              </Box>
+            </form>
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 };
 

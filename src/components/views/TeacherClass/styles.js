@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { shadows } from '@material-ui/system';
 
 export default makeStyles((theme) => ({
   contentWrapper: {
@@ -11,11 +10,6 @@ export default makeStyles((theme) => ({
   headerArea: {
     display: 'flex',
     justifyContent: 'center',
-  },
-  btnArea: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: theme.spacing(1),
   },
   paper: {
     display: 'flex',

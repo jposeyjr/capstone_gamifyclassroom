@@ -8,16 +8,12 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import { makeStyles } from '@material-ui/core/styles';
+import globalUseStyles from '../../App/globalUseStyles';
 
 const useStyles = makeStyles((theme) => ({
-  btnArea: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: theme.spacing(1),
-  },
   paper: {
     display: 'flex',
     flexDirection: 'column',
@@ -59,6 +55,7 @@ const AddStudentModal = () => {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const globalClass = globalUseStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const location = useLocation();
@@ -109,14 +106,19 @@ const AddStudentModal = () => {
 
   return (
     <div>
-      <Button variant='contained' color='primary' onClick={handleOpen}>
+      <Button
+        variant='contained'
+        className={globalClass.button}
+        color='primary'
+        onClick={handleOpen}
+      >
         Add Student
       </Button>
       <Modal
         aria-labelledby='add student modal pop-up'
         aria-describedby='pop-up form to add students to class'
         open={isOpen}
-        onClose={handleClose}
+        onClose={handleCancel}
       >
         <div style={modalStyle} className={classes.paper}>
           <h2>Add Student</h2>
@@ -160,10 +162,11 @@ const AddStudentModal = () => {
               }
               label='Password'
             />
-            <Box className={classes.btnArea}>
+            <Box className={globalClass.btnArea}>
               <Button
                 variant='contained'
                 color='primary'
+                className={globalClass.button}
                 onClick={handleAvatar}
               >
                 Avatar
@@ -199,7 +202,7 @@ const AddStudentModal = () => {
                 }}
               />
             </MuiPickersUtilsProvider>
-            <Box className={classes.btnArea}>
+            <Box className={globalClass.btnArea}>
               <SubmitButton />
               <CancelButton handleCancel={handleCancel} />
             </Box>

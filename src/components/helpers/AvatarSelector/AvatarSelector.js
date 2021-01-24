@@ -10,7 +10,7 @@ function importAll(r) {
 }
 
 const avatarImages = importAll(
-  require.context('../../Avatars', false, /\.(png|jpe?g|svg)$/)
+  require.context('../../../assets/Avatars', false, /\.(png|jpe?g|svg)$/)
 );
 const AvatarSelector = (props) => {
   const handleListItemClick = (e) => {

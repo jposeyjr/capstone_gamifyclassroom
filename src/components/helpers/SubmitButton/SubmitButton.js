@@ -28,11 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SubmitButton = (props) => {
+const SubmitButton = () => {
   const classes = useStyles();
-  <Button className={classes.submit} type='submit'>
-    Submit
-  </Button>;
+  return (
+    <Button className={classes.submit} type='submit'>
+      Submit
+    </Button>
+  );
 };
 
 export default SubmitButton;

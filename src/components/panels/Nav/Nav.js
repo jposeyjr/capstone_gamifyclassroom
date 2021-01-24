@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -18,7 +17,7 @@ import {
   Toolbar,
   IconButton,
 } from '@material-ui/core';
-
+import mapStoreToProps from '../../../redux/mapStoreToProps';
 import useStyles from './styles';
 
 const Nav = (props) => {

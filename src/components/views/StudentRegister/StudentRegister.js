@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterForm from '../../../RegisterForm/RegisterForm';
+import RegisterForm from '../../panels/RegisterForm/RegisterForm';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import mapStoreToProps from '../../../redux/mapStoreToProps';
 import { useLocation } from 'react-router-dom';
 import {
   TextField,
@@ -85,7 +85,7 @@ const RegisterForm = (props) => {
           label='Email'
         />
         <TextField
-          value={newUser.firstName}
+          value={newUser.first_name}
           fullWidth
           required
           onChange={(e) =>
@@ -94,7 +94,7 @@ const RegisterForm = (props) => {
           label='First Name'
         />
         <TextField
-          value={newUser.lastName}
+          value={newUser.last_name}
           fullWidth
           required
           onChange={(e) =>

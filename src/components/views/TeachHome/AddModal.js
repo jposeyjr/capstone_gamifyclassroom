@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -9,6 +9,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+import globalUseStyles from '../../App/globalUseStyles';
 
 //used to set modal location on page taken from Mat-UI example
 function rand() {
@@ -28,6 +29,7 @@ function getModalStyle() {
 export default function SimpleModal() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const globalClass = globalUseStyles();
   const [modalStyle] = useState(getModalStyle);
   const teacher = useSelector((store) => store.user.id);
   const [open, setOpen] = useState(false);
@@ -60,11 +62,16 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <Button variant='contained' color='primary' onClick={handleOpen}>
+      <Button
+        variant='contained'
+        className={globalClass.button}
+        color='primary'
+        onClick={handleOpen}
+      >
         Add Class
       </Button>
 
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleCancel}>
         <div style={modalStyle} className={classes.paper}>
           <h2>Add Class</h2>
           <form
@@ -128,7 +135,7 @@ export default function SimpleModal() {
               }
               label='Invite Co-teacher'
             />
-            <Box className={classes.btnArea}>
+            <Box className={globalClass.btnArea}>
               <SubmitButton />
               <CancelButton handleCancel={handleCancel} />
             </Box>

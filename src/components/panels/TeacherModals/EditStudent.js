@@ -7,7 +7,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -108,7 +108,7 @@ const EditStudent = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'EDIT_STUDENT', payload: studentData });
-    close();
+    handleCancel();
   };
 
   //used to close the modal and clear student state info
@@ -134,7 +134,7 @@ const EditStudent = (props) => {
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
         open={props.isOpen}
-        onClose={close}
+        onClose={handleCancel}
       >
         <div style={modalStyle} className={classes.paper}>
           <h2>Edit Student</h2>

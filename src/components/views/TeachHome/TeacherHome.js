@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
+import globalUseStyles from '../../App/globalUseStyles';
 import useStyles from './styles';
 
 const TeacherHome = () => {
@@ -21,6 +22,7 @@ const TeacherHome = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const globalClass = globalUseStyles();
 
   //getting all the current classes for the logged in teacher
   useEffect(() => {
@@ -66,7 +68,7 @@ const TeacherHome = () => {
           {edit ? 'Edit Classes' : 'My Classes'}
         </Typography>
       </div>
-      <div className={classes.btnArea}>
+      <div className={globalClass.btnArea}>
         <AddModal />
         <EditModal
           isEdit={edit}

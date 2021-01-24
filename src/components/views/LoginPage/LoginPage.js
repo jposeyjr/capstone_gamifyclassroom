@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../../redux/mapStoreToProps';
-import LoginForm from '../../panels/RegisterForm/LoginForm/LoginForm';
+
+import LoginForm from '../../panels/LoginForm/LoginForm';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
@@ -31,4 +31,4 @@ const LoginPage = () => {
   );
 };
 
-export default connect(mapStoreToProps)(LoginPage);
+export default LoginPage;

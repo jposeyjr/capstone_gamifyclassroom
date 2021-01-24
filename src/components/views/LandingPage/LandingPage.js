@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Grid, Typography } from '@material-ui/core';
 import useStyles from './styles';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import RegisterForm from '../../panels/RegisterForm/RegisterForm';
 import { useHistory } from 'react-router-dom';
 
 const LandingPage = () => {

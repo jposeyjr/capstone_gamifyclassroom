@@ -8,6 +8,7 @@ import InviteStudent from './InviteStudent';
 import socketClient from 'socket.io-client';
 import { Grid, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
+import globalUseStyles from '../../App/globalUseStyles';
 
 const TeacherList = () => {
   const [edit, setEdit] = useState(false);
@@ -15,6 +16,7 @@ const TeacherList = () => {
   const [removeStudent, setRemoveStudent] = useState(false);
   const [multi, setMulti] = useState(false);
   const classes = useStyles();
+  const globalClass = globalUseStyles();
   const dispatch = useDispatch();
   const location = useLocation();
   const students = useSelector((store) => store.student);
@@ -118,7 +120,7 @@ const TeacherList = () => {
             : 'Select a student to edit'}
         </Typography>
       </div>
-      <div className={classes.btnArea}>
+      <div className={globalClass.btnArea}>
         {multi ? (
           <>
             <Button
@@ -135,7 +137,7 @@ const TeacherList = () => {
         ) : (
           <Button
             variant='contained'
-            className={classes.button}
+            className={globalClass.button}
             color='primary'
             onClick={() => setMulti(!multi)}
           >
@@ -145,7 +147,7 @@ const TeacherList = () => {
         <AddStudent />
         <Button
           variant='contained'
-          className={classes.button}
+          className={globalClass.button}
           onClick={handleDelete}
           color='primary'
         >
@@ -153,7 +155,7 @@ const TeacherList = () => {
         </Button>
         <Button
           variant='contained'
-          className={classes.button}
+          // className={globalClass.button}
           color='primary'
           onClick={() => setEdit(!edit)}
         >

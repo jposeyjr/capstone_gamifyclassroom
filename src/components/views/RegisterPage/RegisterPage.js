@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import RegisterForm from '../../panels/RegisterForm/RegisterForm';
+import mapStoreToProps from '../../../redux/mapStoreToProps';
 import { Link, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import useStyles from './styles';

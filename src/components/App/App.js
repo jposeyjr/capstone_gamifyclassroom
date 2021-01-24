@@ -18,7 +18,6 @@ import LoginPage from '../views/LoginPage/LoginPage';
 import RegisterPage from '../views/RegisterPage/RegisterPage';
 import TeacherHome from '../views/TeachHome/TeacherHome';
 import TeacherList from '../views/TeacherClass/TeacherList';
-// import TeacherOverview from '../TeacherOverview/TeacherOverview';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';

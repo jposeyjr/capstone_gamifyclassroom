@@ -30,9 +30,11 @@ const useStyles = makeStyles((theme) => ({
 
 const CancelButton = (props) => {
   const classes = useStyles();
-  <Button className={classes.cancel} onClick={() => props.handleCancel}>
-    Cancel
-  </Button>;
+  return (
+    <Button className={classes.cancel} onClick={() => props.handleCancel}>
+      Cancel
+    </Button>
+  );
 };
 
 export default CancelButton;

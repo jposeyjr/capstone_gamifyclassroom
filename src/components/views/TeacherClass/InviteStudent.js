@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Modal, TextField, Button, Box } from '@material-ui/core';
 import useStyles from './styles';
-import SubmitButton from '../../helpers/SubmitButton/SubmitButton ';
+import globalUseStyles from '../../App/globalUseStyles';
+import SubmitButton from '../../helpers/SubmitButton/SubmitButton';
 import CancelButton from '../../helpers/CancelButton/CancelButton';
 //used to set modal location on page taken from Mat-UI example
 function rand() {
@@ -25,6 +26,7 @@ const AddStudentModal = () => {
   const [isOpen, setOpen] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const globalClass = globalUseStyles();
   const location = useLocation();
   const [modalStyle] = useState(getModalStyle);
   const [emailData, setEmailData] = useState('');
@@ -39,7 +41,7 @@ const AddStudentModal = () => {
   };
 
   //closes the modal and clears student state info
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
     setEmailData('');
   };
@@ -51,14 +53,19 @@ const AddStudentModal = () => {
 
   return (
     <div>
-      <Button variant='contained' color='primary' onClick={handleOpen}>
+      <Button
+        variant='contained'
+        className={globalClass.button}
+        color='primary'
+        onClick={handleOpen}
+      >
         Invite Student
       </Button>
       <Modal
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
         open={isOpen}
-        onClose={handleClose}
+        onClose={handleCancel}
       >
         <div style={modalStyle} className={classes.paper}>
           <h2>Invite Student</h2>
@@ -76,7 +83,7 @@ const AddStudentModal = () => {
               label='Email'
             />
 
-            <Box className={classes.btnArea}>
+            <Box className={globalClass.btnArea}>
               <SubmitButton />
               <CancelButton handleCancel={handleCancel} />
             </Box>

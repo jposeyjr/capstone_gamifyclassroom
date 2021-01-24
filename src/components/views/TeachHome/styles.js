@@ -11,11 +11,6 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  btnArea: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: theme.spacing(1),
-  },
   paper: {
     display: 'flex',
     flexDirection: 'column',
@@ -27,61 +22,15 @@ export default makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
+  // form: {
+  //   width: '100%',
+  //   marginTop: theme.spacing(1),
+  // },
   card: {
     display: 'flex',
     maxWidth: 450,
     background: theme.palette.background.paper,
     color: theme.palette.text.primary,
     margin: theme.spacing(1),
-  },
-  cancel: {
-    backgroundColor: theme.status.danger,
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 15,
-    maxHeight: 30,
-    padding: '0 1em',
-    '&:hover': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:focus': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:active': {
-      backgroundColor: theme.status.secondary,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-  },
-  submit: {
-    backgroundColor: theme.status.submit,
-    color: theme.palette.text.primary,
-    borderRadius: 40,
-    minHeight: 15,
-    maxHeight: 30,
-    padding: '0 1em',
-    '&:hover': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:focus': {
-      backgroundColor: theme.status.back,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
-    '&:active': {
-      backgroundColor: theme.status.nack,
-      borderColor: theme.palette.text.primary,
-      boxShadow: 'none',
-    },
   },
 }));
