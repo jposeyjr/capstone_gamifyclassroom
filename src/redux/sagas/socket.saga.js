@@ -5,6 +5,7 @@ import axios from 'axios';
  * Fetches student data from the DB so we can add points and send a message with their name
  * @param {Number} action Action payload that holds the students id
  * Server will send back corresponding info to be stored in redux state
+ * May look like a duplicate of select student, this one is for the student side
  * */
 function* getSocketStudent(action) {
   const id = action.payload;
