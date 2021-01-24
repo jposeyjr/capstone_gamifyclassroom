@@ -6,17 +6,17 @@ import {
   Switch,
 } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import AboutPage from '../AboutPage/AboutPage';
-import StudentPage from '../StudentPage/StudentPage';
-import StudentRegister from '../StudentRegister/StudentRegister';
-import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import TeacherHome from '../TeachHome/TeacherHome';
-import TeacherList from '../TeacherClass/TeacherList';
+import Nav from '../panels/Nav/Nav';
+import Footer from '../panels/Footer/Footer';
+import ProtectedRoute from '../actions/ProtectedRoute/ProtectedRoute';
+import AboutPage from '../views/AboutPage/AboutPage';
+import StudentPage from '../views/StudentPage/StudentPage';
+import StudentRegister from '../views/StudentRegister/StudentRegister';
+import LandingPage from '../views/LandingPage/LandingPage';
+import LoginPage from '../views/LoginPage/LoginPage';
+import RegisterPage from '../views/RegisterPage/RegisterPage';
+import TeacherHome from '../views/TeachHome/TeacherHome';
+import TeacherList from '../views/TeacherClass/TeacherList';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';

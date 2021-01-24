@@ -1,6 +1,11 @@
 import { takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+/**
+ * Sends email to the supplied address using nodemailer on the server
+ * @param {Object} action Action payload that holds a  email
+ * */
+
 function* emailStudent(action) {
   try {
     yield axios.post(`/api/student/email`, action.payload);

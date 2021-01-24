@@ -46,11 +46,11 @@ router.get('/solo/:id', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * GET route
+ * PUT route
  * used to get updated information from DB to reflect the teacher clicking on a student
  */
 
-router.get('/point/:id', rejectUnauthenticated, (req, res) => {
+router.put('/point/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   let sqlText = `UPDATE student_courses SET points = points + 1 WHERE student_id = $1`;
   pool
