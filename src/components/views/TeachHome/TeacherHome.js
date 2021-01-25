@@ -122,14 +122,22 @@ const TeacherHome = () => {
         <Button
           variant='contained'
           color='primary'
-          onClick={() => setEdit(!edit)}
+          onClick={() => {
+            !remove
+              ? setEdit(!edit)
+              : Swal.fire('Please turn off remove mode first!');
+          }}
         >
           Edit Class
         </Button>
         <Button
           variant='contained'
           color='primary'
-          onClick={() => setRemove(!remove)}
+          onClick={() => {
+            !edit
+              ? setRemove(!remove)
+              : Swal.fire('Please turn off edit mode first!');
+          }}
         >
           Remove Class
         </Button>

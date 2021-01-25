@@ -50,7 +50,7 @@ const StudentPage = () => {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const endpoint = 'http://localhost:5000';
+  const endpoint = process.env.WS_ENDPOINT || 'http://localhost:5000';
   const socket = socketClient(endpoint);
 
   useEffect(() => {
@@ -65,9 +65,10 @@ const StudentPage = () => {
       setTimeout(() => {
         setMessage([]);
         setGotMessage(false);
-      }, 1500);
+      }, 1800);
     });
-  }, [gotMessage]); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => socket.disconnect();
+  }, [message]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAvatar = () => {
     setAvatarOpen(true);

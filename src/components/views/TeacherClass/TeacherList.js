@@ -58,7 +58,7 @@ const TeacherList = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const socketRef = useRef();
-  const endpoint = 'http://localhost:5000';
+  const endpoint = process.env.WS_ENDPOINT || 'http://localhost:5000';
   const students = useSelector((store) => store.student);
 
   useEffect(() => {
@@ -122,12 +122,6 @@ const TeacherList = () => {
           );
           dispatch({ type: 'DELETE_STUDENT', payload: selectedStudent });
           dispatch({ type: 'GET_STUDENTS', payload: Number(courseID) });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            'Cancelled',
-            'Your student is still in the class. :)',
-            'error'
-          );
         }
       });
     }
@@ -155,7 +149,11 @@ const TeacherList = () => {
   };
 
   const handleDelete = () => {
-    setRemoveStudent(!removeStudent);
+    if (!edit) {
+      setRemoveStudent(!removeStudent);
+    } else {
+      Swal.fire('Please turn off edit mode first!');
+    }
   };
 
   //needed to delay the send by the time it is set to display on the students page
@@ -174,7 +172,7 @@ const TeacherList = () => {
     let uniqueOnly = [...new Set(studentArray)];
     for (let eachStudent of uniqueOnly) {
       sendPoints(eachStudent.first_name, eachStudent.student_id);
-      await timer(1700);
+      await timer(2000);
     }
     setMulti(false);
     setStudentArray([]);
@@ -234,7 +232,11 @@ const TeacherList = () => {
         <Button
           variant='contained'
           color='primary'
-          onClick={() => setEdit(!edit)}
+          onClick={() => {
+            !removeStudent
+              ? setEdit(!edit)
+              : Swal.fire('Please turn off remove mode first!');
+          }}
         >
           Edit Student
         </Button>

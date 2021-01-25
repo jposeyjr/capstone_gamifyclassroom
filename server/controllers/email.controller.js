@@ -3,7 +3,7 @@ const serviceEmail = process.env.GMAIL_USER_NAME;
 const servicePassword = process.env.GMAIL_USER_PASSWORD;
 const url = 'http://localhost:3000/#/studentregister';
 
-//connects us to gmail's smtp server
+//connects us to gmail smtp server
 const smtpTransport = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,

@@ -40,11 +40,12 @@ const AddStudentModal = () => {
 
   //on click of submit dispatch the data from state to saga to send out email from backend
   const handleSubmit = (e) => {
+    e.preventDefault();
     const urlID = new URLSearchParams(location.search).get('classid');
     const studentInfo = { courseID: urlID, studentEmail: emailData };
-    e.preventDefault();
     dispatch({ type: 'INVITE_STUDENT', payload: studentInfo });
     setOpen(false);
+    setEmailData('');
   };
 
   //closes the modal and clears student state info
