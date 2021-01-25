@@ -37,7 +37,7 @@ services:
       POSTGRES_USER: ${DOCKER_DB_USER}
       POSTGRES_PASSWORD: ${DOCKER_DB_PASS}
       POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_HOST: localhost
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/10-init.sql
       - ./database/data.sql:/docker-entrypoint-initdb.d/20-data.sql
@@ -69,7 +69,6 @@ services:
 
     volumes:
       - './server:/app-server/server'
-      - './server/dist:/app-server/dist'
       - './public:/app-server/public'
       - './package.json:/app-server/package.json'
     depends_on:

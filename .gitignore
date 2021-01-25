@@ -4,7 +4,7 @@
 
 # Build directories for Front-End Assets
 build/
-
+dist/ 
 # Logs
 logs
 *.log
