@@ -33,11 +33,11 @@ const RegisterForm = (props) => {
     password: '',
   };
   const [newUser, setNewUser] = useState(initState);
-  const [newStudent, setStudent] = useState({
+  const newStudent = {
     course: courseID,
     school: schoolID,
     role: 2,
-  });
+  };
 
   /**
    * @var {String} emailID used to inform the server if it is a teacher or student registering
@@ -47,7 +47,7 @@ const RegisterForm = (props) => {
     if (emailID) {
       setNewUser({ email: emailID });
     }
-  }, [location]);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const registerUser = (event) => {
     event.preventDefault();

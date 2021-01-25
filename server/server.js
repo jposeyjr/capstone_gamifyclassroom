@@ -37,24 +37,26 @@ const http = require('http').createServer(app);
 //allow us to send data without cors issue
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });
 
 let socket_id = [];
 io.on('connection', (socket) => {
-  socket_id.push(socket_id);
+  socket_id.push(socket.id);
   //if the same user re-connects with the same id it will remove the old one to stop duplicates from same client
   if (socket_id[0] === socket.id) {
     io.removeAllListeners('connection');
   }
-  console.log('New client connected');
+  console.log('New client connected', socket.id);
   //listen for the new message then it will emit it to everyone but the person that sent it.
   socket.on('newMessage', (data) => {
     io.emit('newMessage', data);
   });
-  socket.on('disconnect', () => console.log('Client disconnected'));
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
 });
 
 /** Listen **/

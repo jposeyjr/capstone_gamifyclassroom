@@ -73,7 +73,11 @@ const StudentPage = () => {
         setGotMessage(false);
       }, 1800);
     });
-    return () => socket.disconnect();
+    socket.off('message', message);
+    return () =>
+      socket.on('disconnect', () => {
+        socket.removeAllListeners();
+      });
   }, [message]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAvatar = () => {
