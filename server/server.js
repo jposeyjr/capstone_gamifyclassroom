@@ -9,6 +9,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const classRouter = require('./routes/class.router');
 const studentRouter = require('./routes/student.router');
+const UploaderS3Router = require('react-dropzone-s3-uploader/s3router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,6 +29,15 @@ app.use('/api/student', studentRouter);
 
 // Serve static files
 app.use(express.static('build'));
+
+app.use(
+  '/s3',
+  UploaderS3Router({
+    bucket: 'gamifyclassroom',
+    header: { 'Access-Control-Allow-Origin': '*' },
+    ACL: 'public-read',
+  })
+);
 
 // App Set //
 const PORT = process.env.PORT || 5000;

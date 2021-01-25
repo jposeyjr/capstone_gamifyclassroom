@@ -64,6 +64,8 @@ services:
       GMAIL_USER_NAME: ${GMAIL_USER_NAME}
       GMAIL_USER_PASSWORD: ${GMAIL_USER_PASSWORD}
       NODEMAILER_URL: ${NODEMAILER_URL}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
     volumes:
       - './server:/app-server/server'
