@@ -177,7 +177,7 @@ const TeacherList = () => {
     let uniqueOnly = [...new Set(studentArray)];
     for (let eachStudent of uniqueOnly) {
       sendPoints(eachStudent.first_name, eachStudent.student_id);
-      await timer(2000);
+      await timer(2200);
     }
     setMulti(false);
     setStudentArray([]);

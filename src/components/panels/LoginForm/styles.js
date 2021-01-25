@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
   },
   form: {
     width: '100%',
-    maxWidth: 850,
+    maxWidth: 650,
   },
   textArea: {
     margin: theme.spacing(2),
