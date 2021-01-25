@@ -53,6 +53,7 @@ const globalUseStyles = makeStyles((theme) => ({
   },
   groot: {
     width: '100%',
+    maxWidth: 1750,
     margin: theme.spacing(1),
     overflow: 'hidden',
     padding: 10,

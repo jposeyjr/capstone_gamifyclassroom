@@ -45,7 +45,7 @@ const io = require('socket.io')(http, {
 let socket_id = [];
 io.on('connection', (socket) => {
   socket_id.push(socket.id);
-  //if the same user re-connects with the same id it will remove the old one to stop duplicates from same client
+  // if the same user re-connects with the same id it will remove the old one to stop duplicates from same client
   if (socket_id[0] === socket.id) {
     io.removeAllListeners('connection');
   }
