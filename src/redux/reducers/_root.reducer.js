@@ -8,6 +8,7 @@ import selectStudent from './selectStudent.reducer.js';
 import socketStudent from './socket.reducer';
 import pointReducer from './point.reducer';
 import emailReducer from './email.reducer';
+import avatarReducer from './avatar.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   socketStudent,
   pointReducer,
   emailReducer,
+  avatarReducer,
 });
 
 export default rootReducer;

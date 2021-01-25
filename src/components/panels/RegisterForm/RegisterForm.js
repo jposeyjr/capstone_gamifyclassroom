@@ -76,12 +76,12 @@ const RegisterForm = (props) => {
       <div className={classes.textArea}>
         <Typography variant='h4' component='h2' className={classes.headerArea}>
           Register User
-          {errors.registrationMessage && (
-            <h3 className='alert' role='alert'>
-              {errors.registrationMessage}
-            </h3>
-          )}
         </Typography>
+        {errors.registrationMessage && (
+          <p className='alert' role='alert'>
+            {errors.registrationMessage}
+          </p>
+        )}
         <TextField
           value={newUser.email}
           fullWidth

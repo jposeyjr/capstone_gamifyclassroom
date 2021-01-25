@@ -21,6 +21,5 @@ RUN npm install
 COPY ./server /app-server/server
 COPY ./public /app-server/public
 
-
 # Run final command to kick off server
 CMD ["npm", "run", "server"]
