@@ -20,7 +20,7 @@ RUN npm install
 
 COPY ./server /app-server/server
 COPY ./public /app-server/public
-COPY tsconfig.node.json /app-server
+
 
 # Run final command to kick off server
 CMD ["npm", "run", "server"]
