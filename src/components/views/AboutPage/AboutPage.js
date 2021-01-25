@@ -47,8 +47,8 @@ const AboutPage = () => {
         <Typography variant='body1' component='p'>
           This application was made in a two-week sprint for a middle school
           teacher in Virginia. I used Javasript, React, Redux, Redux-Sagas,
-          Material-UI, Node, Express, PostgreSQL, Websockets, Nodemailer, and
-          Passport.
+          Node, Express, PostgreSQL, Websockets, Nodemailer, AWS, Docker, Jest
+          Passport and Material-UI,
         </Typography>
       </Grid>
     </Grid>
