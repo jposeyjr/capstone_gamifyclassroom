@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  root: {
-    width: '100%',
+  appBar: {
+    backgroundColor: '#2f8bd4',
   },
   flex: {
     flex: 1,
@@ -25,6 +25,5 @@ export default makeStyles((theme) => ({
     color: theme.palette.text.primary,
     fontSize: '3.5rem',
     textAlign: 'center',
-    justifyContent: 'center',
   },
 }));

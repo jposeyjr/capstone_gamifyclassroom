@@ -6,9 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    overflow: 'hidden',
+  },
   headerArea: {
     display: 'flex',
     justifyContent: 'center',
+    margin: theme.spacing(2),
   },
   imgHolder: {
     display: 'flex',
@@ -20,12 +24,14 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     fontSize: '2em',
-    boxShadow: 'none',
+    // boxShadow: 'none',
+    marginLeft: '25%',
     backgroundColor: theme.palette.background.primary,
     color: theme.palette.text.primary,
     width: 550,
-    padding: 30,
-    border: '.5px solid #bf463d',
+    maxWidth: 550,
+    padding: 10,
+    border: '1px solid #00ff2d',
     margin: theme.spacing(1),
   },
   btnArea: {
@@ -90,7 +96,7 @@ const StudentPage = () => {
   };
 
   return (
-    <>
+    <div className={classes.root}>
       <Typography variant='h3' component='h1' className={classes.headerArea}>
         Welcome {studentData.first_name}!
       </Typography>
@@ -123,11 +129,11 @@ const StudentPage = () => {
         </Grid>
       </Grid>
       <Slide direction='up' in={gotMessage} mountOnEnter unmountOnExit>
-        <Paper className={classes.paper}>
+        <Paper elevation={4} className={classes.paper}>
           <p>{message.message}</p>
         </Paper>
       </Slide>
-    </>
+    </div>
   );
 };
 

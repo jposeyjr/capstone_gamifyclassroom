@@ -50,8 +50,8 @@ const Nav = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static'>
+    <div>
+      <AppBar position='static' className={classes.appBar}>
         <Toolbar>
           <IconButton
             onClick={handleDrawerOpen}

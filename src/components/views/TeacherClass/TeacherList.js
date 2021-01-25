@@ -19,6 +19,11 @@ import globalUseStyles from '../../helpers/globalUseStyles';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    overflowY: 'hidden',
+    maxWidth: 1280,
+    width: '100%',
+  },
   submit: {
     backgroundColor: theme.status.submit,
     color: theme.palette.text.primary,
@@ -200,7 +205,7 @@ const TeacherList = () => {
         </Typography>
       </div>
       {sendMulti ? (
-        <Box width='100%'>
+        <Box width='90%'>
           <LinearProgress
             variant='indeterminate'
             style={{ borderRadius: 10, backgroundColor: '#FFF' }}
@@ -254,7 +259,7 @@ const TeacherList = () => {
           handleClose={handleClose}
         />
       </div>
-      <Grid container spacing={3}>
+      <Grid container spacing={1} justify='center' className={classes.root}>
         {students.map((student, i) => (
           <Grid key={i} item xs={12} sm={2} md={2}>
             <TeacherClass

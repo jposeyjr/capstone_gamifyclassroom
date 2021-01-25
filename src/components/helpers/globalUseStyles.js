@@ -22,6 +22,7 @@ const globalUseStyles = makeStyles((theme) => ({
   contentWrapper: {
     maxWidth: 1280,
     width: '100%',
+    overflow: 'hidden',
     background: theme.palette.background.default,
     margin: theme.spacing(1),
   },
