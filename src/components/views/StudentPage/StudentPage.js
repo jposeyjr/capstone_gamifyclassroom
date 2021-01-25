@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid, Typography, Button, Box, Slide, Paper } from '@material-ui/core';
+import { Grid, Typography, Button, Slide, Paper } from '@material-ui/core';
 import socketClient from 'socket.io-client';
 import { makeStyles } from '@material-ui/core/styles';
 import AvatarSelector from '../../helpers/AvatarSelector/AvatarSelector';
@@ -11,16 +11,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   imgHolder: {
-    maxWidth: 250,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '2em',
   },
   imgWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  textArea: {
-    display: 'flex',
-    flexDirection: 'column-reverse',
+    maxWidth: 250,
   },
   paper: {
     fontSize: '2em',
@@ -34,8 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
   btnArea: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     margin: theme.spacing(1),
+  },
+  button: {
+    color: theme.palette.text.primary,
+    borderRadius: 40,
+    padding: '0 1em',
+    minHeight: 33,
   },
 }));
 
@@ -98,7 +101,7 @@ const StudentPage = () => {
             alt='avatar for student'
           ></img>
         </Grid>
-        <Grid item xs={6} className={classes.buttonWrapper}>
+        <Grid item xs={6} className={classes.btnArea}>
           <Button
             variant='contained'
             color='primary'
@@ -112,7 +115,7 @@ const StudentPage = () => {
             handleAvatarClose={handleAvatarClose}
           />
           <Grid item xs={6}>
-            <Typography variant='h4' className={classes.textArea} component='p'>
+            <Typography variant='h4' component='p'>
               Points: {studentData.points}
             </Typography>
           </Grid>
@@ -120,7 +123,7 @@ const StudentPage = () => {
       </Grid>
       <Slide direction='up' in={gotMessage} mountOnEnter unmountOnExit>
         <Paper className={classes.paper}>
-          {JSON.stringify(message.message)}
+          <p>{message.message}</p>
         </Paper>
       </Slide>
     </>
