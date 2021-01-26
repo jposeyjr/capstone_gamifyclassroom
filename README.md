@@ -6,6 +6,10 @@ Gamify classroom allow teachers to easily and quickly reward students for partic
 
 Javasript, React, Redux, Redux-Sagas, Node, Express, PostgreSQL, Websockets, Nodemailer, AWS, Docker, Jest, Passport and Material-UI
 
+## GIF 
+
+![Rewards_websockets](gamified_gif.gif)
+
 ## Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
