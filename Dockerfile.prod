@@ -5,8 +5,7 @@
 # Deploying to Heroku
 # ----------
 #
-# doker-compose up web
-# docker ps (you should see something here)
+# docker-compose up web
 # heroku login
 # heroku container:login
 # heroku create (if not made)
