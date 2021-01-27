@@ -33,6 +33,7 @@ const globalUseStyles = makeStyles((theme) => ({
   wrapper: {
     backgroundColor: theme.palette.background.paper,
     width: 450,
+    margin: theme.spacing(2),
     borderRadius: 15,
     boxShadow: '10px 10px 12px 5px rgba(0,0,0,0.56)',
   },
