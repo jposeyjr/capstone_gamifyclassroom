@@ -63,7 +63,8 @@ const TeacherList = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const socketRef = useRef();
-  const endpoint = process.env.WS_ENDPOINT || 'http://localhost:5000';
+  const endpoint =
+    `http://localhost:${process.env.PORT}` || process.env.WS_ENDPOINT;
   const students = useSelector((store) => store.student);
 
   useEffect(() => {
