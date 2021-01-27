@@ -1,10 +1,8 @@
 # Mac Auto-Generated Files and code editor files
 .DS_Store
 .DS_STORE/
+dist
 
-# Build directories for Front-End Assets
-build/
-dist/ 
 # Logs
 logs
 *.log

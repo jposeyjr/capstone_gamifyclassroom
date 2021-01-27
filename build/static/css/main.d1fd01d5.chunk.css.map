@@ -1,0 +1,1 @@
+{"version":3,"sources":["Footer.css"],"names":[],"mappings":"AAAA,OACE,eAAgB,CAChB,YAAa,CACb,iBACF","file":"main.d1fd01d5.chunk.css","sourcesContent":["footer {\r\n  margin-top: 80px;\r\n  padding: 20px;\r\n  text-align: center;\r\n}\r\n"]}
