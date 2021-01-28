@@ -45,6 +45,7 @@ router.post('/register', (req, res, next) => {
  * uses userStrategy.local as middleware that we will our POST if successful or 404 if not
  * */
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
+  console.log(req.body);
   res.sendStatus(200);
 });
 

@@ -170,7 +170,7 @@ router.put('/avatar', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   let sqlText = `DELETE FROM person WHERE id=$1`;
   pool

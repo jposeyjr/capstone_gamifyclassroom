@@ -47,8 +47,9 @@ const http = require('http').createServer(app);
 //allow us to send data without cors issue
 const io = require('socket.io')(http, {
   cors: {
-    origin: '*',
+    origin: `http://localhost:${PORT}`,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 

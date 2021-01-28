@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import {
   TextField,
   Typography,
@@ -25,6 +25,7 @@ const RegisterForm = (props) => {
   const errors = useSelector((store) => store.errors);
   const [showPass, setPass] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
   const initState = {
     email: '',
@@ -130,7 +131,11 @@ const RegisterForm = (props) => {
         </FormControl>
       </div>
       <Box className={classes.btnArea}>
-        <Button className={classes.submit} type='submit'>
+        <Button
+          className={classes.submit}
+          type='submit'
+          onClick={() => history.push('/home')}
+        >
           Submit
         </Button>
         <Button

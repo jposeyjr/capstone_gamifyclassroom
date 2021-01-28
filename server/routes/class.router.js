@@ -87,7 +87,7 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
  * Handles Ajax request to delete the class with the matching ID from the DB
  * */
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   let sqlText = `DELETE FROM courses WHERE id=$1`;
   pool
