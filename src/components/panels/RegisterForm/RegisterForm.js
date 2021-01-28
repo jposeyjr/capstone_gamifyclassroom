@@ -61,7 +61,10 @@ const RegisterForm = (props) => {
       dispatch({
         type: 'REGISTER',
         payload: {
-          newUser,
+          email: newUser.email,
+          password: newUser.password,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
         },
       });
     }

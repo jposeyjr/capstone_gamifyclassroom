@@ -23,10 +23,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * */
 
 router.post('/register', (req, res, next) => {
-  const email = req.body.newUser.email;
-  const password = encryptLib.encryptPassword(req.body.newUser.password);
-  const firstName = req.body.newUser.first_name;
-  const lastName = req.body.newUser.last_name;
+  const email = req.body.email;
+  const password = encryptLib.encryptPassword(req.body.password);
+  const firstName = req.body.first_name;
+  const lastName = req.body.last_name;
 
   const queryText = `INSERT INTO person (email, password, first_name, last_name, role_id, school)
     VALUES ($1, $2, $3, $4, 2, 1) RETURNING id`;
@@ -45,7 +45,6 @@ router.post('/register', (req, res, next) => {
  * uses userStrategy.local as middleware that we will our POST if successful or 404 if not
  * */
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
-  console.log(req.body);
   res.sendStatus(200);
 });
 

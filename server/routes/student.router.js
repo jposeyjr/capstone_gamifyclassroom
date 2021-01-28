@@ -147,7 +147,6 @@ router.put('/id', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/avatar', rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   const data = req.body.student;
   const avatarImg = req.body.avatar;
   const sqlText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, start_date=$4, avatar=$5
