@@ -41,6 +41,11 @@ const Nav = (props) => {
     loginLinkData.text = 'Home';
   }
 
+  if (props.store.user.id == null) {
+    loginLinkData.path = '/';
+    loginLinkData.text = 'Home';
+  }
+
   const handleDrawerOpen = () => {
     setOpen(!menuOpen);
   };
@@ -88,7 +93,6 @@ const Nav = (props) => {
             </ListItemIcon>
             <ListItemText>{loginLinkData.text}</ListItemText>
           </ListItem>
-
           {/* Show the link to the info page and the logout button if the user is logged in */}
           {/* Always show this link since the about page is not protected */}
           <ListItem button component={Link} to={'/about'}>
