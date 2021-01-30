@@ -57,7 +57,7 @@ const RegisterForm = (props) => {
       //merges the new user info with the info we get from the email page if they got invited by a teacher
       const mergeInfo = { ...newUser, ...newStudent };
       dispatch({ type: 'ADD_STUDENT', payload: mergeInfo });
-      console.log('not working');
+      history.push('/home');
     } else if (!emailID) {
       dispatch({
         type: 'REGISTER',
@@ -68,6 +68,7 @@ const RegisterForm = (props) => {
           last_name: newUser.last_name,
         },
       });
+      history.push('/home');
     }
   };
 
@@ -135,11 +136,7 @@ const RegisterForm = (props) => {
         </FormControl>
       </div>
       <Box className={classes.btnArea}>
-        <Button
-          className={classes.submit}
-          type='submit'
-          onClick={() => history.push('/home')}
-        >
+        <Button className={classes.submit} type='submit'>
           Submit
         </Button>
         <Button
