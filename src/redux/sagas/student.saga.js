@@ -20,7 +20,7 @@ function* addStudent(action) {
  * @param {Object} action Action payload that holds the students name, email, password, start_date, avatar, course and teacher id
  * */
 
-function* addStudent(action) {
+function* addStudentNewReg(action) {
   try {
     yield axios.post('/api/student/newreg', action.payload);
     yield getStudents();
