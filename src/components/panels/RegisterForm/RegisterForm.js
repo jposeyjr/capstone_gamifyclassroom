@@ -57,6 +57,7 @@ const RegisterForm = (props) => {
       //merges the new user info with the info we get from the email page if they got invited by a teacher
       const mergeInfo = { ...newUser, ...newStudent };
       dispatch({ type: 'ADD_STUDENT', payload: mergeInfo });
+      console.log('not working');
     } else if (!emailID) {
       dispatch({
         type: 'REGISTER',

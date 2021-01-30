@@ -21,7 +21,6 @@ passport.deserializeUser((id, done) => {
     )
     .then((result) => {
       const user = result && result.rows && result.rows[0];
-      console.log(result.rows);
       if (user) {
         delete user.password;
         done(null, user);
