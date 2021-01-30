@@ -45,13 +45,7 @@ const PORT = process.env.PORT || 5000;
 //setting up Web sockets and allow traffic to come through
 const http = require('http').createServer(app);
 //allow us to send data without cors issue
-const io = require('socket.io')(http, {
-  cors: {
-    origin: `http://localhost:3000`,
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
-});
+const io = require('socket.io')(http);
 
 let socket_id = [];
 io.on('connection', (socket) => {

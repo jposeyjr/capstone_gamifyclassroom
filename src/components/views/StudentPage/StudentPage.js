@@ -56,9 +56,7 @@ const StudentPage = () => {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const endpoint =
-    `http://localhost:${process.env.PORT}` || process.env.WS_ENDPOINT;
-  const socket = socketClient(endpoint);
+  const socket = socketClient();
 
   useEffect(() => {
     //getting their info from the DB to display it to the dom

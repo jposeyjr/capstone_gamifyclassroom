@@ -63,13 +63,11 @@ const TeacherList = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const socketRef = useRef();
-  const endpoint =
-    `http://localhost:${process.env.PORT}` || process.env.WS_ENDPOINT;
   const students = useSelector((store) => store.student);
 
   useEffect(() => {
     //turns on sockets when they get to the class page and attaches it to the endpoint
-    socketRef.current = socketClient(endpoint);
+    socketRef.current = socketClient();
     //grabs info from url to keep page on refresh
     const urlID = new URLSearchParams(location.search).get('classid');
     setCourse(urlID);
