@@ -2,7 +2,7 @@
 .DS_Store
 .DS_STORE/
 dist
-
+build
 # Logs
 logs
 *.log
