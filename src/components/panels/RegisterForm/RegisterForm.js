@@ -52,12 +52,10 @@ const RegisterForm = (props) => {
 
   const registerUser = (event) => {
     event.preventDefault();
-    console.log(props.studentReg);
     if (props.studentReg) {
       //merges the new user info with the info we get from the email page if they got invited by a teacher
       const mergeInfo = { ...newUser, ...newStudent };
-      dispatch({ type: 'ADD_STUDENT', payload: mergeInfo });
-      console.log('fire');
+      dispatch({ type: 'ADD_STUDENT_NEWREG', payload: mergeInfo });
       history.push('/home');
     } else if (!emailID) {
       dispatch({

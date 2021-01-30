@@ -14,6 +14,20 @@ function* addStudent(action) {
     console.log('Error with adding Student data: ', error);
   }
 }
+
+/**
+ * Adds a student to the DB from email invite by receiving a payload object to send to the server
+ * @param {Object} action Action payload that holds the students name, email, password, start_date, avatar, course and teacher id
+ * */
+
+function* addStudent(action) {
+  try {
+    yield axios.post('/api/student/newreg', action.payload);
+    yield getStudents();
+  } catch (error) {
+    console.log('Error with adding Student data: ', error);
+  }
+}
 /**
  * Edits a student info in the DB by receiving a payload object to send to the server
  * @param {Object} action Action payload that holds the students name, email, password, start_date, avatar, course and teacher id
@@ -59,6 +73,7 @@ function* removeStudent(action) {
 function* studentSaga() {
   yield takeLatest('GET_STUDENTS', getStudents);
   yield takeLatest('ADD_STUDENT', addStudent);
+  yield takeLatest('ADD_STUDENT_NEWREG', addStudentNewReg);
   yield takeLatest('EDIT_STUDENT', editStudent);
   yield takeLatest('DELETE_STUDENT', removeStudent);
 }
